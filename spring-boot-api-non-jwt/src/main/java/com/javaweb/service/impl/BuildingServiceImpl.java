@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.service.BuildingService;
 
 @Service
@@ -17,6 +19,9 @@ public class BuildingServiceImpl implements BuildingService {
 
 	@Autowired
 	private BuildingRepository buildingRepository;
+	
+	@Autowired
+	private DistrictRepository districtRepository;
 
 	@Override
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes) {
@@ -29,9 +34,11 @@ public class BuildingServiceImpl implements BuildingService {
 		for (BuildingEntity it : buildingEntities) {
 			// filter data response
 			BuildingResponseDTO buildingResponseDTO = new BuildingResponseDTO();
+			
+			DistrictEntity districtEntity = districtRepository.findDistrictById(it.getDistrictId());
 
 			buildingResponseDTO.setName(it.getName());
-			buildingResponseDTO.setAddress(it.getStreet() + ", " + it.getWard() + ", " + it.getDistrictId());
+			buildingResponseDTO.setAddress(it.getStreet() + ", " + it.getWard() + ", " + districtEntity.getName());
 			buildingResponseDTO.setNumberOfBasement(it.getNumberOfBasement());
 			buildingResponseDTO.setManagerName(it.getManagerName());
 			buildingResponseDTO.setManagerPhone(it.getManagerPhone());

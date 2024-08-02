@@ -13,6 +13,7 @@ public class BuildingResponseDTO {
 	private Long rentPrice;
 	private String serviceFee;
 	private Double brokerageFee;
+	private String typeCode;
 
 	public String getName() {
 		return name;
@@ -100,6 +101,14 @@ public class BuildingResponseDTO {
 
 	public void setBrokerageFee(Double brokerageFee) {
 		this.brokerageFee = brokerageFee;
+	}
+
+	public String getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
 	}
 
 }

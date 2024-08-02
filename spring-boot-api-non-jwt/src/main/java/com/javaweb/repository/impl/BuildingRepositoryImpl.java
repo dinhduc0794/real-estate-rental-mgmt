@@ -35,19 +35,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         }
         
         sql.append(" WHERE 1=1");
-
-        // duyet map handle cac attribute con lai, tru typecode
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            
-            if (value != null && !value.toString().equals("")) {
-                if (!key.equals("typeCode")) {
-                    sql.append(" AND b." + key + " LIKE '%" + value.toString() + "%'");
-                }	
-            }
-        }
-
+        
         // handle typeCodes
         if (hasTypeCodes) {
         	sql.append(" AND rt.code IN (");	
@@ -60,6 +48,24 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             }
             sql.append(")");	
         }
+
+        // duyet map handle cac attribute con lai, tru typecode
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            
+            if (value != null && !value.toString().equals("")) {
+                if (!key.equals("typeCode")) {
+                	if (value instanceof Number) {
+                		sql.append(" AND b." + key + " = " + value);
+                    }
+                	else if (value instanceof String){
+                    	sql.append(" AND b." + key + " LIKE '%" + value.toString() + "%'");
+                    }
+                }	
+            }
+        }
+
 		
 		List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
 		try (Connection conn = ConnectionUtil.GetConnection();
@@ -101,6 +107,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		        building.setModifiedBy(rs.getString("modifiedBy"));
 		        building.setManagerName(rs.getString("managerName"));
 		        building.setManagerPhone(rs.getString("managerPhoneNumber"));
+		        
 				
 				buildingEntities.add(building);
 			}

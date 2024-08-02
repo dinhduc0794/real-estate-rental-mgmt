@@ -7,5 +7,5 @@ import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;
 
 public interface DistrictRepository {
-	List<DistrictEntity> findAll(Long districtId);
+	DistrictEntity findDistrictById(Long districtId);
 }
