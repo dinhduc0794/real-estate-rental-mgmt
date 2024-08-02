@@ -9,11 +9,10 @@ public class BuildingResponseDTO {
 	private String managerPhone;
 	private Long floorArea;
 	private Long vacantArea; // dien tich trong
-	private Long rentArea;
+	private String rentArea;
 	private Long rentPrice;
 	private String serviceFee;
 	private Double brokerageFee;
-	private String typeCode;
 
 	public String getName() {
 		return name;
@@ -71,11 +70,11 @@ public class BuildingResponseDTO {
 		this.vacantArea = vacantArea;
 	}
 
-	public Long getRentArea() {
+	public String getRentArea() {
 		return rentArea;
 	}
 
-	public void setRentArea(Long rentArea) {
+	public void setRentArea(String rentArea) {
 		this.rentArea = rentArea;
 	}
 
@@ -102,13 +101,4 @@ public class BuildingResponseDTO {
 	public void setBrokerageFee(Double brokerageFee) {
 		this.brokerageFee = brokerageFee;
 	}
-
-	public String getTypeCode() {
-		return typeCode;
-	}
-
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
-	}
-
 }

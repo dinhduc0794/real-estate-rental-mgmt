@@ -19,7 +19,7 @@ public class DistrictRepositoryImpl implements DistrictRepository {
 
 	@Override
 	public DistrictEntity findDistrictById(Long districtId) {
-		StringBuilder sql = new StringBuilder("SELECT id, code, name FROM district WHERE id = " + districtId);
+		StringBuilder sql = new StringBuilder("SELECT d.* FROM district d WHERE id = " + districtId);
 		DistrictEntity district = null;
 		try (Connection conn = ConnectionUtil.GetConnection();
 				Statement stm = conn.createStatement();
