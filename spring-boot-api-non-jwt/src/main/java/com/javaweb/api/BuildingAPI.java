@@ -30,32 +30,39 @@ public class BuildingAPI {
 	@Autowired
 	private BuildingService buildingService;
 	
+//	@GetMapping(value = "/api/buildings")
+//	public Object getBuilding(@RequestParam(name = "name", required = false) String name,
+//			@RequestParam(name = "ward", required = false) String ward) {
+//		List<BuildingResponseDTO> buildingEntities = buildingService.findAll(name, ward);
+//		return buildingEntities; 
+//	}
+	
 	@GetMapping(value = "/api/buildings")
-	public Object getBuilding(@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "ward", required = false) String ward) {
-		List<BuildingResponseDTO> buildingEntities = buildingService.findAll(name, ward);
-		return buildingEntities; 
+	public Object getBuilding(@RequestParam Map<String, Object> params,
+								@RequestParam(name = "typeCode", required = false) List<String> typeCodes) {
+		List<BuildingResponseDTO> buildingResponseDTOs = buildingService.findAll(params, typeCodes);
+		return buildingResponseDTOs; 
 	}
 	
 	
-	public void validate(BuildingDTO building) {
-		if (building.getName() == null 
-				|| building.getName().equals("") 
-				|| building.getNumberOfBasement() == null) {
-			throw new FieldRequiredException("Name & NumberOfBasement are NOT NULL key");
-		}
-	}
-	
-	@PostMapping(value = "/api/buildings")
-	public Object createBuiding(@RequestBody BuildingDTO building) {
-		validate(building);
-		return building;
-	}
-	
-	@DeleteMapping(value = "/api/buildings/{id}")
-	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
-		System.out.println("DELETE OK");
-	}
+//	public void validate(BuildingDTO building) {
+//		if (building.getName() == null 
+//				|| building.getName().equals("") 
+//				|| building.getNumberOfBasement() == null) {
+//			throw new FieldRequiredException("Name & NumberOfBasement are NOT NULL key");
+//		}
+//	}
+//	
+//	@PostMapping(value = "/api/buildings")
+//	public Object createBuiding(@RequestBody BuildingDTO building) {
+//		validate(building);
+//		return building;
+//	}
+//	
+//	@DeleteMapping(value = "/api/buildings/{id}")
+//	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
+//		System.out.println("DELETE OK");
+//	}
 	
 	
 }
