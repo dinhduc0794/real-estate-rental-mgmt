@@ -49,7 +49,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             sql.append(")");	
         }
         
-     // Handle area and rent price range
+        // Handle area price from to
         if (params.containsKey("floorAreaFrom")) {
             sql.append(" AND b.floorArea >= ").append(params.get("floorAreaFrom"));
         }
