@@ -48,6 +48,20 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             }
             sql.append(")");	
         }
+        
+     // Handle area and rent price range
+        if (params.containsKey("floorAreaFrom")) {
+            sql.append(" AND b.floorArea >= ").append(params.get("floorAreaFrom"));
+        }
+        if (params.containsKey("floorAreaTo")) {
+            sql.append(" AND b.floorArea <= ").append(params.get("floorAreaTo"));
+        }
+        if (params.containsKey("rentPriceFrom")) {
+            sql.append(" AND b.rentPrice >= ").append(params.get("rentPriceFrom"));
+        }
+        if (params.containsKey("rentPriceTo")) {
+            sql.append(" AND b.rentPrice <= ").append(params.get("rentPriceTo"));
+        }
 
         // duyet map handle cac attribute con lai, tru typecode
         for (Map.Entry<String, Object> entry : params.entrySet()) {
@@ -55,13 +69,21 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             Object value = entry.getValue();
             
             if (value != null && !value.toString().equals("")) {
-                if (!key.equals("typeCode")) {
-                	if (value instanceof Number) {
-                		sql.append(" AND b." + key + " = " + value);
-                    }
-                	else if (value instanceof String){
-                    	sql.append(" AND b." + key + " LIKE '%" + value.toString() + "%'");
-                    }
+            	switch (key) {
+	                case "typeCode":
+	                case "floorAreaFrom":
+	                case "floorAreaTo":
+	                case "rentPriceFrom":
+	                case "rentPriceTo":
+	                    break;
+	                default:	                  
+	                	if (value instanceof Number) {
+	                		sql.append(" AND b." + key + " = " + value);
+	                    }
+	                	else if (value instanceof String){
+	                    	sql.append(" AND b." + key + " LIKE '%" + value.toString() + "%'");
+	                    }
+	                	break;
                 }	
             }
         }
