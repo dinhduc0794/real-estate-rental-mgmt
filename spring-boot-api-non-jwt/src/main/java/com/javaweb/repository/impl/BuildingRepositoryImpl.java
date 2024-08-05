@@ -28,16 +28,22 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		// check client co request typecode ko
         boolean hasTypeCodes = typeCodes != null && !typeCodes.isEmpty();
         	
-        // neu co thi join renttype de lay typecode
+        // neu params co typecode -> join renttype de lay typecode
         if (hasTypeCodes) {
             sql.append(" INNER JOIN buildingrenttype brt ON b.id = brt.buildingid")
                .append(" INNER JOIN renttype rt ON brt.renttypeid = rt.id");
         }
         
-        // neu params co staffid -> join lay staffid
+        // neu params co staffid -> join 
         if (params.containsKey("staffId")) {
         	sql.append(" INNER JOIN assignmentbuilding ab ON b.id = ab.buildingid");
         }
+        
+        // neu params co rentArea -> join
+        if (params.containsKey("rentAreaFrom") || params.containsKey("rentAreaTo")) {
+        	sql.append(" INNER JOIN rentarea ra ON b.id = ra.buildingid");
+        }
+        
         
         sql.append(" WHERE 1=1");
         
@@ -56,11 +62,11 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         
    
         // Handle area price from to
-        if (params.containsKey("floorAreaFrom")) {
-            sql.append(" AND b.floorArea >= ").append(params.get("floorAreaFrom"));
+        if (params.containsKey("rentAreaFrom")) {
+            sql.append(" AND ra.value >= ").append(params.get("floorAreaFrom"));
         }
-        if (params.containsKey("floorAreaTo")) {
-            sql.append(" AND b.floorArea <= ").append(params.get("floorAreaTo"));
+        if (params.containsKey("rentAreaTo")) {
+            sql.append(" AND ra.value <= ").append(params.get("floorAreaTo"));
         }
         if (params.containsKey("rentPriceFrom")) {
             sql.append(" AND b.rentPrice >= ").append(params.get("rentPriceFrom"));
@@ -77,8 +83,8 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             if (value != null && !value.toString().equals("")) {
             	switch (key) {
 	                case "typeCode":
-	                case "floorAreaFrom":
-	                case "floorAreaTo":
+	                case "rentAreaFrom":
+	                case "rentAreaTo":
 	                case "rentPriceFrom":
 	                case "rentPriceTo":
 	                    break;
