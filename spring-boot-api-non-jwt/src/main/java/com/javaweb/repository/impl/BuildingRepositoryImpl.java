@@ -16,8 +16,6 @@ import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.utils.ConnectionUtil;
 
-
-
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository{
 
