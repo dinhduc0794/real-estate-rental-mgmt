@@ -63,10 +63,10 @@ public class BuildingRepositoryImpl implements BuildingRepository{
    
         // Handle area price from to
         if (params.containsKey("rentAreaFrom")) {
-            sql.append(" AND ra.value >= ").append(params.get("floorAreaFrom"));
+            sql.append(" AND ra.value >= ").append(params.get("rentAreaFrom"));
         }
         if (params.containsKey("rentAreaTo")) {
-            sql.append(" AND ra.value <= ").append(params.get("floorAreaTo"));
+            sql.append(" AND ra.value <= ").append(params.get("rentAreaTo"));
         }
         if (params.containsKey("rentPriceFrom")) {
             sql.append(" AND b.rentPrice >= ").append(params.get("rentPriceFrom"));
