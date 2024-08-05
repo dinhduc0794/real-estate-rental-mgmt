@@ -90,6 +90,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	                    break;
 	                case "staffId":
 	                	sql.append(" AND ab.staffid = " + value);
+	                	break;
 	                default:	                  
 	                	if (value instanceof Number) {
 	                		sql.append(" AND b." + key + " = " + value);
