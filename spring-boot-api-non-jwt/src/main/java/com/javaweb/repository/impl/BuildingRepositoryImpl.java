@@ -34,6 +34,11 @@ public class BuildingRepositoryImpl implements BuildingRepository{
                .append(" INNER JOIN renttype rt ON brt.renttypeid = rt.id");
         }
         
+        // neu params co staffid -> join lay staffid
+        if (params.containsKey("staffId")) {
+        	sql.append(" INNER JOIN assignmentbuilding ab ON b.id = ab.buildingid");
+        }
+        
         sql.append(" WHERE 1=1");
         
         // handle typeCodes
@@ -49,6 +54,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             sql.append(")");	
         }
         
+   
         // Handle area price from to
         if (params.containsKey("floorAreaFrom")) {
             sql.append(" AND b.floorArea >= ").append(params.get("floorAreaFrom"));
@@ -76,6 +82,8 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	                case "rentPriceFrom":
 	                case "rentPriceTo":
 	                    break;
+	                case "staffId":
+	                	sql.append(" AND ab.staffid = " + value);
 	                default:	                  
 	                	if (value instanceof Number) {
 	                		sql.append(" AND b." + key + " = " + value);
@@ -87,7 +95,9 @@ public class BuildingRepositoryImpl implements BuildingRepository{
                 }	
             }
         }
-
+        
+        //handle duplicate
+        sql.append(" GROUP BY b.id");
 		
 		List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
 		try (Connection conn = ConnectionUtil.GetConnection();
