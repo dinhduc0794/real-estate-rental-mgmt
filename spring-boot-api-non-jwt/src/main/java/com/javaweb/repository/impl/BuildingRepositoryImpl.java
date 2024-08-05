@@ -59,21 +59,6 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             }
             sql.append(")");	
         }
-        
-   
-        // Handle area price from to
-        if (params.containsKey("rentAreaFrom")) {
-            sql.append(" AND ra.value >= ").append(params.get("rentAreaFrom"));
-        }
-        if (params.containsKey("rentAreaTo")) {
-            sql.append(" AND ra.value <= ").append(params.get("rentAreaTo"));
-        }
-        if (params.containsKey("rentPriceFrom")) {
-            sql.append(" AND b.rentPrice >= ").append(params.get("rentPriceFrom"));
-        }
-        if (params.containsKey("rentPriceTo")) {
-            sql.append(" AND b.rentPrice <= ").append(params.get("rentPriceTo"));
-        }
 
         // duyet map handle cac attribute con lai, tru typecode
         for (Map.Entry<String, Object> entry : params.entrySet()) {
@@ -83,10 +68,18 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             if (value != null && !value.toString().equals("")) {
             	switch (key) {
 	                case "typeCode":
+	                	break;
 	                case "rentAreaFrom":
+	                	sql.append(" AND ra.value >= " + value);
+	                	break;
 	                case "rentAreaTo":
+	                	sql.append(" AND ra.value <= " + value);
+	                	break;
 	                case "rentPriceFrom":
+	                	sql.append(" AND b.rentPrice >= " + value);
+	                	break;
 	                case "rentPriceTo":
+	                	sql.append(" AND b.rentPrice <= " + value);
 	                    break;
 	                case "staffId":
 	                	sql.append(" AND ab.staffid = " + value);
@@ -147,7 +140,6 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		        building.setManagerName(rs.getString("managerName"));
 		        building.setManagerPhone(rs.getString("managerPhoneNumber"));
 		        
-				
 				buildingEntities.add(building);
 			}
 			
