@@ -18,35 +18,32 @@ import com.javaweb.utils.ConnectionUtil;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository{
-
-	@Override
-	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCodes) {
-		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
-		
-		// check client co request typecode ko
-        boolean hasTypeCodes = typeCodes != null && !typeCodes.isEmpty();
-        	
+	public void handleJoinTable(Map<String, Object> params, List<String> typeCodes, StringBuilder sql) {
+		/* join to get typecode */
         // neu params co typecode -> join renttype de lay typecode
-        if (hasTypeCodes) {
+        if (typeCodes != null && !typeCodes.isEmpty()) {
             sql.append(" INNER JOIN buildingrenttype brt ON b.id = brt.buildingid")
                .append(" INNER JOIN renttype rt ON brt.renttypeid = rt.id");
         }
         
+        /* join to get staffid */
         // neu params co staffid -> join 
         if (params.containsKey("staffId")) {
         	sql.append(" INNER JOIN assignmentbuilding ab ON b.id = ab.buildingid");
         }
         
+        /* join to get rentareavalue */
         // neu params co rentArea -> join
         if (params.containsKey("rentAreaFrom") || params.containsKey("rentAreaTo")) {
         	sql.append(" INNER JOIN rentarea ra ON b.id = ra.buildingid");
         }
-        
-        
-        sql.append(" WHERE 1=1");
+	}
+	
+	public void handleWhereCondition(Map<String, Object> params, List<String> typeCodes, StringBuilder sql) {
+		sql.append(" WHERE 1=1");
         
         // handle typeCodes
-        if (hasTypeCodes) {
+        if (typeCodes != null && !typeCodes.isEmpty()) {
         	sql.append(" AND rt.code IN (");	
             for (int i = 0; i < typeCodes.size(); i++) {
             	String typeCode = typeCodes.get(i);
@@ -93,9 +90,15 @@ public class BuildingRepositoryImpl implements BuildingRepository{
                 }	
             }
         }
-        
-        //handle duplicate
-        sql.append(" GROUP BY b.id");
+	}
+
+	@Override
+	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCodes) {
+		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
+		
+		handleJoinTable(params, typeCodes, sql);
+		handleWhereCondition(params, typeCodes, sql);
+		sql.append(" GROUP BY b.id");	//handle duplicate
 		
 		List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
 		try (Connection conn = ConnectionUtil.GetConnection();
