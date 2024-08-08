@@ -26,7 +26,6 @@ public class BuildingServiceImpl implements BuildingService {
 
 	@Override
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes) {
-		
 		List<BuildingEntity> buildingEntities = buildingRepository.findAll(params, typeCodes);
 		
 		List<BuildingResponseDTO> buildingResponseDTOs = new ArrayList<BuildingResponseDTO>();
