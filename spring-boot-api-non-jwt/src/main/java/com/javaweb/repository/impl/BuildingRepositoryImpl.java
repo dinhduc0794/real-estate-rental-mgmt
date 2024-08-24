@@ -15,27 +15,31 @@ import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.utils.ConnectionUtil;
+import com.javaweb.utils.StringUtil;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository{
-	public void handleJoinTable(Map<String, Object> params, List<String> typeCodes, StringBuilder sql) {
+	public void handleJoinTable(Map<String, Object> params, StringBuilder sql) {
 		/* join to get typecode */
         // neu params co typecode -> join renttype de lay typecode
-        if (typeCodes != null && !typeCodes.isEmpty()) {
-            sql.append(" INNER JOIN buildingrenttype brt ON b.id = brt.buildingid")
-               .append(" INNER JOIN renttype rt ON brt.renttypeid = rt.id");
+		String typeCode = (String) params.get("typeCode");
+        if (StringUtil.notEmptyData(typeCode)) {
+            sql.append(" JOIN buildingrenttype brt ON b.id = brt.buildingid")
+               .append(" JOIN renttype rt ON brt.renttypeid = rt.id");
         }
         
-        /* join to get staffid */
-        // neu params co staffid -> join 
-        if (params.containsKey("staffId")) {
-        	sql.append(" INNER JOIN assignmentbuilding ab ON b.id = ab.buildingid");
+        /* join to get staffid */ 
+        String staffId = (String) params.get("staffId");
+        if (StringUtil.notEmptyData(staffId)) {
+        	sql.append(" JOIN assignmentbuilding ab ON b.id = ab.buildingid");
         }
         
+     
         /* join to get rentareavalue */
-        // neu params co rentArea -> join
-        if (params.containsKey("rentAreaFrom") || params.containsKey("rentAreaTo")) {
-        	sql.append(" INNER JOIN rentarea ra ON b.id = ra.buildingid");
+        String rentAreaFrom = (String) params.get("rentAreaFrom");
+        String rentAreaTo = (String) params.get("rentAreaTo");
+        if (StringUtil.notEmptyData(rentAreaFrom) || StringUtil.notEmptyData(rentAreaTo)) {
+        	sql.append(" JOIN rentarea ra ON b.id = ra.buildingid");
         }
 	}
 	
@@ -44,15 +48,16 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         
         // handle typeCodes
         if (typeCodes != null && !typeCodes.isEmpty()) {
-        	sql.append(" AND rt.code IN (");	
+        	String tC = "";
             for (int i = 0; i < typeCodes.size(); i++) {
-            	String typeCode = typeCodes.get(i);
-            	sql.append("'" + typeCode + "'");
+            	if (typeCodes.get(i) != null) {
+            		tC += "'" + typeCodes.get(i) + "'";
+            	}
             	if (i != typeCodes.size() - 1) {
-                    sql.append(", ");
+                    tC += ", ";
                 }
             }
-            sql.append(")");	
+            sql.append(" AND rt.code IN (" + tC + ")");	
         }
 
         // duyet map handle cac attribute con lai, tru typecode
@@ -95,9 +100,10 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	@Override
 	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCodes) {
 		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
-		
-		handleJoinTable(params, typeCodes, sql);
+		 
+		handleJoinTable(params, sql);
 		handleWhereCondition(params, typeCodes, sql);
+		
 		sql.append(" GROUP BY b.id");	//handle duplicate
 		
 		List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
