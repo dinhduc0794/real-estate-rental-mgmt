@@ -21,10 +21,10 @@ public class BuildingDTOConverter {
 	public BuildingResponseDTO toBuildingResponseDTO(BuildingEntity buildingEntity) {
 		BuildingResponseDTO buildingResponseDTO = new BuildingResponseDTO();
 		//name district
-		DistrictEntity districtEntity = districtRepository.findDistrictById(buildingEntity.getDistrictId());
+		DistrictEntity districtEntity = districtRepository.findById(buildingEntity.getDistrictId());
 		
 		//string values rentarea
-		List<RentAreaEntity> rentAreaEntities = rentAreaRepository.findRentAreaByBuildingId(buildingEntity.getId());
+		List<RentAreaEntity> rentAreaEntities = rentAreaRepository.findByBuildingId(buildingEntity.getId());
 		String rentAreaValues = rentAreaValueToString(rentAreaEntities);
 		
 		buildingResponseDTO.setName(buildingEntity.getName());

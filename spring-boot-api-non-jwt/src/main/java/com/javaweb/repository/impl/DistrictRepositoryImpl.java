@@ -18,7 +18,7 @@ import java.sql.Connection;
 public class DistrictRepositoryImpl implements DistrictRepository {
 
 	@Override
-	public DistrictEntity findDistrictById(Long districtId) {
+	public DistrictEntity findById(Long districtId) {
 		StringBuilder sql = new StringBuilder("SELECT d.* FROM district d WHERE id = " + districtId);
 		DistrictEntity district = null;
 		try (Connection conn = ConnectionUtil.GetConnection();

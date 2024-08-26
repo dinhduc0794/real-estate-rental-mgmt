@@ -18,7 +18,7 @@ import com.javaweb.utils.ConnectionUtil;
 public class RentAreaRepositoryImpl implements RentAreaRepository{
 
 	@Override
-	public List<RentAreaEntity> findRentAreaByBuildingId(Long buildingId) {
+	public List<RentAreaEntity> findByBuildingId(Long buildingId) {
 		StringBuilder sql = new StringBuilder("SELECT ra.* FROM rentarea ra WHERE buildingId = " + buildingId);
 		
 		List<RentAreaEntity> rentAreaEntities = new ArrayList<RentAreaEntity>();
