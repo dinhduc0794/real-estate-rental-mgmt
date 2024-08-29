@@ -3,6 +3,7 @@ package com.javaweb.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +20,11 @@ public class BuildingDTOConverter {
 	private DistrictRepository districtRepository;
 	@Autowired
 	private RentAreaRepository rentAreaRepository;
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	public BuildingResponseDTO toBuildingResponseDTO(BuildingEntity buildingEntity) {
-		BuildingResponseDTO buildingResponseDTO = new BuildingResponseDTO();
+		BuildingResponseDTO buildingResponseDTO = modelMapper.map(buildingEntity, BuildingResponseDTO.class);
 		//name district
 		DistrictEntity districtEntity = districtRepository.findById(buildingEntity.getDistrictId());
 		
@@ -29,17 +32,17 @@ public class BuildingDTOConverter {
 		List<RentAreaEntity> rentAreaEntities = rentAreaRepository.findByBuildingId(buildingEntity.getId());
 		String rentAreaValues = rentAreaValueToString(rentAreaEntities);
 		
-		buildingResponseDTO.setName(buildingEntity.getName());
+		// buildingResponseDTO.setName(buildingEntity.getName());
 		buildingResponseDTO.setAddress(buildingEntity.getStreet() + ", " + buildingEntity.getWard() + ", " + districtEntity.getName());
-		buildingResponseDTO.setNumberOfBasement(buildingEntity.getNumberOfBasement());
-		buildingResponseDTO.setManagerName(buildingEntity.getManagerName());
-		buildingResponseDTO.setManagerPhone(buildingEntity.getManagerPhone());
-		buildingResponseDTO.setFloorArea(buildingEntity.getFloorArea());
+		// buildingResponseDTO.setNumberOfBasement(buildingEntity.getNumberOfBasement());
+		// buildingResponseDTO.setManagerName(buildingEntity.getManagerName());
+		// buildingResponseDTO.setManagerPhone(buildingEntity.getManagerPhone());
+		// buildingResponseDTO.setFloorArea(buildingEntity.getFloorArea());
 		buildingResponseDTO.setVacantArea(null);
 		buildingResponseDTO.setRentArea(rentAreaValues);
-		buildingResponseDTO.setRentPrice(buildingEntity.getRentPrice());	
-		buildingResponseDTO.setServiceFee(buildingEntity.getServiceFee());
-		buildingResponseDTO.setBrokerageFee(buildingEntity.getBrokerageFee());
+		// buildingResponseDTO.setRentPrice(buildingEntity.getRentPrice());	
+		// buildingResponseDTO.setServiceFee(buildingEntity.getServiceFee());
+		// buildingResponseDTO.setBrokerageFee(buildingEntity.getBrokerageFee());
 
 		return buildingResponseDTO;
 	}
