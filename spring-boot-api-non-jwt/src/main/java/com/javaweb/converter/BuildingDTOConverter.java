@@ -49,7 +49,7 @@ public class BuildingDTOConverter {
                 .map(it -> it.getValue().toString())
                 .collect(Collectors.joining(", "));
 	}
-	
+
 //	public static String rentAreaValueToString(List<RentAreaEntity> raEntities) {
 //		StringBuilder rentAreaValues = new StringBuilder();
 //        for (RentAreaEntity it : raEntities) {

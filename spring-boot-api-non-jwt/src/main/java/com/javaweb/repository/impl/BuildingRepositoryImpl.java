@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -47,18 +49,23 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		sql.append(" WHERE 1=1");
         
         // handle typeCodes
-        if (typeCodes != null && !typeCodes.isEmpty()) {
-        	String tC = "";
-            for (int i = 0; i < typeCodes.size(); i++) {
-            	if (typeCodes.get(i) != null) {
-            		tC += "'" + typeCodes.get(i) + "'";
-            	}
-            	if (i != typeCodes.size() - 1) {
-                    tC += ", ";
-                }
-            }
-            sql.append(" AND rt.code IN (" + tC + ")");	
-        }
+		if (typeCodes != null && !typeCodes.isEmpty()) {
+			String tC = typeCodes.stream().map(i -> "'" + i + "'").collect(Collectors.joining(", "));
+			sql.append(" AND rt.code IN (" + tC + ")");	
+		}
+
+        // if (typeCodes != null && !typeCodes.isEmpty()) {
+        // 	String tC = "";
+        //     for (int i = 0; i < typeCodes.size(); i++) {
+        //     	if (typeCodes.get(i) != null) {
+        //     		tC += "'" + typeCodes.get(i) + "'";
+        //     	}
+        //     	if (i != typeCodes.size() - 1) {
+        //             tC += ", ";
+        //         }
+        //     }
+        //     sql.append(" AND rt.code IN (" + tC + ")");	
+        // }
 
         // duyet map handle cac attribute con lai, tru typecode
         for (Map.Entry<String, Object> entry : params.entrySet()) {
