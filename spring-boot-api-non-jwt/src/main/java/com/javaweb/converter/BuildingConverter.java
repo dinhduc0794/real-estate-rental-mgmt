@@ -15,7 +15,7 @@ import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.repository.entity.RentAreaEntity;
 
 @Component
-public class BuildingDTOConverter {
+public class BuildingConverter {
 	@Autowired
 	private DistrictRepository districtRepository;
 	@Autowired
@@ -24,7 +24,7 @@ public class BuildingDTOConverter {
 	private ModelMapper modelMapper;
 
 	public BuildingResponseDTO toBuildingResponseDTO(BuildingEntity buildingEntity) {
-		BuildingResponseDTO buildingResponseDTO = modelMapper.map(buildingEntity, BuildingResponseDTO.class);
+		BuildingResponseDTO buildingResponseDTO = modelMapper.map(buildingEntity, BuildingResponseDTO.class);	//2 tham so: source va destination class
 		//name district
 		DistrictEntity districtEntity = districtRepository.findById(buildingEntity.getDistrictId());
 		

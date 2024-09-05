@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.javaweb.converter.BuildingDTOConverter;
+import com.javaweb.converter.BuildingConverter;
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.DistrictRepository;
@@ -22,7 +22,7 @@ public class BuildingServiceImpl implements BuildingService {
 	@Autowired
 	private BuildingRepository buildingRepository;
 	@Autowired
-	private BuildingDTOConverter buildingDTOConverter;
+	private BuildingConverter buildingDTOConverter;
 
 	@Override
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes) {
