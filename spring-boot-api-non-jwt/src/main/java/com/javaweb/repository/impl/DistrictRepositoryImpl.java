@@ -2,17 +2,13 @@ package com.javaweb.repository.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.utils.ConnectionUtil;
-import java.sql.Connection;
 
 @Repository
 public class DistrictRepositoryImpl implements DistrictRepository {
@@ -51,6 +47,7 @@ public class DistrictRepositoryImpl implements DistrictRepository {
 //			sql.append(" AND b.id =" + districtId);
 //		}
 //		
+
 //		List<DistrictEntity> districtEntities = new ArrayList<DistrictEntity>();
 //		try (Connection conn = ConnectionUtil.GetConnection();
 //				Statement stm = conn.createStatement();	
