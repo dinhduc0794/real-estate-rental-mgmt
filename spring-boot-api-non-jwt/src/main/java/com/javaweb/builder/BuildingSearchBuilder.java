@@ -15,8 +15,8 @@ public class BuildingSearchBuilder {
 	private String managerName;
 	private String managerPhone;
 	private Long vacantArea; // dien tich trong
-	private String rentAreaFrom;
-	private String rentAreaTo;
+	private Long rentAreaFrom;
+	private Long rentAreaTo;
 	private Long rentPriceFrom;
 	private Long rentPriceTo;
 	private Long staffId;
@@ -44,7 +44,7 @@ public class BuildingSearchBuilder {
 	public String getName() {
 		return name;
 	}
-	public Long getFloorArea() {
+	public Long getFloorArea() {	  
 		return floorArea;
 	}
 	public Long getDistrictId() {
@@ -74,10 +74,10 @@ public class BuildingSearchBuilder {
 	public Long getVacantArea() {
 		return vacantArea;
 	}
-	public String getRentAreaFrom() {
+	public Long getRentAreaFrom() {
 		return rentAreaFrom;
 	}
-	public String getRentAreaTo() {
+	public Long getRentAreaTo() {
 		return rentAreaTo;
 	}
 	public Long getRentPriceFrom() {
@@ -105,8 +105,8 @@ public class BuildingSearchBuilder {
 		private String managerName;
 		private String managerPhone;
 		private Long vacantArea; // dien tich trong
-		private String rentAreaFrom;
-		private String rentAreaTo;
+		private Long rentAreaFrom;
+		private Long rentAreaTo;
 		private Long rentPriceFrom;
 		private Long rentPriceTo;
 		private Long staffId;
@@ -156,11 +156,11 @@ public class BuildingSearchBuilder {
 			this.vacantArea = vacantArea;
 			return this;
 		}
-		public Builder setRentAreaFrom(String rentAreaFrom) {
+		public Builder setRentAreaFrom(Long rentAreaFrom) {
 			this.rentAreaFrom = rentAreaFrom;
 			return this;
 		}
-		public Builder setRentAreaTo(String rentAreaTo) {
+		public Builder setRentAreaTo(Long rentAreaTo) {
 			this.rentAreaTo = rentAreaTo;
 			return this;
 		}
