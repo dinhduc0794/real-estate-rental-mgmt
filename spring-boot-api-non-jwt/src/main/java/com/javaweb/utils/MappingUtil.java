@@ -17,7 +17,6 @@ public class MappingUtil {
 			}
 			return tClass.cast(value);
 		}
-		
 		return null;
 	}
 }

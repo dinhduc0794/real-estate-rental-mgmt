@@ -30,6 +30,6 @@ public class BuildingSearchBuilderConverter {
 																			.setStaffId(MappingUtil.getObject(params, "staffId", Long.class))
 																			.setTypeCode(typeCodes)
 																			.build();
-    	return null;
+    	return buildingSearchBuilder;
     }
 }

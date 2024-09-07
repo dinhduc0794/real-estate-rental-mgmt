@@ -30,7 +30,7 @@ public class BuildingServiceImpl implements BuildingService {
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes) {
 		BuildingSearchBuilder buildingSearchBuilder = builderConverter.toBuildingSearchBuilder(params, typeCodes);
 		
-		List<BuildingEntity> buildingEntities = buildingRepository.findAll(params, typeCodes);
+		List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
 		
 		List<BuildingResponseDTO> buildingResponseDTOs = new ArrayList<BuildingResponseDTO>();
 
