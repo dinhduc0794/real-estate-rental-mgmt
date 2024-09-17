@@ -1,12 +1,35 @@
 package com.javaweb.repository.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "role")
 public class RoleEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "code")
 	private String code;
+	
+	@Column(name = "createddate")
 	private String createdDate;
+
+	@Column(name = "modifieddate")
 	private String modifiedDate;
+
+	@Column(name = "createdby")
 	private String createdBy;
+
+	@Column(name = "modifiedby")
 	private String modifiedBy;
 
 	public Long getId() {

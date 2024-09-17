@@ -1,12 +1,27 @@
 package com.javaweb.repository.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "rentarea")
 public class RentAreaEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "value")
 	private Long value;
-	private Long buildingId;
+	
+	@Column(name = "createddate")
 	private String createdDate;
+
+	@Column(name = "modifieddate")
 	private String modifiedDate;
+
+	@Column(name = "createdby")
 	private String createdBy;
+
+	@Column(name = "modifiedby")
 	private String modifiedBy;
 
 	public Long getId() {
@@ -23,14 +38,6 @@ public class RentAreaEntity {
 
 	public void setValue(Long value) {
 		this.value = value;
-	}
-
-	public Long getBuildingId() {
-		return buildingId;
-	}
-
-	public void setBuildingId(Long buildingId) {
-		this.buildingId = buildingId;
 	}
 
 	public String getCreatedDate() {

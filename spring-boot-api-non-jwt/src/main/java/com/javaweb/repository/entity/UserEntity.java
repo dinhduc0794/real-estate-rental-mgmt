@@ -1,15 +1,47 @@
 package com.javaweb.repository.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class UserEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "username")
 	private String userName;
+	
+	@Column(name="password")
+	private String passWord;
+	
+	@Column(name = "fullname")
 	private String fullName;
+	
+	@Column(name = "phone")
 	private String phone;
+	
+	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "status")
 	private Integer status;
+	
+	@Column(name = "createddate")
 	private String createdDate;
+
+	@Column(name = "modifieddate")
 	private String modifiedDate;
+
+	@Column(name = "createdby")
 	private String createdBy;
+
+	@Column(name = "modifiedby")
 	private String modifiedBy;
 
 	public Long getId() {
@@ -26,6 +58,14 @@ public class UserEntity {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
 	public String getFullName() {

@@ -1,13 +1,32 @@
 package com.javaweb.repository.entity;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "customer")
 public class CustomerEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "fullname")
 	private String fullName;
+	
+	@Column(name = "phone")
 	private String phone;
+	
+	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "createddate")
 	private String createdDate;
+
+	@Column(name = "modifieddate")
 	private String modifiedDate;
+
+	@Column(name = "createdby")
 	private String createdBy;
+
+	@Column(name = "modifiedby")
 	private String modifiedBy;
 
 	public Long getId() {

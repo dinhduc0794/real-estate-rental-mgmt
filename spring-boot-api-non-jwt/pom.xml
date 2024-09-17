@@ -23,7 +23,6 @@
 			<artifactId>spring-boot-starter-web-services</artifactId>
 			<!-- starter la 1 cum library co san 1 so cau hinh -->
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>

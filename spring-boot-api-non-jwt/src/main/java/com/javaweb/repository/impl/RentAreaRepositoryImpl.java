@@ -28,7 +28,7 @@ public class RentAreaRepositoryImpl implements RentAreaRepository{
 				
 				rentArea.setId(rs.getLong("id"));
 				rentArea.setValue(rs.getLong("value"));
-				rentArea.setBuildingId(rs.getLong("buildingId"));
+//				rentArea.setBuildingId(rs.getLong("buildingId"));
 				rentArea.setCreatedDate(rs.getString("createdDate"));
 				rentArea.setModifiedDate(rs.getString("modifiedDate"));
 				rentArea.setCreatedBy(rs.getString("createdBy"));

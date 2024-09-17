@@ -29,9 +29,6 @@ import com.javaweb.service.BuildingService;
 @RestController
 @PropertySource("classpath:application.properties")
 public class BuildingAPI {
-	@Value("${dinh.duc.dep.trai}")
-	private String dinhduc;
-
 	@Autowired
 	private BuildingService buildingService;
 	
