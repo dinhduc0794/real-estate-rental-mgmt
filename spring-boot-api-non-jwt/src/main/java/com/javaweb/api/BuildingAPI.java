@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,17 +27,13 @@ import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.service.BuildingService;
 
 @RestController
+@PropertySource("classpath:application.properties")
 public class BuildingAPI {
-	
+	@Value("${dinh.duc.dep.trai}")
+	private String dinhduc;
+
 	@Autowired
 	private BuildingService buildingService;
-	
-//	@GetMapping(value = "/api/buildings")
-//	public Object getBuilding(@RequestParam(name = "name", required = false) String name,
-//			@RequestParam(name = "ward", required = false) String ward) {
-//		List<BuildingResponseDTO> buildingEntities = buildingService.findAll(name, ward);
-//		return buildingEntities; 
-//	}
 	
 	@GetMapping(value = "/api/buildings")
 	public Object getBuilding(@RequestParam Map<String, Object> params,
@@ -44,6 +42,12 @@ public class BuildingAPI {
 		return buildingResponseDTOs; 
 	}
 	
+//	@GetMapping(value = "/api/buildings")
+//	public Object getBuilding(@RequestParam(name = "name", required = false) String name,
+//			@RequestParam(name = "ward", required = false) String ward) {
+//		List<BuildingResponseDTO> buildingEntities = buildingService.findAll(name, ward);
+//		return buildingEntities; 
+//	}
 	
 //	public void validate(BuildingDTO building) {
 //		if (building.getName() == null 

@@ -1,6 +1,5 @@
 package com.javaweb.repository.entity;
 
-
 public class BuildingEntity {
 	// map 1:1 db
 	private Long id;
