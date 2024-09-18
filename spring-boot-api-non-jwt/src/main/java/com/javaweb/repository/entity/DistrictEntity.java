@@ -1,6 +1,10 @@
 package com.javaweb.repository.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
 
 @Entity
 @Table(name="district")
@@ -14,6 +18,17 @@ public class DistrictEntity {
 	
 	@Column(name = "name")
 	private String name;
+	
+	@OneToMany(mappedBy = "district")
+ 	private List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
+	
+	public List<BuildingEntity> getBuildingEntities() {
+		return buildingEntities;
+	}
+
+	public void setBuildingEntities(List<BuildingEntity> buildingEntities) {
+		this.buildingEntities = buildingEntities;
+	}
 
 	public Long getId() {
 		return id;

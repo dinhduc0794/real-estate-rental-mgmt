@@ -24,6 +24,18 @@ public class RentAreaEntity {
 	@Column(name = "modifiedby")
 	private String modifiedBy;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="buildingid")
+	private BuildingEntity buildingEntity;
+	
+	public BuildingEntity getBuildingEntity() {
+		return buildingEntity;
+	}
+
+	public void setBuildingEntity(BuildingEntity buildingEntity) {
+		this.buildingEntity = buildingEntity;
+	}
+
 	public Long getId() {
 		return id;
 	}

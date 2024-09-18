@@ -1,5 +1,8 @@
 package com.javaweb.repository.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -102,6 +105,30 @@ public class BuildingEntity {
 
 	@Column(name = "managerphonenumber")
 	private String managerPhone;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="districtid")	//ten luu trong db
+	private DistrictEntity district;
+	          
+	@OneToMany(mappedBy = "buildingEntity")
+	private List<RentAreaEntity> rentAreaEntities = new ArrayList<RentAreaEntity>();
+	
+	
+	public DistrictEntity getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(DistrictEntity district) {
+		this.district = district;
+	}
+
+	public List<RentAreaEntity> getRentAreaEntities() {
+		return rentAreaEntities;
+	}
+
+	public void setRentAreaEntities(List<RentAreaEntity> rentAreaEntities) {
+		this.rentAreaEntities = rentAreaEntities;
+	}
 
 	public Long getId() {
 		return id;

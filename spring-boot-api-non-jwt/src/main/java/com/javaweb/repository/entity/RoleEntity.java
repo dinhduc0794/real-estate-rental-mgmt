@@ -1,10 +1,14 @@
 package com.javaweb.repository.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,11 +18,14 @@ public class RoleEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "code")
+	@Column(name = "code", unique = true, nullable = false)
 	private String code;
+	
+	@OneToMany(mappedBy = "role")
+	private List<UserRoleEntity> userRoleEntities = new ArrayList<UserRoleEntity>();
 	
 	@Column(name = "createddate")
 	private String createdDate;
@@ -31,6 +38,14 @@ public class RoleEntity {
 
 	@Column(name = "modifiedby")
 	private String modifiedBy;
+	
+	public List<UserRoleEntity> getUserRoleEntities() {
+		return userRoleEntities;
+	}
+
+	public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
+		this.userRoleEntities = userRoleEntities;
+	}
 
 	public Long getId() {
 		return id;

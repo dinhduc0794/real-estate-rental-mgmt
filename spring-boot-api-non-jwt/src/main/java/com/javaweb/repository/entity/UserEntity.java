@@ -1,10 +1,14 @@
 package com.javaweb.repository.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,10 +18,10 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "username")
+	@Column(name = "username", nullable = false, unique = true)
 	private String userName;
 	
-	@Column(name="password")
+	@Column(name="password", nullable = false)
 	private String passWord;
 	
 	@Column(name = "fullname")
@@ -29,9 +33,12 @@ public class UserEntity {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "status")
+	@Column(name = "status", nullable = false)
 	private Integer status;
 	
+	@OneToMany(mappedBy = "user")
+	private List<UserRoleEntity> userRoleEntities = new ArrayList<UserRoleEntity>();
+
 	@Column(name = "createddate")
 	private String createdDate;
 
@@ -44,6 +51,14 @@ public class UserEntity {
 	@Column(name = "modifiedby")
 	private String modifiedBy;
 
+	public List<UserRoleEntity> getUserRoleEntities() {
+		return userRoleEntities;
+	}
+
+	public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
+		this.userRoleEntities = userRoleEntities;
+	}
+	
 	public Long getId() {
 		return id;
 	}
