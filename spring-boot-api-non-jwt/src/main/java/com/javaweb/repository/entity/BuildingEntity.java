@@ -7,8 +7,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "building")
-public class BuildingEntity extends BaseEntity {
+public class BuildingEntity {
 	// map 1:1 db
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
+	private Long id;
+
 	@Column(name = "name")
 	private String name;
 
@@ -84,6 +88,18 @@ public class BuildingEntity extends BaseEntity {
 	@Column(name = "image")
 	private String image;
 
+	@Column(name = "createddate")
+	private String createdDate;
+
+	@Column(name = "modifieddate")
+	private String modifiedDate;
+
+	@Column(name = "createdby")
+	private String createdBy;
+
+	@Column(name = "modifiedby")
+	private String modifiedBy;
+
 	@Column(name = "managername")
 	private String managerName;
 
@@ -112,6 +128,14 @@ public class BuildingEntity extends BaseEntity {
 
 	public void setRentAreaEntities(List<RentAreaEntity> rentAreaEntities) {
 		this.rentAreaEntities = rentAreaEntities;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -312,6 +336,38 @@ public class BuildingEntity extends BaseEntity {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(String modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 	public String getManagerName() {
