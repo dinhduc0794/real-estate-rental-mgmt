@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,8 +25,11 @@ public class RoleEntity {
 	@Column(name = "code", unique = true, nullable = false)
 	private String code;
 	
-	@OneToMany(mappedBy = "role")
-	private List<UserRoleEntity> userRoleEntities = new ArrayList<UserRoleEntity>();
+//	@OneToMany(mappedBy = "role")
+//	private List<UserRoleEntity> userRoleEntities = new ArrayList<UserRoleEntity>();
+	
+	@ManyToMany(mappedBy = "roles")
+	private List<UserEntity> users;
 	
 	@Column(name = "createddate")
 	private String createdDate;
@@ -39,13 +43,13 @@ public class RoleEntity {
 	@Column(name = "modifiedby")
 	private String modifiedBy;
 	
-	public List<UserRoleEntity> getUserRoleEntities() {
-		return userRoleEntities;
-	}
-
-	public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
-		this.userRoleEntities = userRoleEntities;
-	}
+//	public List<UserRoleEntity> getUserRoleEntities() {
+//		return userRoleEntities;
+//	}
+//
+//	public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
+//		this.userRoleEntities = userRoleEntities;
+//	}
 
 	public Long getId() {
 		return id;
