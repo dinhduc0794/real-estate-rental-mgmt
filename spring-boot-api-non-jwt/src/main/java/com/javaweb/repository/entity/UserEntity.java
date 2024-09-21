@@ -17,11 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+public class UserEntity extends BaseEntity {
 	@Column(name = "username", nullable = false, unique = true)
 	private String userName;
 	
@@ -49,17 +45,6 @@ public class UserEntity {
 				inverseJoinColumns = @JoinColumn(name = "roleid"))
 	private List<RoleEntity> roles;
 	
-	@Column(name = "createddate")
-	private String createdDate;
-
-	@Column(name = "modifieddate")
-	private String modifiedDate;
-
-	@Column(name = "createdby")
-	private String createdBy;
-
-	@Column(name = "modifiedby")
-	private String modifiedBy;
 
 //	public List<UserRoleEntity> getUserRoleEntities() {
 //		return userRoleEntities;
@@ -78,15 +63,6 @@ public class UserEntity {
 	}
 	
 	
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
@@ -133,38 +109,6 @@ public class UserEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public String getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 }

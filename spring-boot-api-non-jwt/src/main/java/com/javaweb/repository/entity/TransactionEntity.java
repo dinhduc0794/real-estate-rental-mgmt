@@ -9,33 +9,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "transaction")
-public class TransactionEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+public class TransactionEntity extends BaseEntity {
 	@Column(name = "note")
 	private String note;
 	
-	@Column(name = "createddate")
-	private String createdDate;
-
-	@Column(name = "modifieddate")
-	private String modifiedDate;
-
-	@Column(name = "createdby")
-	private String createdBy;
-
-	@Column(name = "modifiedby")
-	private String modifiedBy;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNote() {
 		return note;
@@ -43,39 +20,6 @@ public class TransactionEntity {
 
 	public void setNote(String note) {
 		this.note = note;
-	}
-
-
-	public String getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 }
