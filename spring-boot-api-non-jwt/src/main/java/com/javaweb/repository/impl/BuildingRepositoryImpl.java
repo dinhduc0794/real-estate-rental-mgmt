@@ -23,8 +23,11 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		// JPQL
-		String jpql = "FROM BuildingEntity b WHERE 1=1 AND b.name LIKE '%building%'";
-		Query query = entityManager.createQuery(jpql, BuildingEntity.class);	//tham số là câu query và class để ánh xạ dữ liệu qua
+//		String jpql = "FROM BuildingEntity b WHERE 1=1 AND b.name LIKE '%building%'";
+//		Query query = entityManager.createQuery(jpql, BuildingEntity.class);	//tham số là câu query và class để ánh xạ dữ liệu qua
+		
+		String sql = "SELECT * FROM building b WHERE 1=1 AND b.name LIKE '%building%'";
+		Query query = entityManager.createNativeQuery(sql, BuildingEntity.class);
 		return query.getResultList();
 	}
 
