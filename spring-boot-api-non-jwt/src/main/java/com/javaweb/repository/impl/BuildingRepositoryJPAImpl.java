@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
@@ -19,7 +24,11 @@ import com.javaweb.utils.ConnectionUtil;
 import com.javaweb.utils.StringUtil;
 
 @Repository
-public class BuildingRepositoryJDBCImpl implements BuildingRepository{
+@Primary
+public class BuildingRepositoryJPAImpl implements BuildingRepository{
+	@PersistenceContext
+	private EntityManager entityManager;
+	
 	public void handleJoinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
 		/* join to get typecode */
         // neu params co typecode -> join renttype de lay typecode
@@ -126,56 +135,8 @@ public class BuildingRepositoryJDBCImpl implements BuildingRepository{
 		
 		sql.append(" GROUP BY b.id");	//handle duplicate
 		
-		List<BuildingEntity> buildingEntities = new ArrayList<BuildingEntity>();
-		try (Connection conn = ConnectionUtil.GetConnection();
-				Statement stm = conn.createStatement();	
-				ResultSet rs = stm.executeQuery(sql.toString());) {
-			while(rs.next()) {
-				BuildingEntity building = new BuildingEntity();
-
-		        building.setId(rs.getLong("id"));
-		        building.setName(rs.getString("name"));
-		        building.setStreet(rs.getString("street"));
-		        building.setWard(rs.getString("ward"));
-//		        building.setDistrictId(rs.getLong("districtId"));
-		        building.setStructure(rs.getString("structure"));
-		        building.setNumberOfBasement(rs.getLong("numberOfBasement"));
-		        building.setFloorArea(rs.getLong("floorArea"));
-		        building.setDirection(rs.getString("direction"));
-		        building.setLevel(rs.getString("level"));
-		        building.setRentPrice(rs.getLong("rentPrice"));
-		        building.setRentPriceDesc(rs.getString("rentPriceDescription"));
-		        building.setServiceFee(rs.getString("serviceFee"));
-		        building.setCarFee(rs.getString("carFee"));
-		        building.setMotorbikeFee(rs.getString("motorbikeFee"));
-		        building.setOvertimeFee(rs.getString("overtimeFee"));
-		        building.setWaterFee(rs.getString("waterFee"));
-		        building.setElectricityFee(rs.getString("electricityFee"));
-		        building.setDeposit(rs.getString("deposit"));
-		        building.setPayment(rs.getString("payment"));
-		        building.setRentTime(rs.getString("rentTime"));
-		        building.setDecorationTime(rs.getString("decorationTime"));
-		        building.setBrokerageFee(rs.getDouble("brokerageFee"));
-		        building.setNote(rs.getString("note"));
-		        building.setLinkOfBuilding(rs.getString("linkOfBuilding"));
-		        building.setMap(rs.getString("map"));
-		        building.setImage(rs.getString("image"));
-		        building.setCreatedDate(rs.getString("createdDate"));
-		        building.setModifiedDate(rs.getString("modifiedDate"));
-		        building.setCreatedBy(rs.getString("createdBy"));
-		        building.setModifiedBy(rs.getString("modifiedBy"));
-		        building.setManagerName(rs.getString("managerName"));
-		        building.setManagerPhone(rs.getString("managerPhoneNumber"));
-		        
-				buildingEntities.add(building);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Connected database failed...");
-			return null;
-		}
-		return buildingEntities;
+		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+		return query.getResultList();
 	}
 
 	@Override

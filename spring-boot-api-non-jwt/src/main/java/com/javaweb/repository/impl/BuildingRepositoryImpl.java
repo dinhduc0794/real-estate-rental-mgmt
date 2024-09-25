@@ -13,8 +13,7 @@ import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 
-@Repository
-@Primary	
+@Repository	
 public class BuildingRepositoryImpl implements BuildingRepository{
 	@PersistenceContext
 	private EntityManager entityManager;
