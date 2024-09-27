@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -28,9 +32,13 @@ import com.javaweb.service.BuildingService;
 
 @RestController
 @PropertySource("classpath:application.properties")
+@Transactional
 public class BuildingAPI {
 	@Autowired
 	private BuildingService buildingService;
+	
+	@PersistenceContext
+	EntityManager entityManager;
 	
 	@GetMapping(value = "/api/buildings")
 	public Object getBuilding(@RequestParam Map<String, Object> params,
@@ -55,8 +63,7 @@ public class BuildingAPI {
 	
 	@DeleteMapping(value = "/api/buildings/{id}")
 	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
-		System.out.println("DELETE OK");
+		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, buildingId[0]);
+		entityManager.remove(buildingEntity);
 	}
-	
-	
 }
