@@ -2,12 +2,18 @@ package com.javaweb.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 //DTO = Data Transfer Object
 public class BuildingDTO {
+	private Long id;
 	private String name;
 	private String ward;
 	private String street;
+	@JsonProperty("number_of_basement")
 	private Long numberOfBasement;
+	@JsonProperty("district_id")
+	private Long districtId;
 	private List<String> typeCode;
 
 	public String getName() {
@@ -50,4 +56,21 @@ public class BuildingDTO {
 		this.typeCode = typeCode;
 	}
 
+	public Long getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(Long districtId) {
+		this.districtId = districtId;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 }

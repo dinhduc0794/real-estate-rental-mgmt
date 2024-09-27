@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.RentAreaRepository;
@@ -15,7 +16,7 @@ import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.repository.entity.RentAreaEntity;
 
 @Component
-public class BuildingConverter {
+public class BuildingDTOConverter {
 	@Autowired
 	private ModelMapper modelMapper;
 

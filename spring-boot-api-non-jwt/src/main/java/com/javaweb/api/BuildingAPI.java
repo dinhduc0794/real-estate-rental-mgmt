@@ -39,31 +39,24 @@ public class BuildingAPI {
 		return buildingResponseDTOs; 
 	}
 	
-//	@GetMapping(value = "/api/buildings")
-//	public Object getBuilding(@RequestParam(name = "name", required = false) String name,
-//			@RequestParam(name = "ward", required = false) String ward) {
-//		List<BuildingResponseDTO> buildingEntities = buildingService.findAll(name, ward);
-//		return buildingEntities; 
-//	}
+	public void validate(BuildingDTO building) {
+		if (building.getName() == null 
+				|| building.getName().equals("") 
+				|| building.getNumberOfBasement() == null) {
+			throw new FieldRequiredException("Name & NumberOfBasement are NOT NULL key");
+		}
+	}
 	
-//	public void validate(BuildingDTO building) {
-//		if (building.getName() == null 
-//				|| building.getName().equals("") 
-//				|| building.getNumberOfBasement() == null) {
-//			throw new FieldRequiredException("Name & NumberOfBasement are NOT NULL key");
-//		}
-//	}
-//	
-//	@PostMapping(value = "/api/buildings")
-//	public Object createBuiding(@RequestBody BuildingDTO building) {
-//		validate(building);
-//		return building;
-//	}
-//	
-//	@DeleteMapping(value = "/api/buildings/{id}")
-//	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
-//		System.out.println("DELETE OK");
-//	}
+	@PostMapping(value = "/api/buildings")
+	public void createBuilding(@RequestBody BuildingDTO buildingDTO) {
+		validate(buildingDTO);
+		buildingService.createBuilding(buildingDTO);
+	}
+	
+	@DeleteMapping(value = "/api/buildings/{id}")
+	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
+		System.out.println("DELETE OK");
+	}
 	
 	
 }

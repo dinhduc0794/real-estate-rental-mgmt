@@ -4,27 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.builder.BuildingSearchBuilder;
-import com.javaweb.converter.BuildingConverter;
+import com.javaweb.converter.BuildingDTOConverter;
 import com.javaweb.converter.BuildingSearchBuilderConverter;
+import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.service.BuildingService;
 
 @Service
+@Transactional
 public class BuildingServiceImpl implements BuildingService {
 	@Autowired
 	private BuildingRepository buildingRepository;
 	
 	@Autowired
-	private BuildingConverter buildingDTOConverter;
+	private BuildingDTOConverter buildingDTOConverter;
 	
 	@Autowired
 	private BuildingSearchBuilderConverter builderConverter;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes) {
@@ -42,6 +52,18 @@ public class BuildingServiceImpl implements BuildingService {
 		}
 		return buildingResponseDTOs;
 	}
-	
-	
+
+	@Override
+	public void createBuilding(BuildingDTO buildingDTO) {
+		// TODO Auto-generated method stub
+		BuildingEntity buildingEntity = new BuildingEntity();
+		buildingEntity.setName(buildingDTO.getName());
+		buildingEntity.setWard(buildingDTO.getWard());
+		buildingEntity.setStreet(buildingDTO.getStreet());
+		buildingEntity.setNumberOfBasement(buildingDTO.getNumberOfBasement());
+		DistrictEntity districtEntity = entityManager.find(DistrictEntity.class, buildingDTO.getDistrictId());
+		buildingEntity.setDistrict(districtEntity);
+		buildingEntity.setRentPrice(20L);
+		entityManager.persist(buildingEntity);
+	}
 }
