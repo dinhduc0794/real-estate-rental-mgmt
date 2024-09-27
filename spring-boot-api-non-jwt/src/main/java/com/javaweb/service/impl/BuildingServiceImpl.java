@@ -55,7 +55,6 @@ public class BuildingServiceImpl implements BuildingService {
 
 	@Override
 	public void createBuilding(BuildingDTO buildingDTO) {
-		// TODO Auto-generated method stub
 		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, buildingDTO.getId());
 		buildingEntity.setName(buildingDTO.getName());
 		buildingEntity.setWard(buildingDTO.getWard());
@@ -65,5 +64,11 @@ public class BuildingServiceImpl implements BuildingService {
 		buildingEntity.setDistrict(districtEntity);
 		buildingEntity.setRentPrice(20L);
 		entityManager.merge(buildingEntity);
+	}
+
+	@Override
+	public void deleteBuilding(Long[] buildingId) {
+		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, buildingId[0]);
+		entityManager.remove(buildingEntity);
 	}
 }
