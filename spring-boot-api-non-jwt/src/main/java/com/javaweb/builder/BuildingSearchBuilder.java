@@ -13,7 +13,7 @@ public class BuildingSearchBuilder {
 	private String direction;
 	private String level;
 	private String managerName;
-	private String managerPhone;
+	private String managerPhoneNumber;
 	private Long vacantArea; // dien tich trong
 	private Long rentAreaFrom;
 	private Long rentAreaTo;
@@ -32,7 +32,7 @@ public class BuildingSearchBuilder {
         this.level = builder.level;
         this.direction = builder.direction;
         this.managerName = builder.managerName;
-        this.managerPhone = builder.managerPhone;
+        this.managerPhoneNumber = builder.managerPhoneNumber;
         this.rentPriceFrom = builder.rentPriceFrom;
         this.rentPriceTo = builder.rentPriceTo;
         this.rentAreaFrom = builder.rentAreaFrom;
@@ -68,8 +68,8 @@ public class BuildingSearchBuilder {
 	public String getManagerName() {
 		return managerName;
 	}
-	public String getManagerPhone() {
-		return managerPhone;
+	public String getManagerPhoneNumber() {
+		return managerPhoneNumber;
 	}
 	public Long getVacantArea() {
 		return vacantArea;
@@ -103,7 +103,7 @@ public class BuildingSearchBuilder {
 		private String direction;
 		private String level;
 		private String managerName;
-		private String managerPhone;
+		private String managerPhoneNumber;
 		private Long vacantArea; // dien tich trong
 		private Long rentAreaFrom;
 		private Long rentAreaTo;
@@ -148,8 +148,8 @@ public class BuildingSearchBuilder {
 			this.managerName = managerName;
 			return this;
 		}
-		public Builder setManagerPhone(String managerPhone) {
-			this.managerPhone = managerPhone;
+		public Builder setManagerPhoneNumber(String managerPhoneNumber) {
+			this.managerPhoneNumber = managerPhoneNumber;
 			return this;
 		}
 		public Builder setVacantArea(Long vacantArea) {
