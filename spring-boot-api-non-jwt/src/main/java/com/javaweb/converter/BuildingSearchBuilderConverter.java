@@ -21,7 +21,7 @@ public class BuildingSearchBuilderConverter {
 																			.setDirection(MappingUtil.getObject(params, "direction", String.class))
 																			.setLevel(MappingUtil.getObject(params, "level", String.class))
 																			.setManagerName(MappingUtil.getObject(params, "managerName", String.class))
-																			.setManagerPhone(MappingUtil.getObject(params, "managerPhone", String.class))
+																			.setManagerPhone(MappingUtil.getObject(params, "managerPhoneNumber", String.class))
 																			.setVacantArea(MappingUtil.getObject(params, "vacantArea", Long.class))
 																			.setRentAreaFrom(MappingUtil.getObject(params, "rentAreaFrom", Long.class))
 																			.setRentAreaTo(MappingUtil.getObject(params, "rentAreaTo", Long.class))
