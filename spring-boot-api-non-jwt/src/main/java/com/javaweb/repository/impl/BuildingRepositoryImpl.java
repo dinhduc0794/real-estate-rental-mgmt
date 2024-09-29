@@ -76,6 +76,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 				String key = fi.getName();
 				Object value = fi.get(buildingSearchBuilder);
 				if (value != null) {
+					 System.out.println("Processing Field: " + key + " with Value: " + value);
 	            	switch (key) {
 		                case "typeCode":
 		                	break;
