@@ -14,12 +14,12 @@ import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 
 @Repository	
-public class BuildingRepositoryImpl implements BuildingRepository{
+public class BuildingRepositoryImpl {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
 	
-	@Override
+//	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		// JPQL
 //		String jpql = "FROM BuildingEntity b WHERE 1=1 AND b.name LIKE '%building%'";
@@ -30,7 +30,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		return query.getResultList();
 	}
 
-	@Override
+//	@Override
 	public void delete(Long[] id) {
 		// TODO Auto-generated method stub
 		

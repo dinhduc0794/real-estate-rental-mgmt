@@ -25,7 +25,7 @@ import com.javaweb.utils.StringUtil;
 
 @Repository
 @Primary
-public class BuildingRepositoryJPAImpl implements BuildingRepository{
+public class BuildingRepositoryJPAImpl {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -126,7 +126,7 @@ public class BuildingRepositoryJPAImpl implements BuildingRepository{
 		//  }
 		//}
 
-	@Override
+//	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
 		 
@@ -139,7 +139,7 @@ public class BuildingRepositoryJPAImpl implements BuildingRepository{
 		return query.getResultList();
 	}
 
-	@Override
+//	@Override
 	public void delete(Long[] id) {
 		// TODO Auto-generated method stub
 		

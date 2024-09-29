@@ -10,11 +10,21 @@ public class BuildingDTO {
 	private String name;
 	private String ward;
 	private String street;
+	
 	@JsonProperty("number_of_basement")
 	private Long numberOfBasement;
+	
 	@JsonProperty("district_id")
 	private Long districtId;
+	
+	@JsonProperty("manager_name")
+	private String managerName;
+	
+	@JsonProperty("manager_phone")
+	private String managerPhone; 
 	private List<String> typeCode;
+	
+	private List<Long> rentAreas;
 
 	public String getName() {
 		return name;
@@ -71,6 +81,31 @@ public class BuildingDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getManagerName() {
+		return managerName;
+	}
+
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+
+	public String getManagerPhone() {
+		return managerPhone;
+	}
+
+	public void setManagerPhone(String managerPhone) {
+		this.managerPhone = managerPhone;
+	}
+
+	public List<Long> getRentAreas() {
+		return rentAreas;
+	}
+
+	public void setRentAreas(List<Long> rentAreas) {
+		this.rentAreas = rentAreas;
+	}
+	
 	
 	
 }

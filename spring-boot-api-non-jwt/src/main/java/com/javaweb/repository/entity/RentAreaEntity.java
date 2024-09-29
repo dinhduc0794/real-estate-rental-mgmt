@@ -1,6 +1,10 @@
 package com.javaweb.repository.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "rentarea")
@@ -8,7 +12,7 @@ public class RentAreaEntity extends BaseEntity {
 	@Column(name = "value")
 	private Long value;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="buildingid")
 	private BuildingEntity buildingEntity;
 	

@@ -58,7 +58,7 @@ public class BuildingAPI {
 	@PostMapping(value = "/api/buildings")
 	public void createBuilding(@RequestBody BuildingDTO buildingDTO) {
 		validate(buildingDTO);
-		buildingService.createBuilding(buildingDTO);
+		buildingService.saveBuilding(buildingDTO);
 	}
 	
 	@DeleteMapping(value = "/api/buildings/{id}")
