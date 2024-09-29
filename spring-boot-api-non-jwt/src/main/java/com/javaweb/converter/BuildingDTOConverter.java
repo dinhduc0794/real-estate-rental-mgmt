@@ -31,4 +31,9 @@ public class BuildingDTOConverter {
 		
 		return buildingResponseDTO;
 	}
+	
+	public BuildingEntity toBuildingEntity(BuildingDTO dto) {
+		BuildingEntity buildingEntity = modelMapper.map(dto, BuildingEntity.class);
+		return buildingEntity;
+	}
 }

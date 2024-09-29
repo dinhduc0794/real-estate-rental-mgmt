@@ -46,8 +46,7 @@ public class BuildingServiceImpl implements BuildingService {
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes) {
 		BuildingSearchBuilder buildingSearchBuilder = builderConverter.toBuildingSearchBuilder(params, typeCodes);
 		
-//		List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
-		List<BuildingEntity> buildingEntities = buildingRepository.findAll();
+		List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
 		List<BuildingResponseDTO> buildingResponseDTOs = new ArrayList<BuildingResponseDTO>();
 
 		// lặp qua từng Entity để filter từng thằng
@@ -64,7 +63,7 @@ public class BuildingServiceImpl implements BuildingService {
 		BuildingEntity buildingEntity = new BuildingEntity();
 		if (buildingDTO.getId() != null) {
 			buildingEntity = buildingRepository.findById(buildingDTO.getId()).get();
-			rentAreaRepository.deleteAllByBuilding(buildingEntity);
+			rentAreaRepository.deleteAllByBuildingEntity(buildingEntity);
 		}
 		buildingEntity.setName(buildingDTO.getName());
 		buildingEntity.setWard(buildingDTO.getWard());
@@ -92,7 +91,7 @@ public class BuildingServiceImpl implements BuildingService {
 //			buildingRepository.deleteById(id);
 //		}
 		List<BuildingEntity> buildingEntities = buildingRepository.findByIdIn(ids);
-		rentAreaRepository.deleteAllByBuildingIn(buildingEntities);
+		rentAreaRepository.deleteAllByBuildingEntityIn(buildingEntities);
 		buildingRepository.deleteByIdIn(ids);
 	}
 }

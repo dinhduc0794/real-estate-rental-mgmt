@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public class BaseEntity implements Serializable {
@@ -65,3 +66,4 @@ public class BaseEntity implements Serializable {
 		this.modifiedBy = modifiedBy;
 	}
 }
+

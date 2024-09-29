@@ -8,6 +8,6 @@ import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.RentAreaEntity;
 
 public interface RentAreaRepository extends JpaRepository<RentAreaEntity, Long>{
-	void deleteAllByBuilding(BuildingEntity buildingEntity);
-	void deleteAllByBuildingIn(List<BuildingEntity> buildingEntities);
+	void deleteAllByBuildingEntity(BuildingEntity buildingEntity);
+	void deleteAllByBuildingEntityIn(List<BuildingEntity> buildingEntities);
 }
