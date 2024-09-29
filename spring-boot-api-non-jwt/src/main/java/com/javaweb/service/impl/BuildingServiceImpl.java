@@ -63,7 +63,8 @@ public class BuildingServiceImpl implements BuildingService {
 	public void saveBuilding(BuildingDTO buildingDTO) {
 		BuildingEntity buildingEntity = new BuildingEntity();
 		if (buildingDTO.getId() != null) {
-			buildingEntity.setId(buildingDTO.getId());
+			buildingEntity = buildingRepository.findById(buildingDTO.getId()).get();
+			rentAreaRepository.deleteAllByBuilding(buildingEntity);
 		}
 		buildingEntity.setName(buildingDTO.getName());
 		buildingEntity.setWard(buildingDTO.getWard());
