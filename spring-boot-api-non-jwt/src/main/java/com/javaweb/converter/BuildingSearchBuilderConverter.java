@@ -25,8 +25,8 @@ public class BuildingSearchBuilderConverter {
 																			.setVacantArea(MappingUtil.getObject(params, "vacantArea", Long.class))
 																			.setRentAreaFrom(MappingUtil.getObject(params, "rentAreaFrom", Long.class))
 																			.setRentAreaTo(MappingUtil.getObject(params, "rentAreaTo", Long.class))
-																			.setRentPriceFrom(MappingUtil.getObject(params, "renPriceFrom", Long.class))
-																			.setRentPriceTo(MappingUtil.getObject(params, "renPriceTo", Long.class))
+																			.setRentPriceFrom(MappingUtil.getObject(params, "rentPriceFrom", Long.class))
+																			.setRentPriceTo(MappingUtil.getObject(params, "rentPriceTo", Long.class))
 																			.setStaffId(MappingUtil.getObject(params, "staffId", Long.class))
 																			.setTypeCode(typeCodes)
 																			.build();
