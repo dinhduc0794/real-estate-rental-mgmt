@@ -86,8 +86,13 @@ public class BuildingServiceImpl implements BuildingService {
 	}
 	
 	@Override
-	public void deleteBuilding(Long[] buildingId) {
-//		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, buildingId[0]);
-//		entityManager.remove(buildingEntity);
+	public void deleteBuilding(Long[] ids) {
+		// ok but bad performance 
+//		for (Long id : ids) {
+//			buildingRepository.deleteById(id);
+//		}
+		List<BuildingEntity> buildingEntities = buildingRepository.findByIdIn(ids);
+		rentAreaRepository.deleteAllByBuildingIn(buildingEntities);
+		buildingRepository.deleteByIdIn(ids);
 	}
 }

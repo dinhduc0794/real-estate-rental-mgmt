@@ -62,8 +62,8 @@ public class BuildingAPI {
 	}
 	
 	@DeleteMapping(value = "/api/buildings/{id}")
-	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
-		buildingService.deleteBuilding(buildingId);
+	public void deleteBuilding(@PathVariable(name = "id", required = false) Long[] buildingIds) {
+		buildingService.deleteBuilding(buildingIds);
 	}
 }
  

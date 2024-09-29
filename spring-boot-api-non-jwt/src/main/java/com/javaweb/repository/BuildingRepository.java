@@ -11,4 +11,8 @@ import com.javaweb.repository.entity.BuildingEntity;
 public interface BuildingRepository extends JpaRepository<BuildingEntity, Long>{
 	List<BuildingEntity> findByNameContainingAndWardContaining(String name, String ward);
 	List<BuildingEntity> findByNameContainingAndDistrict_NameContaining(String name, String districtName);
+	
+	List<BuildingEntity> findByIdIn(Long[] ids);
+	void deleteByIdIn(Long[] ids); 
 }
+ 

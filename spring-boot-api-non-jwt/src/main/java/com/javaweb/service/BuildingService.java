@@ -9,6 +9,6 @@ import com.javaweb.dto.response.BuildingResponseDTO;
 public interface BuildingService {
 	List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCodes);
 	void saveBuilding(BuildingDTO buildingDTO);
-	void deleteBuilding(Long[] buildingId);
+	void deleteBuilding(Long[] ids);
 }
 	
