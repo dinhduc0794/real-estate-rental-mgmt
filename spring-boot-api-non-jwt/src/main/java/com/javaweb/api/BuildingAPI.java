@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,18 +31,21 @@ import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.service.BuildingService;
 
 @RestController
+@PropertySource("classpath:application.properties")
+@Transactional
 public class BuildingAPI {
-	
 	@Autowired
 	private BuildingService buildingService;
 	
-	@GetMapping(value = "/api/buildings")
-	public Object getBuilding(@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "ward", required = false) String ward) {
-		List<BuildingResponseDTO> buildingEntities = buildingService.findAll(name, ward);
-		return buildingEntities; 
-	}
+	@PersistenceContext
+	EntityManager entityManager;
 	
+	@GetMapping(value = "/api/buildings")
+	public Object getBuilding(@RequestParam Map<String, Object> params,
+								@RequestParam(name = "typeCode", required = false) List<String> typeCodes) {
+		List<BuildingResponseDTO> buildingResponseDTOs = buildingService.findAll(params, typeCodes);
+		return buildingResponseDTOs; 
+	}
 	
 	public void validate(BuildingDTO building) {
 		if (building.getName() == null 
@@ -47,15 +56,14 @@ public class BuildingAPI {
 	}
 	
 	@PostMapping(value = "/api/buildings")
-	public Object createBuiding(@RequestBody BuildingDTO building) {
-		validate(building);
-		return building;
+	public void createBuilding(@RequestBody BuildingDTO buildingDTO) {
+		validate(buildingDTO);
+		buildingService.saveBuilding(buildingDTO);
 	}
 	
 	@DeleteMapping(value = "/api/buildings/{id}")
-	public void deleteBuilding(@PathVariable(name = "id") Long[] buildingId) {
-		System.out.println("DELETE OK");
+	public void deleteBuilding(@PathVariable(name = "id", required = false) Long[] buildingIds) {
+		buildingService.deleteBuilding(buildingIds);
 	}
-	
-	
 }
+ 

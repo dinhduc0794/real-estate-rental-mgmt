@@ -18,6 +18,8 @@ tmp/**/*
 local.properties
 .classpath
 .settings/
+.vscode/
+.idea/
 .loadpath
 
 # External tool builders

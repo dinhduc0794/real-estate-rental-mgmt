@@ -1,2 +1,3 @@
-# Project2_RealEstateMgmt
-This is the 2nd project to learn Java backend.
+# real-estate-rental-mgmt
+This is my personal project to learn Java backend development.
+
