@@ -18,6 +18,9 @@
 	<%--sweetalert--%>
 	<script type='text/javascript' src="assets/sweetalert2/sweetalert2.min.js"></script>
 	<link rel="stylesheet" href="assets/sweetalert2/sweetalert2.min.css">
+
+<%--	custom css--%>
+	<link rel="stylesheet" href="custom.css" />
 </head>
 <body class="no-skin">
 	<!-- header -->
@@ -37,9 +40,9 @@
 		<!-- footer -->
     	<%@ include file="/common/admin/footer.jsp" %>
     	<!-- footer -->
-    	
-    	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse display">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+
+		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse" style="padding: 18px 24px;">
+			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>
 	</div>
 

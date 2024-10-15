@@ -5,6 +5,7 @@
     <script type="text/javascript">
         try{ace.settings.loadState('sidebar')}catch(e){}
     </script>
+
     <div class="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large">
             <a href="/trang-chu">
@@ -65,6 +66,25 @@
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fas fa-users"></i>
+                <span class="menu-text">Quản Lý Tòa Nhà</span>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href='/admin/building-list'>
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh sách tòa nhà
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="nav nav-list">
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fas fa-users"></i>
                 <span class="menu-text">Quản Lý Tài Khoản</span>
             </a>
             <b class="arrow"></b>
@@ -101,4 +121,9 @@
     <div class="sidebar-toggle sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
+
+    <script type="text/javascript">
+        try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+    </script>
 </div>
+

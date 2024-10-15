@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Trang chủ</title>
-
+	<meta charset="UTF-8">
+	<title>Trang chủ</title>
+	<link rel="icon" href="assets/img/leaf.png" type="image/png">
+	<link rel="shortcut icon" href="assets/img/leaf.png" type="image/png">
 	<!-- Bootstrap core CSS -->
 	<link href="web/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
