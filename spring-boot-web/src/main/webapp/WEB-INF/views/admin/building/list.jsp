@@ -283,7 +283,7 @@
                             <th class="center">Giá thuê</th>
                             <th class="center">Phí dịch vụ</th>
                             <th class="center">Phí môi giới</th>
-                            <th class="center">Thao tác</th>
+                            <th class="center" style="min-width: 120px">Thao tác</th>
                         </tr>
                     </thead>
 
@@ -307,22 +307,28 @@
                                 <td>${item.rentPrice}</td>
                                 <td>${item.serviceFee}</td>
                                 <td>${item.brokerageFee}</td>
-                                <td class="center">
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-success" title="Giao tòa nhà"
-                                                onclick="assignBuilding(${item.id})">
-                                            <i class="ace-icon fa fa-key bigger-120"></i>
-                                        </button>
+                                    <td class="center" style="font-size: 4px">
+                                        <div class="hidden-sm hidden-xs btn-group">
+                                            <a href="">
+                                                <button class="btn btn-xs btn-success" title="Giao tòa nhà" type="button"
+                                                        onclick="assignBuilding(${item.id})">
+                                                    <i class="ace-icon fa fa-key bigger-120"></i>
+                                                </button>
+                                            </a>
 
-                                        <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
-                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                        </button>
+                                            <a href="/admin/building-edit-${item.id}">
+                                                <button class="btn btn-xs btn-info" title="Sửa tòa nhà" type="button">
+                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                </button>
+                                            </a>
 
-                                        <button class="btn btn-xs btn-danger" title="Xóa tòa nhà">
-                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                        </button>
-                                    </div>
-                                </td>
+                                            <a href="">
+                                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà" type="button">
+                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </td>
                             </tr>
                             <c:if test="${item == null}">
                                 <tr>

@@ -8,8 +8,8 @@
         <div class="navbar-header pull-left">
             <a href="#" class="navbar-brand">
                 <small>
-                    <i class="fa fa-leaf"></i>
-                    Trang quản trị
+                    <i class="fa fa-leaf" style="margin-right: 8px"></i>
+                    Real Estate Rental System
                 </small>
             </a>
         </div>

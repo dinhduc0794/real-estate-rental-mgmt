@@ -11,32 +11,33 @@ import java.util.Map;
 @Setter
 public class BuildingDTO extends AbstractDTO {
     private Long id;
-    private String name;
-    private String street;
-    private String ward;
-    private String district;
-    private Long numberOfBasement;
-    private Long floorArea;
-    private String level;
-    private List<String> typeCode;
-    private String overtimeFee;
-    private String electricityFee;
-    private String deposit;
-    private String payment;
-    private String rentTime;
-    private String decorationTime;
-    private String rentPriceDescription;
-    private String carFee;
-    private String motoFee;
-    private String structure;
-    private String direction;
-    private String note;
-    private String rentArea;
-    private String managerName;
-    private String managerPhone;
-    private Long rentPrice;
-    private String serviceFee;
-    private Double brokerageFee;
+    private String name; // Tên tòa nhà
+    private String district; // Quận
+    private String ward; // Phường
+    private String street; // Đường
+    private String structure; // Kết cấu
+    private Long numberOfBasement; // Số tầng hầm
+    private Long floorArea; // Diện tích sàn
+    private String direction; // Hướng
+    private String level; // Hạng
+    private String rentArea; // Diện tích thuê
+    private Long rentPrice; // Giá thuê
+    private String rentPriceDescription; // Mô tả giá
+    private String serviceFee; // Phí dịch vụ
+    private String carFee; // Phí ô tô
+    private String motoFee; // Phí mô tô
+    private String overtimeFee; // Phí ngoài giờ
+    private String electricityFee; // Tiền điện
+    private String deposit; // Đặt cọc
+    private String payment; // Thanh toán
+    private String rentTime; // Thời hạn thuê
+    private String decorationTime; // Thời gian trang trí
+    private String managerName; // Tên quản lý
+    private String managerPhone; // Số điện thoại quản lý
+    private Double brokerageFee; // Phí môi giới
+    private List<String> typeCodes; // Loại tòa nhà
+    private String note; // Ghi chú
+
     private String image;
     private String imageBase64;
     private String imageName;

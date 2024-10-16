@@ -64,6 +64,7 @@ body {
 .form-group select,
 .form-group textarea {
     box-sizing: border-box;
+    padding-left: 16px;
 }
 
 .form-group input:focus,

@@ -8,22 +8,22 @@
 <title>Đăng nhập</title>
 </head>
 <body>
-	<div class="container">
+	<div class="container" >
 		<!-- <h1 class="form-heading">login Form</h1> -->
 		<div class="login-form">
 			<div class="main-div">
 				<c:if test="${param.incorrectAccount != null}">
-					<div class="alert alert-danger">
+					<div class="login-alert alert alert-danger">
 							Username or password incorrect
 					</div>
 				</c:if>
 				<c:if test="${param.accessDenied != null}">
-					<div class="alert alert-danger">
+					<div class="login-alert alert alert-danger">
 							You Not authorize
 					</div>
 				</c:if>
 				<c:if test="${param.sessionTimeout != null}">
-					<div class="alert alert-danger">
+					<div class="login-alert alert alert-danger">
 							Session Timeout
 					</div>
 				</c:if>

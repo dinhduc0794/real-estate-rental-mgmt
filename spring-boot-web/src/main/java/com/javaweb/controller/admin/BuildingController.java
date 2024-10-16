@@ -11,6 +11,7 @@ import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,6 +60,29 @@ public class BuildingController {
         ModelAndView modelAndView = new ModelAndView("admin/building/edit");
         modelAndView.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
         modelAndView.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
+        return modelAndView;
+    }
+
+    @GetMapping("/admin/building-edit-{id}")
+    private ModelAndView buildingEdit(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView("admin/building/edit");
+        modelAndView.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
+        modelAndView.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
+
+        //xuong db dung ham findById de lay data toa nha hien tai => BuildingEntity -> Convert qua BuildingDTO
+        BuildingDTO buildingDTO = new BuildingDTO();
+        buildingDTO.setId(3L);
+        buildingDTO.setName("BDF Tower");
+        buildingDTO.setRentArea("200,350,450");
+        buildingDTO.setWard("Phường 2");
+        buildingDTO.setDistrict("QUAN_2");
+        List<String> typeCodes = new ArrayList<>();     //khi lay ra typeCode se la String -> can tach chuoi ra dua ve List
+        typeCodes.add("TANG_TRET");
+        typeCodes.add("NGUYEN_CAN");
+        buildingDTO.setTypeCodes(typeCodes);
+        buildingDTO.setNumberOfBasement(1L);
+        buildingDTO.setManagerName("Sieu Nhan Do");
+        modelAndView.addObject("buildingEdit", buildingDTO);
         return modelAndView;
     }
 }
