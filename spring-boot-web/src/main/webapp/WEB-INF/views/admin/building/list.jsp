@@ -186,7 +186,7 @@
                                                         <label>Nhân viên phụ trách</label>
                                                         <form:select path="staffId" class="form-control">
                                                             <form:option value="" label="---Chọn nhân viên---"/>
-                                                            <form:options items="${staffs}"/>
+                                                            <form:options items="${staffList}"/>
                                                         </form:select>
 <%--                                                        <select name="staffId" class="form-control">--%>
 <%--                                                            <option value="">---Chọn nhân viên---</option>--%>
@@ -263,144 +263,73 @@
 
                 <table id="buildingList" class="table table-striped table-bordered table-hover">
                     <thead>
-                    <tr>
-                        <th class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace">
-                                <span class="lbl"></span>
-                            </label>
-                        </th>
-                        <th class="center">Tên tòa nhà</th>
-                        <th class="center">Địa chỉ</th>
-                        <th class="center">Số tầng hầm</th>
+                        <tr>
+                            <th class="center">
+                                <label class="pos-rel">
+                                    <input type="checkbox" class="ace">
+                                    <span class="lbl"></span>
+                                </label>
+                            </th>
+                            <th class="center">Tên tòa nhà</th>
+                            <th class="center">Địa chỉ</th>
+                            <th class="center">Số tầng hầm</th>
 
-                        <th class="center">Tên quản lí</th>
-                        <th class="center">SĐT Quản lí</th>
+                            <th class="center">Tên quản lí</th>
+                            <th class="center">SĐT Quản lí</th>
 
-                        <th class="center">Diện tích sàn</th>
-                        <th class="center">Diện tích trống</th>
-                        <th class="center">Diện tích thuê</th>
-                        <th class="center">Giá thuê</th>
-                        <th class="center">Phí dịch vụ</th>
-                        <th class="center">Phí môi giới</th>
-                        <th class="center">Thao tác</th>
-                    </tr>
+                            <th class="center">Diện tích sàn</th>
+                            <th class="center">Diện tích trống</th>
+                            <th class="center">Diện tích thuê</th>
+                            <th class="center">Giá thuê</th>
+                            <th class="center">Phí dịch vụ</th>
+                            <th class="center">Phí môi giới</th>
+                            <th class="center">Thao tác</th>
+                        </tr>
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" value="10">
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
-                        <td>ABC Building</td>
-                        <td>$45</td>
-                        <td class="hidden-480">3,330</td>
-                        <td>Feb 12</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="hidden-480">
-                            <span class="label label-sm label-warning">Expiring</span>
-                        </td>
-                        <td class="center">
-                            <div class="hidden-sm hidden-xs btn-group">
-                                <button class="btn btn-xs btn-success" title="Giao tòa nhà"
-                                        onclick="assignBuilding()">
-                                    <i class="ace-icon fa fa-key bigger-120"></i>
-                                </button>
+                        <c:forEach var="item" items="${buildingList}">
+                            <tr>
+                                <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" value=${item.id}>
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td>${item.name}</td>
+                                <td>${item.address}</td>
+                                <td>${item.numberOfBasement}</td>
+                                <td>${item.managerName}</td>
+                                <td>${item.managerPhone}</td>
+                                <td>${item.floorArea}</td>
+                                <td>${item.emptyArea}</td>
+                                <td>${item.rentArea}</td>
+                                <td>${item.rentPrice}</td>
+                                <td>${item.serviceFee}</td>
+                                <td>${item.brokerageFee}</td>
+                                <td class="center">
+                                    <div class="hidden-sm hidden-xs btn-group">
+                                        <button class="btn btn-xs btn-success" title="Giao tòa nhà"
+                                                onclick="assignBuilding(${item.id})">
+                                            <i class="ace-icon fa fa-key bigger-120"></i>
+                                        </button>
 
-                                <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
-                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                </button>
+                                        <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
+                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                        </button>
 
-                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà">
-                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" value="12">
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
-                        <td>ABC Building</td>
-                        <td>$45</td>
-                        <td class="hidden-480">3,330</td>
-                        <td>Feb 12</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="hidden-480">
-                            <span class="label label-sm label-warning">Expiring</span>
-                        </td>
-                        <td class="center">
-                            <div class="hidden-sm hidden-xs btn-group">
-                                <button class="btn btn-xs btn-success" title="Giao tòa nhà"
-                                        onclick="assignBuilding()">
-                                    <i class="ace-icon fa fa-key bigger-120"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
-                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà">
-                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" value="15">
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
-                        <td>ABC Building</td>
-                        <td>$45</td>
-                        <td class="hidden-480">3,330</td>
-                        <td>Feb 12</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="hidden-480">
-                            <span class="label label-sm label-warning">Expiring</span>
-                        </td>
-                        <td class="center">
-                            <div class="hidden-sm hidden-xs btn-group">
-                                <button class="btn btn-xs btn-success" title="Giao tòa nhà"
-                                        onclick="assignBuilding()">
-                                    <i class="ace-icon fa fa-key bigger-120"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
-                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                </button>
-
-                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà">
-                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                                        <button class="btn btn-xs btn-danger" title="Xóa tòa nhà">
+                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <c:if test="${item == null}">
+                                <tr>
+                                    <td colspan="13" style="color:red;">Item is null</td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div><!-- /.page-content -->
@@ -463,7 +392,8 @@
 </div>
 
 <script>
-    function assignBuilding() {
+    function assignBuilding(buildingId) {
+        console.log(buildingId);
         $("#assignBuildingModel").modal();
     }
 

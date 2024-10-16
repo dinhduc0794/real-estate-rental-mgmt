@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/common/taglib.jsp"%>
 <html>
 <head>
     <title>Thông tin tòa nhà</title>
@@ -39,7 +40,7 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <form id="form-edit" class="form-horizontal">
+                        <form:form method="GET" modelAttribute="buildingEdit" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-3">Tên tòa nhà</label>
                                 <div class="col-xs-9">
@@ -49,13 +50,17 @@
                             <div class="form-group">
                                 <label class="col-xs-3">Quận</label>
                                 <div class="col-xs-3">
-                                    <select name="districtId" id="districtId" class="form-control">
-                                        <option value="">---Chọn Quận---</option>
-                                        <option value="Q1">Quận 1</option>
-                                        <option value="Q2">Quận 2</option>
-                                        <option value="Q3">Quận 3</option>
-                                        <option value="GV">Quận Gò Vấp</option>
-                                    </select>
+                                    <form:select path="district" class="form-control">
+                                        <form:option value="" label="---Chọn quận---"/>
+                                        <form:options items="${district}"/>
+                                    </form:select>
+<%--                                    <select name="districtId" id="districtId" class="form-control">--%>
+<%--                                        <option value="">---Chọn Quận---</option>--%>
+<%--                                        <option value="Q1">Quận 1</option>--%>
+<%--                                        <option value="Q2">Quận 2</option>--%>
+<%--                                        <option value="Q3">Quận 3</option>--%>
+<%--                                        <option value="GV">Quận Gò Vấp</option>--%>
+<%--                                    </select>--%>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -197,17 +202,8 @@
                             <div class="form-group">
                                 <label class="col-xs-3">Loại tòa nhà</label>
                                 <div class="col-xs-9">
-                                    <div class="building-type">
-                                        <input type="checkbox" name="typeCode" value="tang-tret">
-                                        <label>Tầng trệt</label>
-                                    </div>
-                                    <div class="building-type">
-                                        <input type="checkbox" name="typeCode" value="nguyen-can">
-                                        <label>Nguyên căn</label>
-                                    </div>
-                                    <div class="building-type">
-                                        <input type="checkbox" name="typeCode" value="noi-that">
-                                        <label>Nội thất</label>
+                                    <div style="margin-left: -12px">
+                                        <form:checkboxes path="typeCode" items="${rentType}" style="margin: 0 4px 0 12px"/>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +226,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </form:form>
                     </div>
                 </div>
             </div><!-- /.page-content -->

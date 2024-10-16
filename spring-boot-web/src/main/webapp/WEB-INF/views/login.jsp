@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp"%>	
+<%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,12 +13,12 @@
 		<div class="login-form">
 			<div class="main-div">
 				<c:if test="${param.incorrectAccount != null}">
-					<div class="alert alert-danger">	
+					<div class="alert alert-danger">
 							Username or password incorrect
 					</div>
 				</c:if>
 				<c:if test="${param.accessDenied != null}">
-					<div class="alert alert-danger">	
+					<div class="alert alert-danger">
 							You Not authorize
 					</div>
 				</c:if>
@@ -31,7 +31,7 @@
 					<section class="gradient-custom">
 						<div class="page-wrapper">
 							<div class="row d-flex justify-content-center align-items-center">
-								<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+								<div class="col-12 col-md-8 col-lg-6 col-xl-6">
 									<div class="card text-white" style="border-radius: 1rem; background-color: #35bf76;">
 										<div class="card-body p-5">
 											<div class="mb-md-5 mt-md-4 pb-5 text-center">

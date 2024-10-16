@@ -8,8 +8,19 @@
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link href="style.css" rel="stylesheet" type="text/css" media="all"/>
+    <style>
+        /* Thêm CSS cho căn giữa */
+        body {
+            display: flex; /* Sử dụng Flexbox */
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            height: 100vh; /* Chiều cao bằng 100% chiều cao viewport */
+            margin: 0; /* Xóa khoảng cách mặc định */
+            background-color: #2c7659; /* Màu nền */
+        }
+    </style>
 </head>
-<body id="LoginForm" style="background-color: #2c7659">
+<body id="LoginForm" style="background-color: #2c7659;">
     <dec:body/>
 </body>
 </html>
