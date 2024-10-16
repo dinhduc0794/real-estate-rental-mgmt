@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/common/taglib.jsp"%>
 <html>
 <head>
     <title>Danh sách tòa nhà</title>
@@ -54,19 +55,21 @@
 
                             <div class="widget-body">
                                 <div class="widget-main">
-                                    <form class="form-horizontal" role="form">
+                                    <form:form id="listForm" action="/admin/building-list" modelAttribute="modelSearch" method="GET">
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <div>
                                                         <label>Tên tòa nhà</label>
-                                                        <input type="text" name="name" class="form-control">
+<%--                                                        <input type="text" name="name" class="form-control" value="${modelSearch.name}">--%>
+                                                        <form:input class="form-control" path="name" placeholder="Enter name..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <div>
                                                         <label>Diện tích sàn</label>
-                                                        <input type="number" name="floorArea" class="form-control">
+<%--                                                        <input type="number" name="floorArea" class="form-control" value="${modelSearch.floorArea}">--%>
+                                                        <form:input class="form-control" path="floorArea" placeholder="Input floor area..."/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -76,25 +79,31 @@
                                                 <div class="col-xs-2">
                                                     <div>
                                                         <label>Quận</label>
-                                                        <select name="districtId" class="form-control">
-                                                            <option value="">---Chọn quận---</option>
-                                                            <option value="Q1">Quận 1</option>
-                                                            <option value="Q2">Quận 2</option>
-                                                            <option value="Q3">Quận 3</option>
-                                                            <option value="TĐ">Quận Thủ Đức</option>
-                                                        </select>
+                                                        <form:select path="district" class="form-control">
+                                                            <form:option value="" label="---Chọn quận---"/>
+                                                            <form:options items="${district}"/>
+                                                        </form:select>
+<%--                                                        <select name="district" class="form-control">--%>
+<%--                                                            <option value="">---Chọn quận---</option>--%>
+<%--                                                            <option value="Q1">Quận 1</option>--%>
+<%--                                                            <option value="Q2">Quận 2</option>--%>
+<%--                                                            <option value="Q3">Quận 3</option>--%>
+<%--                                                            <option value="TĐ">Quận Thủ Đức</option>--%>
+<%--                                                        </select>--%>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <div>
                                                         <label>Phường</label>
-                                                        <input type="text " name="ward" class="form-control">
+<%--                                                        <input type="text" name="ward" class="form-control" value="${modelSearch.ward}">--%>
+                                                        <form:input class="form-control" path="ward" placeholder="Enter ward..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <div>
                                                         <label>Đường</label>
-                                                        <input type="text" name="street" class="form-control">
+<%--                                                        <input type="text" name="street" class="form-control" value="${modelSearch.street}">--%>
+                                                        <form:input class="form-control" path="street" placeholder="Enter street..."/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,20 +113,22 @@
                                                 <div class="col-xs-4">
                                                     <div>
                                                         <label>Số tầng hầm</label>
-                                                        <input type="number" name="numberOfBasement"
-                                                               class="form-control">
+<%--                                                        <input type="number" name="numberOfBasement" class="form-control" value="${modelSearch.numberOfBasement}">--%>
+                                                        <form:input class="form-control" path="numberOfBasement" placeholder="Enter number of basement..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div>
                                                         <label>Hướng</label>
-                                                        <input type="text" name="direction" class="form-control">
+<%--                                                        <input type="text" name="direction" class="form-control" value="${modelSearch.direction}">--%>
+                                                        <form:input class="form-control" path="direction" placeholder="Enter direction..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div>
                                                         <label>Hạng</label>
-                                                        <input type="number" name="level" class="form-control">
+<%--                                                        <input type="number" name="level" class="form-control" value="${modelSearch.level}">--%>
+                                                        <form:input class="form-control" path="level" placeholder="Enter level..."/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -127,26 +138,29 @@
                                                 <div class="col-xs-3">
                                                     <div>
                                                         <label>Diện tích từ</label>
-                                                        <input type="number" name="numberOfBasement"
-                                                               class="form-control">
+<%--                                                        <input type="number" name="rentAreaFrom" class="form-control" value="${modelSearch.rentAreaFrom}">--%>
+                                                        <form:input class="form-control" path="rentAreaFrom" placeholder="Enter minimum rent area..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <div>
                                                         <label>Diện tích đến</label>
-                                                        <input type="number" name="direction" class="form-control">
+<%--                                                        <input type="number" name="rentAreaTo" class="form-control" value="${modelSearch.rentAreaTo}">--%>
+                                                        <form:input class="form-control" path="rentAreaTo" placeholder="Enter maximum rent area..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <div>
                                                         <label>Giá thuê từ</label>
-                                                        <input type="number" name="level" class="form-control">
+<%--                                                        <input type="number" name="rentPriceFrom" class="form-control" value="${modelSearch.rentPriceFrom}">--%>
+                                                        <form:input class="form-control" path="rentPriceFrom" placeholder="Enter minimum rent price..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <div>
                                                         <label>Giá thuê đến</label>
-                                                        <input type="number" name="level" class="form-control">
+<%--                                                        <input type="number" name="rentPriceTo" class="form-control" value="${modelSearch.rentPriceTo}">--%>
+                                                        <form:input class="form-control" path="rentPriceTo" placeholder="Enter maximum rent price..."/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -156,26 +170,31 @@
                                                 <div class="col-xs-4">
                                                     <div>
                                                         <label>Tên quản lí</label>
-                                                        <input type="number" name="numberOfBasement"
-                                                               class="form-control">
+<%--                                                        <input type="text" name="managerName" class="form-control" value="${modelSearch.managerName}">--%>
+                                                        <form:input class="form-control" path="managerName" placeholder="Enter manager's name..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div>
                                                         <label>Số điện thoại quản lí</label>
-                                                        <input type="text" name="direction" class="form-control">
+<%--                                                        <input type="text" name="managerPhone" class="form-control" value="${modelSearch.managerPhone}">--%>
+                                                        <form:input class="form-control" path="managerPhone" placeholder="Enter manager's phone number..."/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <div>
                                                         <label>Nhân viên phụ trách</label>
-                                                        <select name="districtId" class="form-control">
-                                                            <option value="">---Chọn nhân viên---</option>
-                                                            <option value="">Nguyễn Văn A</option>
-                                                            <option value="">Trần Minh B</option>
-                                                            <option value="">Nguyễn Thị C</option>
-                                                            <option value="">Đỗ Văn D</option>
-                                                        </select>
+                                                        <form:select path="staffId" class="form-control">
+                                                            <form:option value="" label="---Chọn nhân viên---"/>
+                                                            <form:options items="${staffs}"/>
+                                                        </form:select>
+<%--                                                        <select name="staffId" class="form-control">--%>
+<%--                                                            <option value="">---Chọn nhân viên---</option>--%>
+<%--                                                            <option value="">Nguyễn Văn A</option>--%>
+<%--                                                            <option value="">Trần Minh B</option>--%>
+<%--                                                            <option value="">Nguyễn Thị C</option>--%>
+<%--                                                            <option value="">Đỗ Văn D</option>--%>
+<%--                                                        </select>--%>
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,30 +203,33 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <label>Loại tòa nhà</label><br>
-                                                    <div class="building-type">
-                                                        <input type="checkbox" name="typeCode" value="tang-tret">
-                                                        <label>Tầng trệt</label>
+                                                    <div style="margin-left: -12px">
+                                                        <form:checkboxes path="typeCode" items="${rentType}" style="margin: 0 4px 0 12px"/>
                                                     </div>
-                                                    <div class="building-type">
-                                                        <input type="checkbox" name="typeCode" value="nguyen-can">
-                                                        <label>Nguyên căn</label>
-                                                    </div>
-                                                    <div class="building-type">
-                                                        <input type="checkbox" name="typeCode" value="noi-that">
-                                                        <label>Nội thất</label>
-                                                    </div>
+<%--                                                    <div class="building-type">--%>
+<%--                                                        <input type="checkbox" name="typeCode" value="tang-tret">--%>
+<%--                                                        <label>Tầng trệt</label>--%>
+<%--                                                    </div>--%>
+<%--                                                    <div class="building-type">--%>
+<%--                                                        <input type="checkbox" name="typeCode" value="nguyen-can">--%>
+<%--                                                        <label>Nguyên căn</label>--%>
+<%--                                                    </div>--%>
+<%--                                                    <div class="building-type">--%>
+<%--                                                        <input type="checkbox" name="typeCode" value="noi-that">--%>
+<%--                                                        <label>Nội thất</label>--%>
+<%--                                                    </div>--%>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-xs-12 center">
-                                                <button class="btn btn-primary" type="button">
+                                                <button class="btn btn-primary" id="btnSearchBuilding" type="button">
                                                     <i class="ace-icon glyphicon glyphicon-search"></i>
                                                     Tìm kiếm
                                                 </button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </form:form>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +312,7 @@
                             <div class="hidden-sm hidden-xs btn-group">
                                 <button class="btn btn-xs btn-success" title="Giao tòa nhà"
                                         onclick="assignBuilding()">
-                                    <i class="ace-icon fa fa-check bigger-120"></i>
+                                    <i class="ace-icon fa fa-key bigger-120"></i>
                                 </button>
 
                                 <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
@@ -328,7 +350,7 @@
                             <div class="hidden-sm hidden-xs btn-group">
                                 <button class="btn btn-xs btn-success" title="Giao tòa nhà"
                                         onclick="assignBuilding()">
-                                    <i class="ace-icon fa fa-check bigger-120"></i>
+                                    <i class="ace-icon fa fa-key bigger-120"></i>
                                 </button>
 
                                 <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
@@ -366,7 +388,7 @@
                             <div class="hidden-sm hidden-xs btn-group">
                                 <button class="btn btn-xs btn-success" title="Giao tòa nhà"
                                         onclick="assignBuilding()">
-                                    <i class="ace-icon fa fa-check bigger-120"></i>
+                                    <i class="ace-icon fa fa-key bigger-120"></i>
                                 </button>
 
                                 <button class="btn btn-xs btn-info" title="Sửa tòa nhà">
@@ -454,6 +476,12 @@
 
         console.log("OK");
     });
+
+    $('#btnSearchBuilding').click(function (e) {
+       e.preventDefault();
+       $('#listForm').submit();
+    });
+
 </script>
 </body>
 </html>
