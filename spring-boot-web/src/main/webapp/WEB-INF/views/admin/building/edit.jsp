@@ -228,7 +228,7 @@
                                 <label class="col-xs-3">Loại tòa nhà</label>
                                 <div class="col-xs-9">
                                     <div style="margin-left: -12px">
-                                        <form:checkboxes path="typeCodes" items="${rentType}" style="margin: 0 4px 0 12px"/>
+                                        <form:checkboxes path="typeCodes" items="${rentType}" style="margin: 0 4px 0 14px"/>
                                     </div>
                                 </div>
                             </div>
@@ -244,9 +244,12 @@
                             <div class="form-group" style="margin-top: 48px;">
                                 <label class="col-xs-3"></label>
                                 <div class="col-xs-9">
-                                    <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">
-                                        Thêm tòa nhà
-                                    </button>
+                                    <c:if test="${not empty buildingEdit.id}">
+                                        <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">Sửa thông tin</button>
+                                    </c:if>
+                                    <c:if test="${empty buildingEdit.id}">
+                                        <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">Thêm tòa nhà</button>
+                                    </c:if>
                                     <a href="/admin/building-list">
                                         <button type="button" class="btn btn-warning">
                                             Hủy thao tác

@@ -3,6 +3,9 @@ package com.javaweb.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +13,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class BuildingDTO extends AbstractDTO {
-    private Long id;
+    @NotBlank(message = "Building name must not be blank")
     private String name; // Tên tòa nhà
     private String district; // Quận
     private String ward; // Phường
@@ -21,6 +24,7 @@ public class BuildingDTO extends AbstractDTO {
     private String direction; // Hướng
     private String level; // Hạng
     private String rentArea; // Diện tích thuê
+    @Min(value = 0, message = "Rent price must not be negative")
     private Long rentPrice; // Giá thuê
     private String rentPriceDescription; // Mô tả giá
     private String serviceFee; // Phí dịch vụ
@@ -35,6 +39,7 @@ public class BuildingDTO extends AbstractDTO {
     private String managerName; // Tên quản lý
     private String managerPhone; // Số điện thoại quản lý
     private Double brokerageFee; // Phí môi giới
+    @NotNull(message = "Building type is required")
     private List<String> typeCodes; // Loại tòa nhà
     private String note; // Ghi chú
 

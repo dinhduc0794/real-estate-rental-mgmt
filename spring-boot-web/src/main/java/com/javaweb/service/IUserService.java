@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.exception.MyException;
@@ -20,7 +21,9 @@ public interface IUserService {
     UserDTO resetPassword(long id);
     UserDTO updateProfileOfUser(String id, UserDTO userDTO);
     void delete(long[] ids);
-    Map<Long, String> listStaff();
+
+    List<UserEntity> listStaff();
+    Map<Long, String> mapStaff_IdAndUsername();
 //    ResponseDTO listStaff(Long buildingId);
     List<UserDTO> getAllUsers(Pageable pageable);
     int countTotalItems();

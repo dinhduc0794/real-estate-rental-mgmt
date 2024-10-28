@@ -7,6 +7,11 @@ body {
     padding-top: 60px;
 }
 
+input[type="checkbox"] {
+    cursor: pointer;
+    transform: scale(1.25);
+}
+
 /* Custom Navbar */
 .navbar {
     padding: 8px;

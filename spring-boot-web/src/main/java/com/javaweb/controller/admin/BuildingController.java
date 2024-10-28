@@ -28,7 +28,7 @@ public class BuildingController {
         ModelAndView modelAndView = new ModelAndView("admin/building/list");
         modelAndView.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
         modelAndView.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
-        modelAndView.addObject("staffList", userService.listStaff());
+        modelAndView.addObject("staffList", userService.mapStaff_IdAndUsername());
 
         //Xuong DB de lay data...
         List<BuildingSearchResponse> responses = new ArrayList<>();
