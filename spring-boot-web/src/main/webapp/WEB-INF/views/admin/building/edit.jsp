@@ -278,10 +278,11 @@
                 json["" + v.name + ""] = v.value;	// convert v.name toString
         });
         json['typeCode'] = typeCodes;
-        if (typeCodes.length ==0) {
-            alert("Type Code is a not-null field!");
-        }
-        else btnAddOrUpdateBuilding(json);
+        // if (typeCodes.length ==0) {
+        //     alert("Type Code is a not-null field!");
+        // }
+        // else
+            btnAddOrUpdateBuilding(json);
     });
 
     function btnAddOrUpdateBuilding(json) {
@@ -297,7 +298,7 @@
             },
             error: function (responnse) {
                 console.log("Error");
-                alert(responnse.message);
+                alert(responnse.message);   //.detail
             }
         });
     }

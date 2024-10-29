@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +38,11 @@ public class BuildingDTO extends AbstractDTO {
     private String rentTime; // Thời hạn thuê
     private String decorationTime; // Thời gian trang trí
     private String managerName; // Tên quản lý
+    @Size(min=10, message = "Phone number must have at least 10 digits")
     private String managerPhone; // Số điện thoại quản lý
     private Double brokerageFee; // Phí môi giới
-    @NotNull(message = "Building type is required")
+//    @NotNull(message = "Building type is required")
+    @Size(min=1, message = "Building type is required")
     private List<String> typeCodes; // Loại tòa nhà
     private String note; // Ghi chú
 

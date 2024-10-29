@@ -392,6 +392,17 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const mainCheckbox = document.querySelector("#buildingList thead input[type='checkbox']");
+        const bodyCheckboxes = document.querySelectorAll("#buildingList tbody input[type='checkbox']");
+
+        mainCheckbox.addEventListener("change", function() {
+            bodyCheckboxes.forEach(checkbox => {
+                checkbox.checked = mainCheckbox.checked;
+            });
+        });
+    });
+
     function assignBuilding(buildingId) {
         console.log(buildingId);
         $("#assignBuildingModel").modal();
@@ -414,7 +425,7 @@
                             + ' id=checkbox_' + item.staffId
                             + ' ' + item.checked
                             + "> </td>"
-                    row += '<td>' + item.userName + '</td>'
+                    row += '<td class="center">' + item.userName + '</td>'
                     row += '</tr>'
                 })
                 $('#staffList tbody').html(row);

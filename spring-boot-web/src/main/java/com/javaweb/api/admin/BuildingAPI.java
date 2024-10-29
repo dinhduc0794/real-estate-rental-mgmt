@@ -7,6 +7,7 @@ import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -32,15 +33,19 @@ public class BuildingAPI {
                         .stream()
                         .map(FieldError::getDefaultMessage)
                         .collect(Collectors.toList());
+
                 ResponseDTO responseDTO = new ResponseDTO();
                 responseDTO.setMessage("Failed");
                 responseDTO.setDetail(errorMessages);
-                return ResponseEntity.badRequest().body(errorMessages);
+                return ResponseEntity.badRequest().body(responseDTO);
             }
+            // neu dung thi //xuong service -> xuong repo -> save vao db
+
+            return ResponseEntity.ok("");   //200 OK
         }
-        catch (Exception e){}
-        //xuong service -> xuong repo -> save vao db
-        return null;
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
@@ -64,6 +69,7 @@ public class BuildingAPI {
             }
             staffResponseDTOs.add(staffResponseDTO);
         }
+
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setData(staffResponseDTOs);
         responseDTO.setMessage("Success");
