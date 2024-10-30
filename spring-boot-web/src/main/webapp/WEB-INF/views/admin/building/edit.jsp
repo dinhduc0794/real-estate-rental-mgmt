@@ -12,7 +12,6 @@
     <title>Thông tin tòa nhà</title>
 </head>
 <body>
-<div class="main-content">
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs" id="breadcrumbs">
@@ -263,45 +262,44 @@
             </div><!-- /.page-content -->
         </div>
     </div><!-- /.main-content -->
-</div><!-- /.main-container -->
 
-<script>
-    $("#btnAddOrUpdateBuilding").click(function () {
-        var formDataArr = $("#form-edit").serializeArray();
-        var json = {};
-        var typeCodes = [];
-        $.each(formDataArr, function(i, v) {
-            if (v.name == 'typeCode'){
-                typeCodes.push(v.value);
-            }
-            else
-                json["" + v.name + ""] = v.value;	// convert v.name toString
-        });
-        json['typeCode'] = typeCodes;
-        // if (typeCodes.length ==0) {
-        //     alert("Type Code is a not-null field!");
-        // }
-        // else
+    <script>
+        $("#btnAddOrUpdateBuilding").click(function () {
+            var formDataArr = $("#form-edit").serializeArray();
+            var json = {};
+            var typeCodes = [];
+            $.each(formDataArr, function(i, v) {
+                if (v.name == 'typeCodes'){
+                    typeCodes.push(v.value);
+                }
+                else
+                    json[v.name] = v.value;	// convert v.name toString
+            });
+            json['typeCodes'] = typeCodes;
+            // if (typeCodes.length ==0) {
+            //     alert("Type Code is a not-null field!");
+            // }
+            // else
             btnAddOrUpdateBuilding(json);
-    });
-
-    function btnAddOrUpdateBuilding(json) {
-        $.ajax({
-            url: "/api/buildings",  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
-            type: "POST",
-            data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
-            contentType: "application/json",    //contentType: kieu content client gui xuong cho server
-            // dataType: client yeu cau server tra json (mong muon)
-            success: function (responnse) {
-                console.log("Success");
-                alert(responnse.message);
-            },
-            error: function (responnse) {
-                console.log("Error");
-                alert(responnse.message);   //.detail
-            }
         });
-    }
-</script>
+
+        function btnAddOrUpdateBuilding(json) {
+            $.ajax({
+                url: "/api/buildings",  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
+                type: "POST",
+                data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
+                contentType: "application/json",    //contentType: kieu content client gui xuong cho server
+                // dataType: client yeu cau server tra json (mong muon)
+                success: function (responnse) {
+                    console.log("Success");
+                    alert(responnse.message);
+                },
+                error: function (responnse) {
+                    console.log("Error");
+                    alert(responnse.message);   //.detail
+                }
+            });
+        }
+    </script>
 </body>
 </html>

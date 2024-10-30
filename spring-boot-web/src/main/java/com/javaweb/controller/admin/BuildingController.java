@@ -45,32 +45,22 @@ public class BuildingController {
 
     @GetMapping("/admin/building-edit")
     private ModelAndView buildingEdit(@ModelAttribute(name="buildingEdit") BuildingDTO buildingDTO){
-        ModelAndView modelAndView = new ModelAndView("admin/building/edit");
-        modelAndView.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
-        modelAndView.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
-        return modelAndView;
+        ModelAndView mav = new ModelAndView("admin/building/edit");
+        mav.addObject("buildingEdit", buildingDTO);
+        mav.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
+        mav.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
+        return mav;
     }
 
     @GetMapping("/admin/building-edit-{id}")
     private ModelAndView buildingEdit(@PathVariable Long id){
-        ModelAndView modelAndView = new ModelAndView("admin/building/edit");
-        modelAndView.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
-        modelAndView.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
-
+        ModelAndView mav = new ModelAndView("admin/building/edit");
         //xuong db dung ham findById de lay data toa nha hien tai => BuildingEntity -> Convert qua BuildingDTO
-        BuildingDTO buildingDTO = new BuildingDTO();
-        buildingDTO.setId(3L);
-        buildingDTO.setName("BDF Tower");
-        buildingDTO.setRentArea("200,350,450");
-        buildingDTO.setWard("Phường 2");
-        buildingDTO.setDistrict("QUAN_2");
-        List<String> typeCodes = new ArrayList<>();     //khi lay ra typeCode se la String -> can tach chuoi ra dua ve List
-        typeCodes.add("TANG_TRET");
-        typeCodes.add("NGUYEN_CAN");
-        buildingDTO.setTypeCodes(typeCodes);
-        buildingDTO.setNumberOfBasement(1L);
-        buildingDTO.setManagerName("Sieu Nhan Do");
-        modelAndView.addObject("buildingEdit", buildingDTO);
-        return modelAndView;
+        BuildingDTO buildingDTO = buildingService.findById(id);
+
+        mav.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
+        mav.addObject("rentType", BuildingType.type());    //"NGUYEN_CAN" "Nguyên căn"
+        mav.addObject("buildingEdit", buildingDTO);
+        return mav;
     }
 }

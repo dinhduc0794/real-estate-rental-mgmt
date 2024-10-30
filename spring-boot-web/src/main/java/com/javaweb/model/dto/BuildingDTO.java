@@ -16,8 +16,11 @@ import java.util.Map;
 public class BuildingDTO extends AbstractDTO {
     @NotBlank(message = "Building name must not be blank")
     private String name; // Tên tòa nhà
+    @NotBlank(message = "District must not be blank")
     private String district; // Quận
+    @NotBlank(message = "Ward must not be blank")
     private String ward; // Phường
+    @NotBlank(message = "Street must not be blank")
     private String street; // Đường
     private String structure; // Kết cấu
     private Long numberOfBasement; // Số tầng hầm
@@ -38,7 +41,6 @@ public class BuildingDTO extends AbstractDTO {
     private String rentTime; // Thời hạn thuê
     private String decorationTime; // Thời gian trang trí
     private String managerName; // Tên quản lý
-    @Size(min=10, message = "Phone number must have at least 10 digits")
     private String managerPhone; // Số điện thoại quản lý
     private Double brokerageFee; // Phí môi giới
 //    @NotNull(message = "Building type is required")

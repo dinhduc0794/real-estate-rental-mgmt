@@ -13,7 +13,6 @@
     <title>Danh sách tòa nhà</title>
 </head>
 <body>
-<div class="main-content">
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs" id="breadcrumbs">
@@ -341,7 +340,6 @@
             </div><!-- /.page-content -->
         </div>
     </div><!-- /.main-content -->
-</div><!-- /.main-container -->
 
 <div class="modal fade" id="assignBuildingModel">
     <div class="modal-dialog" style=" height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">

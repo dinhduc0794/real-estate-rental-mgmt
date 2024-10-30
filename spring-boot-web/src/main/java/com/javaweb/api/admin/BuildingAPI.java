@@ -5,6 +5,7 @@ import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
+import com.javaweb.service.BuildingService;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
 public class BuildingAPI {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private BuildingService buildingService;
 
     @PostMapping
     private ResponseEntity<?> createOrUpdateBuilding(@Valid @RequestBody BuildingDTO buildingDTO,
@@ -40,8 +43,8 @@ public class BuildingAPI {
                 return ResponseEntity.badRequest().body(responseDTO);
             }
             // neu dung thi //xuong service -> xuong repo -> save vao db
-
-            return ResponseEntity.ok("");   //200 OK
+            ResponseDTO responseDTO = buildingService.createOrUpdate(buildingDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
