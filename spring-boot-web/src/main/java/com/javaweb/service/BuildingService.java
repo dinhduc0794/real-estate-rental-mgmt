@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
@@ -13,4 +14,6 @@ public interface BuildingService {
     BuildingDTO findById(Long id);
     ResponseDTO createOrUpdate(BuildingDTO buildingDTO);
     ResponseDTO deleteBuildings(List<Long> buildingIds);
+    ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO);
+    ResponseDTO findStaffsByBuildingId(Long id);
 }

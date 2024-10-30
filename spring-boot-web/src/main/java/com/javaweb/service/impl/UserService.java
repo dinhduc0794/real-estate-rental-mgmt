@@ -179,12 +179,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserEntity> listStaff() {
-        List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1, "STAFF");
-        return userEntities;
-    }
-
-    @Override
     public Map<Long, String> mapStaff_IdAndUsername() {
         List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1, "STAFF");
         Map<Long, String> staffs = new HashMap<>();

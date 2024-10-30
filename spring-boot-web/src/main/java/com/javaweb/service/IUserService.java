@@ -22,7 +22,6 @@ public interface IUserService {
     UserDTO updateProfileOfUser(String id, UserDTO userDTO);
     void delete(long[] ids);
 
-    List<UserEntity> listStaff();
     Map<Long, String> mapStaff_IdAndUsername();
 //    ResponseDTO listStaff(Long buildingId);
     List<UserDTO> getAllUsers(Pageable pageable);

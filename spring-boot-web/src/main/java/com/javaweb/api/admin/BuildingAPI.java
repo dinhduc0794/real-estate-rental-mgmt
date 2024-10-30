@@ -52,38 +52,16 @@ public class BuildingAPI {
         }
     }
 
-    @GetMapping("/{id}")
-    private Object loadStaff(@PathVariable Long id) {
-        //nho' keo xuong Service de xu li
-        List<UserEntity> listStaff = userService.listStaff();
-
-        // lay ra buildingEntity tuong ung voi id -> lay ra 1 list userEntity role Staff dang quan li toa nha hien tai
-        List<UserEntity> assignedStaffs = new ArrayList<>();
-
-        List<StaffResponseDTO> staffResponseDTOs = new ArrayList<>();
-        for (UserEntity staff : listStaff) {
-            StaffResponseDTO staffResponseDTO = new StaffResponseDTO();
-            staffResponseDTO.setStaffId(staff.getId());
-            staffResponseDTO.setUserName(staff.getUserName());
-            if (assignedStaffs.contains(staff)) {
-                staffResponseDTO.setChecked("checked");
-            }
-            else {
-                staffResponseDTO.setChecked("");
-            }
-            staffResponseDTOs.add(staffResponseDTO);
-        }
-
-        ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setData(staffResponseDTOs);
-        responseDTO.setMessage("Success");
-
+    @GetMapping("/{id}/staffs")
+    private ResponseDTO loadStaffs(@PathVariable Long id) {
+        ResponseDTO responseDTO = buildingService.findStaffsByBuildingId(id);
         return responseDTO;
     }
 
-    @PutMapping("/staffs")
-    private Object updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
-        return new String("OK");
+    @PutMapping("/assignment")
+    private ResponseDTO updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
+        ResponseDTO responseDTO = buildingService.updateAssignmentModal(assignmentBuildingDTO);
+        return responseDTO;
     }
 
     @DeleteMapping("/{ids}")

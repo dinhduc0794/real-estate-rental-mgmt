@@ -409,7 +409,7 @@
 
     function loadStaffs(buildingId) {
         $.ajax({
-            url: "/api/buildings/" + buildingId,  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
+            url: "/api/buildings/" + buildingId + "/staffs",  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
             type: "GET",
             // data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
             contentType: "application/json",    //contentType: kieu content client gui xuong cho server
@@ -426,11 +426,11 @@
                     row += '</tr>'
                 })
                 $('#staffList tbody').html(row);
-                alert(response.message);
+                // alert(response.message);
             },
-            error: function (responnse) {
+            error: function (response) {
                 console.log("Error");
-                alert(responnse.message);
+                alert(response.message);
             }
         });
     }
@@ -448,20 +448,20 @@
         }
     });
 
-    function updateAssignmentBuilding() {
+    function updateAssignmentBuilding(json) {
         $.ajax({
-            url: "/api/buildings/staffs",  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
+            url: "/api/buildings/assignment",  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
             type: "PUT",
             data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
             contentType: "application/json",    //contentType: kieu content client gui xuong cho server
-            dataType: "text",      //client yeu cau server tra json (mong muon)
-            success: function (responnse) {
+            dataType: "json",      //client yeu cau server tra json (mong muon)
+            success: function (response) {
                 console.log("Success");
-                alert(responnse.message);
+                alert(response.message);
             },
-            error: function (responnse) {
+            error: function (response) {
                 console.log("Error");
-                alert(responnse.message);
+                alert(response.message);
             }
         });
     }
@@ -492,14 +492,14 @@
             //data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
             //contentType: "application/json",    //contentType: kieu content client gui xuong cho server
             dataType: "JSON",      //client yeu cau server tra json (mong muon)
-            success: function (responnse) {
+            success: function (response) {
                 console.log("Success");
-                alert(responnse.message);
+                alert(response.message);
                 location.reload();  //reload sau khi xoa de cap nhat lai danh sach tòa nhà
             },
-            error: function (responnse) {
+            error: function (response) {
                 console.log("Error");
-                alert(responnse.message);
+                alert(response.message);
             }
         });
     }
