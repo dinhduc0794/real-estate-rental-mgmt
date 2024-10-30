@@ -248,8 +248,7 @@
                                     </svg>
                                 </button>
                             </a>
-                            <button class="btn btn-app btn-danger btn-sm" title="Xóa tòa nhà"
-                                    id="btnDeleteBuildings">
+                            <button class="btn btn-app btn-danger btn-sm" title="Xóa tòa nhà" id="btnDeleteBuildings">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-building-fill-x" viewBox="0 0 16 16">
                                     <path
@@ -478,24 +477,25 @@
             alert("Chưa chọn tòa nhà để xóa");
         }
         else {
-            btnDeleteBuilding(buildingIds);
+            btnDeleteBuildings(buildingIds);
         }
     });
 
     function deleteOneBuilding(buildingId) {
-        btnDeleteBuilding(buildingId);
+        btnDeleteBuildings(buildingId);
     }
 
-    function btnDeleteBuilding(ids) {
+    function btnDeleteBuildings(ids) {
         $.ajax({
             url: "/api/buildings/" + ids,  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
             type: "DELETE",
-            // data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
-            // contentType: "application/json",    //contentType: kieu content client gui xuong cho server
-            dataType: "text",      //client yeu cau server tra json (mong muon)
+            //data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
+            //contentType: "application/json",    //contentType: kieu content client gui xuong cho server
+            dataType: "JSON",      //client yeu cau server tra json (mong muon)
             success: function (responnse) {
                 console.log("Success");
                 alert(responnse.message);
+                location.reload();  //reload sau khi xoa de cap nhat lai danh sach tòa nhà
             },
             error: function (responnse) {
                 console.log("Error");
@@ -503,6 +503,7 @@
             }
         });
     }
+
 
     $('#btnSearchBuilding').click(function (e) {
        e.preventDefault();

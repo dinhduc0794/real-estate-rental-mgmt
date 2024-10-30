@@ -8,18 +8,23 @@ import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Transactional
 @Service
 public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private BuildingRepository buildingRepository;
+    @Autowired
+    private RentAreaRepository rentAreaRepository;
     @Autowired
     private BuildingDTOConverter buildingDTOConverter;
     @Autowired
@@ -52,6 +57,15 @@ public class BuildingServiceImpl implements BuildingService {
         }
         else responseDTO.setMessage("Thêm thành công");
         buildingRepository.save(buildingEntity);
+        return responseDTO;
+    }
+
+    @Override
+    public ResponseDTO deleteBuildings(List<Long> buildingIds) {
+        rentAreaRepository.deleteByBuilding_IdIn(buildingIds);
+        buildingRepository.deleteAllByIdIn(buildingIds);
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setMessage("Xóa thành công");
         return responseDTO;
     }
 }

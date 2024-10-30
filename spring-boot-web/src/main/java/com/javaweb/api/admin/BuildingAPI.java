@@ -10,6 +10,7 @@ import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class BuildingAPI {
                         .collect(Collectors.toList());
 
                 ResponseDTO responseDTO = new ResponseDTO();
-                responseDTO.setMessage("Failed");
+                responseDTO.setMessage("Validation failed");
                 responseDTO.setDetail(errorMessages);
                 return ResponseEntity.badRequest().body(responseDTO);
             }
@@ -86,7 +87,8 @@ public class BuildingAPI {
     }
 
     @DeleteMapping("/{ids}")
-    private Object deleteBuilding(@PathVariable String[] ids) {
-        return new String("OK");
+    private ResponseDTO deleteBuilding(@PathVariable List<Long> ids) {
+        ResponseDTO responseDTO = buildingService.deleteBuildings(ids);
+        return responseDTO;
     }
 }

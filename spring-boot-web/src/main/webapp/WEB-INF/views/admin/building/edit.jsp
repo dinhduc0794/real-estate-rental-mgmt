@@ -290,13 +290,13 @@
                 data: JSON.stringify(json),   //convert object json thanh kieu du lieu JSON //data: kieu du lieu client gui xuong cho server
                 contentType: "application/json",    //contentType: kieu content client gui xuong cho server
                 // dataType: client yeu cau server tra json (mong muon)
-                success: function (responnse) {
+                success: function (response) {
                     console.log("Success");
-                    alert(responnse.message);
+                    alert(response.message);
                 },
-                error: function (responnse) {
+                error: function (response) {
                     console.log("Error");
-                    alert(responnse.message);   //.detail
+                    alert(response.responseJSON.detail.join("\n"));   //.detail
                 }
             });
         }

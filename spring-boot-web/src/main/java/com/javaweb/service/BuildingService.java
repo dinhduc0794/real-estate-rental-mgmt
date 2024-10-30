@@ -12,4 +12,5 @@ public interface BuildingService {
     List<BuildingSearchResponse> findAll(Map<String, Object> params, List<String> typeCodes);
     BuildingDTO findById(Long id);
     ResponseDTO createOrUpdate(BuildingDTO buildingDTO);
+    ResponseDTO deleteBuildings(List<Long> buildingIds);
 }
