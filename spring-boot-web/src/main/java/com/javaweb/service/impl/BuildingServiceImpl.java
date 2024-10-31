@@ -42,7 +42,7 @@ public class BuildingServiceImpl implements BuildingService {
     private AssignmentBuildingRepository assignmentBuildingRepository;
 
     @Override
-    public List <BuildingSearchResponse> findAll(Map<String, Object> params, List<String> typeCodes){
+    public List<BuildingSearchResponse> findAll(Map<String, Object> params, List<String> typeCodes){
         BuildingSearchBuilder buildingSearchBuilder = builderConverter.toBuildingSearchBuilder(params, typeCodes);
         List <BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
         List<BuildingSearchResponse> buildingResponse = new ArrayList<>();
@@ -63,22 +63,40 @@ public class BuildingServiceImpl implements BuildingService {
     public ResponseDTO createOrUpdate(BuildingDTO buildingDTO) {
         ResponseDTO responseDTO = new ResponseDTO();
         BuildingEntity buildingEntity = buildingDTOConverter.toBuildingEntity(buildingDTO);
-        if (buildingEntity.getId() != null && buildingRepository.existsById(buildingEntity.getId())) {
-            responseDTO.setMessage("Cập nhật thành công");
+
+        if (buildingEntity.getId() != null) {
+            // Cap nhat toa nha da ton tai
+            List<AssignmentBuildingEntity> assignmentBuildingEntities = buildingEntity.getAssignmentBuildingEntities();
+            for (AssignmentBuildingEntity assignmentBuildingEntity : assignmentBuildingEntities) {
+                assignmentBuildingEntity.setBuilding(buildingEntity);
+            }
+            responseDTO.setMessage("Cập nhật tòa nhà thành công");
         }
-        else responseDTO.setMessage("Thêm thành công");
+        else {
+            // Toa nha moi thi luu truc tiep
+            responseDTO.setMessage("Thêm tòa nhà thành công");
+        }
+
         buildingRepository.save(buildingEntity);
+        rentAreaRepository.saveAll(buildingEntity.getRentAreaEntities());
+        assignmentBuildingRepository.saveAll(buildingEntity.getAssignmentBuildingEntities());
         return responseDTO;
     }
 
     @Override
     public ResponseDTO deleteBuildings(List<Long> buildingIds) {
+        // Xoa tat ca giao toa nha de tranh bi loi khoa ngoai (ko the xoa sau khi giao toa nha)
+        assignmentBuildingRepository.deleteByBuilding_IdIn(buildingIds);
         rentAreaRepository.deleteByBuilding_IdIn(buildingIds);
+
+        // Xoa toa nha
         buildingRepository.deleteAllByIdIn(buildingIds);
+
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Xóa thành công");
         return responseDTO;
     }
+
 
     @Override
     public ResponseDTO findStaffsByBuildingId(Long id) {
@@ -116,32 +134,57 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO) {
-        List<Long> staffIds = assignmentBuildingDTO.getStaffIds();
-
         Long buildingId = assignmentBuildingDTO.getBuildingId();
         BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
 
-        List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-
-        // Xoa danh sach giao toa nha cu
+        // Xoá danh sách giao tòa nhà cũ
         assignmentBuildingRepository.deleteByBuildingId(buildingId);
 
-        // Tao danh sach giao toa nha moi
-        for (Long staffId : staffIds) {
+        List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
+        for (Long staffId : assignmentBuildingDTO.getStaffIds()) {
             UserEntity staff = userRepository.findById(staffId).get();
             AssignmentBuildingEntity assignmentBuildingEntity = new AssignmentBuildingEntity();
             assignmentBuildingEntity.setBuilding(buildingEntity);
             assignmentBuildingEntity.setStaff(staff);
             assignmentBuildingEntities.add(assignmentBuildingEntity);
-            assignmentBuildingRepository.save(assignmentBuildingEntity);
         }
 
+        assignmentBuildingRepository.saveAll(assignmentBuildingEntities);
         buildingEntity.setAssignmentBuildingEntities(assignmentBuildingEntities);
         buildingRepository.save(buildingEntity);
-
 
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");
         return responseDTO;
     }
+//    @Override
+//    public ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO) {
+//        List<Long> staffIds = assignmentBuildingDTO.getStaffIds();
+//
+//        Long buildingId = assignmentBuildingDTO.getBuildingId();
+//        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
+//
+//        List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
+//
+//        // Xoa danh sach giao toa nha cu
+//        assignmentBuildingRepository.deleteByBuildingId(buildingId);
+//
+//        // Tao danh sach giao toa nha moi
+//        for (Long staffId : staffIds) {
+//            UserEntity staff = userRepository.findById(staffId).get();
+//            AssignmentBuildingEntity assignmentBuildingEntity = new AssignmentBuildingEntity();
+//            assignmentBuildingEntity.setBuilding(buildingEntity);
+//            assignmentBuildingEntity.setStaff(staff);
+//            assignmentBuildingEntities.add(assignmentBuildingEntity);
+//            assignmentBuildingRepository.save(assignmentBuildingEntity);
+//        }
+//
+//        buildingEntity.setAssignmentBuildingEntities(assignmentBuildingEntities);
+//        buildingRepository.save(buildingEntity);
+//
+//
+//        ResponseDTO responseDTO = new ResponseDTO();
+//        responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");
+//        return responseDTO;
+//    }
 }

@@ -33,16 +33,17 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     public void handleJoinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
         /* join to get typecode */
         // neu params co typecode -> join renttype de lay typecode
-        List<String> typeCodes = buildingSearchBuilder.getTypeCode();
-        if (typeCodes != null && !typeCodes.isEmpty()) {
-            sql.append(" JOIN buildingrenttype brt ON b.id = brt.buildingid")
-                    .append(" JOIN renttype rt ON brt.renttypeid = rt.id");
-        }
+//        List<String> typeCodes = buildingSearchBuilder.getTypeCode();
+//        if (typeCodes != null && !typeCodes.isEmpty()) {
+//            sql.append(" JOIN buildingrenttype brt ON b.id = brt.buildingid")
+//                    .append(" JOIN renttype rt ON brt.renttypeid = rt.id");
+//        }
 
         /* join to get staffid */
         Long staffId = buildingSearchBuilder.getStaffId();
         if (staffId != null) {
             sql.append(" JOIN assignmentbuilding ab ON b.id = ab.buildingid");
+            sql.append(" JOIN user u ON ab.staffid = u.id ");
         }
 
         /* join to get rentareavalue */
@@ -57,10 +58,17 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
         sql.append(" WHERE 1=1");
 
         // handle typeCodes
+//        List<String> typeCodes = buildingSearchBuilder.getTypeCode();
+//        if (typeCodes != null && !typeCodes.isEmpty()) {
+//            String tC = typeCodes.stream().map(i -> "'" + i + "'").collect(Collectors.joining(", "));
+//            sql.append(" AND rt.code IN (" + tC + ")");
+//        }
+        // thay đổi code vì typecode bây giờ là enum trong bảng building chứ không phải một bảng khác riêng
         List<String> typeCodes = buildingSearchBuilder.getTypeCode();
         if (typeCodes != null && !typeCodes.isEmpty()) {
-            String tC = typeCodes.stream().map(i -> "'" + i + "'").collect(Collectors.joining(", "));
-            sql.append(" AND rt.code IN (" + tC + ")");
+            sql.append(" AND (");
+            String tmp = typeCodes.stream().map(it-> "b.type LIKE " + "'%" + it + "%'").collect(Collectors.joining(" OR "));
+            sql.append(tmp + " ) ");
         }
 
         // if (typeCodes != null && !typeCodes.isEmpty()) {

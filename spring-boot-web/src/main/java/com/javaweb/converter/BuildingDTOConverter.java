@@ -40,7 +40,8 @@ public class BuildingDTOConverter {
     public BuildingEntity toBuildingEntity(BuildingDTO buildingDTO){
         BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
 
-        buildingEntity.setRentAreaEntities(rentAreaConverter.toListRentAreaEntity(buildingDTO, buildingEntity));
+        List<RentAreaEntity> rentAreaEntities = rentAreaConverter.toListRentAreaEntity(buildingDTO, buildingEntity);
+        buildingEntity.setRentAreaEntities(rentAreaEntities);
 
         String typeCodeStr = buildingDTO.getTypeCodes().stream().map(it->it.toString()).collect(Collectors.joining(","));
         buildingEntity.setTypeCode(typeCodeStr);

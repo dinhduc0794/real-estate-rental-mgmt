@@ -10,8 +10,8 @@ import java.util.List;
 
 @Component
 public class RentAreaConverter {
-    List<RentAreaEntity> toListRentAreaEntity(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
-        if (buildingDTO.getRentArea() == null && buildingDTO.getRentArea().isEmpty()) return null;
+    public List<RentAreaEntity> toListRentAreaEntity(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
+        if (buildingDTO.getRentArea() == null || buildingDTO.getRentArea().isEmpty()) return null;
         List<RentAreaEntity> rentAreaEntities = new ArrayList<>();
         String[] rentAreas = buildingDTO.getRentArea().split(",");
         for (String rentArea : rentAreas) {
