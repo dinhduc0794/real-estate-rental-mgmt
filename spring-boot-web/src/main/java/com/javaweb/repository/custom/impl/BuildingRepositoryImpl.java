@@ -31,14 +31,6 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     }
 
     public void handleJoinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
-        /* join to get typecode */
-        // neu params co typecode -> join renttype de lay typecode
-//        List<String> typeCodes = buildingSearchBuilder.getTypeCode();
-//        if (typeCodes != null && !typeCodes.isEmpty()) {
-//            sql.append(" JOIN buildingrenttype brt ON b.id = brt.buildingid")
-//                    .append(" JOIN renttype rt ON brt.renttypeid = rt.id");
-//        }
-
         /* join to get staffid */
         Long staffId = buildingSearchBuilder.getStaffId();
         if (staffId != null) {
@@ -57,12 +49,6 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     public void handleWhereCondition(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
         sql.append(" WHERE 1=1");
 
-        // handle typeCodes
-//        List<String> typeCodes = buildingSearchBuilder.getTypeCode();
-//        if (typeCodes != null && !typeCodes.isEmpty()) {
-//            String tC = typeCodes.stream().map(i -> "'" + i + "'").collect(Collectors.joining(", "));
-//            sql.append(" AND rt.code IN (" + tC + ")");
-//        }
         // thay đổi code vì typecode bây giờ là enum trong bảng building chứ không phải một bảng khác riêng
         List<String> typeCodes = buildingSearchBuilder.getTypeCode();
         if (typeCodes != null && !typeCodes.isEmpty()) {
@@ -70,19 +56,6 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
             String tmp = typeCodes.stream().map(it-> "b.type LIKE " + "'%" + it + "%'").collect(Collectors.joining(" OR "));
             sql.append(tmp + " ) ");
         }
-
-        // if (typeCodes != null && !typeCodes.isEmpty()) {
-        // 	String tC = "";
-        //     for (int i = 0; i < typeCodes.size(); i++) {
-        //     	if (typeCodes.get(i) != null) {
-        //     		tC += "'" + typeCodes.get(i) + "'";
-        //     	}
-        //     	if (i != typeCodes.size() - 1) {
-        //             tC += ", ";
-        //         }
-        //     }
-        //     sql.append(" AND rt.code IN (" + tC + ")");
-        // }
 
         // duyet map handle cac attribute con lai, tru typecode
         // update: duyet object bang java reflection
@@ -126,11 +99,4 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
             e.printStackTrace();
         }
     }
-
-    //  for (Map.Entry<String, Object> entry : params.entrySet()) {
-    //  String key = entry.getKey();
-    //  Object value = entry.getValue();
-    //  if (value != null && !value.toString().equals("")) {
-    //  }
-    //}
 }

@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -159,34 +158,4 @@ public class BuildingServiceImpl implements BuildingService {
         responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");
         return responseDTO;
     }
-//    @Override
-//    public ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO) {
-//        List<Long> staffIds = assignmentBuildingDTO.getStaffIds();
-//
-//        Long buildingId = assignmentBuildingDTO.getBuildingId();
-//        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
-//
-//        List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-//
-//        // Xoa danh sach giao toa nha cu
-//        assignmentBuildingRepository.deleteByBuildingId(buildingId);
-//
-//        // Tao danh sach giao toa nha moi
-//        for (Long staffId : staffIds) {
-//            UserEntity staff = userRepository.findById(staffId).get();
-//            AssignmentBuildingEntity assignmentBuildingEntity = new AssignmentBuildingEntity();
-//            assignmentBuildingEntity.setBuilding(buildingEntity);
-//            assignmentBuildingEntity.setStaff(staff);
-//            assignmentBuildingEntities.add(assignmentBuildingEntity);
-//            assignmentBuildingRepository.save(assignmentBuildingEntity);
-//        }
-//
-//        buildingEntity.setAssignmentBuildingEntities(assignmentBuildingEntities);
-//        buildingRepository.save(buildingEntity);
-//
-//
-//        ResponseDTO responseDTO = new ResponseDTO();
-//        responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");
-//        return responseDTO;
-//    }
 }
