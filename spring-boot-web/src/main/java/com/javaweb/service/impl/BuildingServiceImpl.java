@@ -79,7 +79,6 @@ public class BuildingServiceImpl implements BuildingService {
         else {
             // Toa nha moi thi luu truc tiep
             responseDTO.setMessage("Thêm tòa nhà thành công");
-            assignmentBuildingRepository.saveAll(buildingEntity.getAssignmentBuildingEntities());
         }
 
         buildingRepository.save(buildingEntity);
