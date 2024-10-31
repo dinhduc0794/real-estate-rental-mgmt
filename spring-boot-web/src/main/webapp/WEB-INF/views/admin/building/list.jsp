@@ -344,7 +344,7 @@
     <div class="modal-dialog" style=" height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
         <div class="modal-content" style="min-width: 50%">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
+                <h4 class="modal-title bolder blue" id="exampleModalLabel">Danh sách nhân viên</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         style="position: absolute; top: 0; right: 0; padding: 12px;">
                     <span aria-hidden="true">&times;</span>
