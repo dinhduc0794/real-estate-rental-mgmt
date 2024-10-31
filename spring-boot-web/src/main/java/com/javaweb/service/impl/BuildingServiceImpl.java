@@ -70,16 +70,21 @@ public class BuildingServiceImpl implements BuildingService {
             for (AssignmentBuildingEntity assignmentBuildingEntity : assignmentBuildingEntities) {
                 assignmentBuildingEntity.setBuilding(buildingEntity);
             }
+
+            // Xoa dien tich thue cu truoc khi cap nhat
+            rentAreaRepository.deleteByBuilding_Id(buildingEntity.getId());
+
             responseDTO.setMessage("Cập nhật tòa nhà thành công");
         }
         else {
             // Toa nha moi thi luu truc tiep
             responseDTO.setMessage("Thêm tòa nhà thành công");
+            assignmentBuildingRepository.saveAll(buildingEntity.getAssignmentBuildingEntities());
         }
 
         buildingRepository.save(buildingEntity);
         rentAreaRepository.saveAll(buildingEntity.getRentAreaEntities());
-        assignmentBuildingRepository.saveAll(buildingEntity.getAssignmentBuildingEntities());
+
         return responseDTO;
     }
 
@@ -141,8 +146,8 @@ public class BuildingServiceImpl implements BuildingService {
         assignmentBuildingRepository.deleteByBuildingId(buildingId);
 
         List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-        for (Long staffId : assignmentBuildingDTO.getStaffIds()) {
-            UserEntity staff = userRepository.findById(staffId).get();
+        List<UserEntity> staffs = userRepository.findByIdIn(assignmentBuildingDTO.getStaffIds());
+        for (UserEntity staff : staffs) {
             AssignmentBuildingEntity assignmentBuildingEntity = new AssignmentBuildingEntity();
             assignmentBuildingEntity.setBuilding(buildingEntity);
             assignmentBuildingEntity.setStaff(staff);
@@ -150,8 +155,6 @@ public class BuildingServiceImpl implements BuildingService {
         }
 
         assignmentBuildingRepository.saveAll(assignmentBuildingEntities);
-        buildingEntity.setAssignmentBuildingEntities(assignmentBuildingEntities);
-        buildingRepository.save(buildingEntity);
 
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");
