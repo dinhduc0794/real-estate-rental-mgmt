@@ -34,6 +34,7 @@ public class UserController {
 	public ModelAndView getNews(@ModelAttribute(SystemConstant.MODEL) UserDTO model, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("admin/user/list");
 		DisplayTagUtils.of(request, model);
+		List<UserDTO> userDTOS = userService.getAllUsers(new PageRequest(model.getPage() - 1, model.getMaxPageItems()));
 		List<UserDTO> news = userService.getUsers(model.getSearchValue(), PageRequest.of(model.getPage() - 1, model.getMaxPageItems()));
 		model.setListResult(news);
 		model.setTotalItems(userService.countTotalItems());
@@ -50,6 +51,7 @@ public class UserController {
 		mav.addObject(SystemConstant.MODEL, model);
 		return mav;
 	}
+
 
 	@RequestMapping(value = "/admin/profile-{username}", method = RequestMethod.GET)
 	public ModelAndView updateProfile(@PathVariable("username") String username, HttpServletRequest request) {

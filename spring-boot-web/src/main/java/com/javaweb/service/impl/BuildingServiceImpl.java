@@ -1,13 +1,14 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.builder.BuildingSearchBuilder;
-import com.javaweb.converter.BuildingDTOConverter;
+import com.javaweb.converter.BuildingConverter;
 import com.javaweb.converter.BuildingSearchBuilderConverter;
 import com.javaweb.entity.AssignmentBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
+import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
@@ -17,12 +18,12 @@ import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Transactional
 @Service
@@ -34,19 +35,20 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private  UserRepository userRepository;
     @Autowired
-    private BuildingDTOConverter buildingDTOConverter;
+    private BuildingConverter buildingConverter;
     @Autowired
     private BuildingSearchBuilderConverter builderConverter;
     @Autowired
     private AssignmentBuildingRepository assignmentBuildingRepository;
 
     @Override
-    public List<BuildingSearchResponse> findAll(Map<String, Object> params, List<String> typeCodes){
-        BuildingSearchBuilder buildingSearchBuilder = builderConverter.toBuildingSearchBuilder(params, typeCodes);
-        List <BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
+    public List<BuildingSearchResponse> findAll(BuildingSearchRequest params, Pageable pageable) {
+        BuildingSearchBuilder buildingSearchBuilder = builderConverter.toBuildingSearchBuilder(params);
+
+        List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder, pageable);
         List<BuildingSearchResponse> buildingResponse = new ArrayList<>();
         for(BuildingEntity ent : buildingEntities){
-            buildingResponse.add(buildingDTOConverter.toBuildingResponse(ent));
+            buildingResponse.add(buildingConverter.toBuildingResponse(ent));
         }
         return buildingResponse;
     }
@@ -54,14 +56,14 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public BuildingDTO findById(Long id) {
         BuildingEntity buildingEntity = buildingRepository.findById(id).get();
-            BuildingDTO buildingDTO = buildingDTOConverter.toBuildingDTO(buildingEntity);
+            BuildingDTO buildingDTO = buildingConverter.toBuildingDTO(buildingEntity);
         return buildingDTO;
     }
 
     @Override
     public ResponseDTO createOrUpdate(BuildingDTO buildingDTO) {
         ResponseDTO responseDTO = new ResponseDTO();
-        BuildingEntity buildingEntity = buildingDTOConverter.toBuildingEntity(buildingDTO);
+        BuildingEntity buildingEntity = buildingConverter.toBuildingEntity(buildingDTO);
 
         if (buildingEntity.getId() != null) {
             // Cap nhat toa nha da ton tai
@@ -157,5 +159,10 @@ public class BuildingServiceImpl implements BuildingService {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");
         return responseDTO;
+    }
+
+    @Override
+    public int countTotalItems() {
+        return buildingRepository.countTotalItems();
     }
 }

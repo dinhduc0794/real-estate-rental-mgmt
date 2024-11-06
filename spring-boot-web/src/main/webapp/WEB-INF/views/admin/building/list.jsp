@@ -1,4 +1,5 @@
 <%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%--
   Created by IntelliJ IDEA.
   User: dinhduc0794
@@ -236,7 +237,7 @@
 
                         <div class="hr hr-25 dotted hr-double" style="margin: 24px 0"></div>
 
-                        <div class="pull-right" style="margin-bottom: 12px">
+                        <div class="pull-right" style="margin-bottom: -24px">
                             <a href="/admin/building-edit">
                                 <button class="btn btn-app btn-primary btn-sm" title="Thêm tòa nhà">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -263,79 +264,127 @@
 
 
 
-                <table id="buildingList" class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th class="center">
-                                <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
-                                    <span class="lbl"></span>
-                                </label>
-                            </th>
-                            <th class="center">Tên tòa nhà</th>
-                            <th class="center">Địa chỉ</th>
-                            <th class="center">Số tầng hầm</th>
+<%--                <table id="buildingList" class="table table-striped table-bordered table-hover">--%>
+<%--                    <thead>--%>
+<%--                        <tr>--%>
+<%--                            <th class="center">--%>
+<%--                                <label class="pos-rel">--%>
+<%--                                    <input type="checkbox" class="ace">--%>
+<%--                                    <span class="lbl"></span>--%>
+<%--                                </label>--%>
+<%--                            </th>--%>
+<%--                            <th class="center">Tên tòa nhà</th>--%>
+<%--                            <th class="center">Địa chỉ</th>--%>
+<%--                            <th class="center">Số tầng hầm</th>--%>
 
-                            <th class="center">Tên quản lí</th>
-                            <th class="center">SĐT Quản lí</th>
+<%--                            <th class="center">Tên quản lí</th>--%>
+<%--                            <th class="center">SĐT Quản lí</th>--%>
 
-                            <th class="center">Diện tích sàn</th>
-                            <th class="center">Diện tích trống</th>
-                            <th class="center">Diện tích thuê</th>
-                            <th class="center">Giá thuê</th>
-                            <th class="center">Phí dịch vụ</th>
-                            <th class="center">Phí môi giới</th>
-                            <th class="center" style="min-width: 130px">Thao tác</th>
-                        </tr>
-                    </thead>
+<%--                            <th class="center">Diện tích sàn</th>--%>
+<%--                            <th class="center">Diện tích trống</th>--%>
+<%--                            <th class="center">Diện tích thuê</th>--%>
+<%--                            <th class="center">Giá thuê</th>--%>
+<%--                            <th class="center">Phí dịch vụ</th>--%>
+<%--                            <th class="center">Phí môi giới</th>--%>
+<%--                            <th class="center" style="min-width: 130px">Thao tác</th>--%>
+<%--                        </tr>--%>
+<%--                    </thead>--%>
 
-                    <tbody>
-                        <c:forEach var="item" items="${buildingList}">
-                            <tr>
-                                <td class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" class="ace" value=${item.id}>
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>
-                                <td>${item.name}</td>
-                                <td>${item.address}</td>
-                                <td>${item.numberOfBasement}</td>
-                                <td>${item.managerName}</td>
-                                <td>${item.managerPhone}</td>
-                                <td>${item.floorArea}</td>
-                                <td>${item.emptyArea}</td>
-                                <td>${item.rentArea}</td>
-                                <td>${item.rentPrice}</td>
-                                <td>${item.serviceFee}</td>
-                                <td>${item.brokerageFee}</td>
-                                    <td class="center" style="font-size: 4px">
-                                        <div class="hidden-sm hidden-xs ">
-                                            <button class="btn btn-xs btn-success" title="Giao tòa nhà này" type="button" style="margin: 0 1px"
-                                                    onclick="assignBuilding(${item.id})">
-                                                <i class="ace-icon fa fa-key bigger-120"></i>
-                                            </button>
+<%--                    <tbody>--%>
+<%--                        <c:forEach var="item" items="${buildingList}">--%>
+<%--                            <tr>--%>
+<%--                                <td class="center">--%>
+<%--                                    <label class="pos-rel">--%>
+<%--                                        <input type="checkbox" class="ace" value=${item.id}>--%>
+<%--                                        <span class="lbl"></span>--%>
+<%--                                    </label>--%>
+<%--                                </td>--%>
+<%--                                <td>${item.name}</td>--%>
+<%--                                <td>${item.address}</td>--%>
+<%--                                <td>${item.numberOfBasement}</td>--%>
+<%--                                <td>${item.managerName}</td>--%>
+<%--                                <td>${item.managerPhone}</td>--%>
+<%--                                <td>${item.floorArea}</td>--%>
+<%--                                <td>${item.emptyArea}</td>--%>
+<%--                                <td>${item.rentArea}</td>--%>
+<%--                                <td>${item.rentPrice}</td>--%>
+<%--                                <td>${item.serviceFee}</td>--%>
+<%--                                <td>${item.brokerageFee}</td>--%>
+<%--                                    <td class="center" style="font-size: 4px">--%>
+<%--                                        <div class="hidden-sm hidden-xs center" style="font-size: 4px">--%>
+<%--                                            <button class="btn btn-xs btn-success" title="Giao tòa nhà này" type="button" style="margin: 0 1px"--%>
+<%--                                                    onclick="assignBuilding(${item.id})">--%>
+<%--                                                <i class="ace-icon fa fa-key bigger-120"></i>--%>
+<%--                                            </button>--%>
 
-                                            <a href="/admin/building-edit-${item.id}">
-                                                <button class="btn btn-xs btn-info" title="Sửa tòa nhà này" type="button" style="margin: 0 1px">
-                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                </button>
-                                            </a>
+<%--                                            <a href="/admin/building-edit-${item.id}">--%>
+<%--                                                <button class="btn btn-xs btn-info" title="Sửa tòa nhà này" type="button" style="margin: 0 1px">--%>
+<%--                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>--%>
+<%--                                                </button>--%>
+<%--                                            </a>--%>
 
-                                            <button class="btn btn-xs btn-danger" title="Xóa tòa nhà này" onclick="deleteOneBuilding(${item.id})" type="button" style="margin: 0 1px">
-                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                            </tr>
-                            <c:if test="${item == null}">
-                                <tr>
-                                    <td colspan="13" style="color:red;">Item is null</td>
-                                </tr>
-                            </c:if>
-                        </c:forEach>
-                    </tbody>
-                </table>
+<%--                                            <button class="btn btn-xs btn-danger" title="Xóa tòa nhà này" onclick="deleteOneBuilding(${item.id})" type="button" style="margin: 0 1px">--%>
+<%--                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>--%>
+<%--                                            </button>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                            </tr>--%>
+<%--                            <c:if test="${item == null}">--%>
+<%--                                <tr>--%>
+<%--                                    <td colspan="13" style="color:red;">Item is null</td>--%>
+<%--                                </tr>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </tbody>--%>
+<%--                </table>--%>
+                <div class="table-responsive">
+                    <display:table name="model.listResult" cellspacing="0" cellpadding="0"
+                                   requestURI="${formUrl}" partialList="true" sort="external"
+                                   size="${model.totalItems}" defaultsort="2" defaultorder="ascending"
+                                   id="tableList" pagesize="${model.maxPageItems}"
+                                   export="false"
+                                   class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
+                                   style="margin: 3em 0 1.5em;">
+                        <display:column title="<fieldset class='form-group'>
+												        <input type='checkbox' id='checkAll' class='check-box-element'>
+												        </fieldset>" class="center select-cell"
+                                        headerClass="center select-cell">
+                            <fieldset>
+                                <input type="checkbox" name="checkList" value="${tableList.id}"
+                                       id="checkbox_${tableList.id}" class="check-box-element"/>
+                            </fieldset>
+                        </display:column>
+                        <display:column property="name" title="Tên tòa nhà"  headerClass="center"/>
+                        <display:column property="address" title="Địa chỉ" headerClass="center"/>
+                        <display:column property="numberOfBasement" title="Số tầng hầm" headerClass="center"/>
+                        <display:column property="managerName" title="Tên quản lý" headerClass="center"/>
+                        <display:column property="managerPhone" title="Số điện thoại" headerClass="center"/>
+                        <display:column property="floorArea" title="Diện tích sàn" headerClass="center"/>
+                        <display:column property="emptyArea" title="Diện tích trống" headerClass="center"/>
+                        <display:column property="rentArea" title="Diện tích thuê" headerClass="center"/>
+                        <display:column property="rentPrice" title="Giá thuê" headerClass="center"/>
+                        <display:column property="brokerageFee" title="Phí môi giới" headerClass="center"/>
+                        <display:column title="Thao tác" headerClass="center">
+                            <div class="hidden-sm hidden-xs center" style="font-size: 4px">
+                                <button class="btn btn-xs btn-success" title="Giao tòa nhà này" type="button" style="margin: 0 1px"
+                                        onclick="assignBuilding(${tableList.id})">
+                                    <i class="ace-icon fa fa-key bigger-120"></i>
+                                </button>
+
+                                <a href="/admin/building-edit-${tableList.id}">
+                                    <button class="btn btn-xs btn-info" title="Sửa tòa nhà này" type="button" style="margin: 0 1px">
+                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                    </button>
+                                </a>
+
+                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà này" onclick="deleteOneBuilding(${tableList.id})" type="button" style="margin: 0 1px">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </button>
+                            </div>
+
+                        </display:column>
+                    </display:table>
+                </div>
             </div><!-- /.page-content -->
         </div>
     </div><!-- /.main-content -->
@@ -390,8 +439,8 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const mainCheckbox = document.querySelector("#buildingList thead input[type='checkbox']");
-        const bodyCheckboxes = document.querySelectorAll("#buildingList tbody input[type='checkbox']");
+        const mainCheckbox = document.querySelector("#tableList thead input[type='checkbox']");
+        const bodyCheckboxes = document.querySelectorAll("#tableList tbody input[type='checkbox']");
 
         mainCheckbox.addEventListener("change", function() {
             bodyCheckboxes.forEach(checkbox => {
@@ -469,7 +518,7 @@
     $("#btnDeleteBuildings").click(function (e) {
         e.preventDefault();
         // tu buildingList tim ben trong cac the input type checkbox dc check (checked)
-        var buildingIds = $("#buildingList").find("tbody input[type=checkbox]:checked").map(function () {
+        var buildingIds = $("#tableList").find("tbody input[type=checkbox]:checked").map(function () {
             return $(this).val();
         }).get();
         console.log("OK");

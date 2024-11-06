@@ -5,6 +5,7 @@
   Time: 18:08
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <html>

@@ -7,8 +7,7 @@ import org.displaytag.util.ParamEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DisplayTagUtils {
-
+public class DisplayTagUtils {  //handle so luong page request
     //private static final Logger log = Logger.getLogger(DisplayTagUtils.class);
 
     public static void of(HttpServletRequest request, AbstractDTO dto) {

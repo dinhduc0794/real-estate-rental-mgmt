@@ -23,6 +23,6 @@ public class BuildingSearchRequest extends AbstractDTO {
     private Long rentPriceTo;
     private String managerName;
     private String managerPhone;
-    private String staffId;
+    private Long staffId;
     private List<String> typeCode;
 }

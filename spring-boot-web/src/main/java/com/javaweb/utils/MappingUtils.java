@@ -5,14 +5,15 @@ import java.util.Map;
 public class MappingUtils {
 	public static <T> T getObject(Object item, Class<T> tClass) {
 		if(item != null) {
+			String valueString = item.toString().trim();  // Loai bo khoang trang truoc khi chuyen qua kieu du lieu so de tranh loi NumberFormatException
 			if(tClass.getTypeName().equals("java.lang.Long")) {
-				item = item != "" ? Long.valueOf(item.toString()) : null;
+				item = item != "" ? Long.valueOf(valueString) : null;
 			}
 			else if(tClass.getTypeName().equals("java.lang.Integer")) {
-				item = item != "" ? Integer.valueOf(item.toString()) : null;
+				item = item != "" ? Integer.valueOf(valueString) : null;
 			}
 			else if(tClass.getTypeName().equals("java.lang.String")) {
-				item = item.toString();
+				item = valueString;
 			}
 			return tClass.cast(item);
 		}

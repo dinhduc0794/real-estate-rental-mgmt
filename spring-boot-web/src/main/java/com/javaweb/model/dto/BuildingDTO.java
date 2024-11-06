@@ -27,6 +27,7 @@ public class BuildingDTO extends AbstractDTO {
     private Long floorArea; // Diện tích sàn
     private String direction; // Hướng
     private String level; // Hạng
+    @NotBlank(message = "Rent area must not be blank")
     private String rentArea; // Diện tích thuê
     @Min(value = 0, message = "Rent price must not be negative")
     private Long rentPrice; // Giá thuê
@@ -43,8 +44,8 @@ public class BuildingDTO extends AbstractDTO {
     private String managerName; // Tên quản lý
     private String managerPhone; // Số điện thoại quản lý
     private Double brokerageFee; // Phí môi giới
-//    @NotNull(message = "Building type is required")
-    @Size(min=1, message = "Building type is required")
+    //    @NotNull(message = "Building type is required")
+    @Size(min = 1, message = "Building type is required")
     private List<String> typeCodes; // Loại tòa nhà
     private String note; // Ghi chú
 

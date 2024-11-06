@@ -18,13 +18,13 @@ public class AbstractDTO<T> implements Serializable {
     private String createdBy;
     private Date modifiedDate;
     private String modifiedBy;
-    private int maxPageItems = 2;
-    private int page = 1;
+    private int maxPageItems = 3;   // so luong item tren 1 trang
+    private int page = 1;   //current page, mac dinh nhay vao khi vao lan dau tien
     private List<T> listResult = new ArrayList<>();
     private int totalItems = 0;
     private String tableId = "tableList";
     private Integer limit;
-    private Integer totalPage;
-    private Integer totalItem;
+    private Integer totalPage;  // tong so trang, co the tinh duoc tu totalItem va maxPageItems
+    private Integer totalItem;  // tong so item
     private String searchValue;
 }

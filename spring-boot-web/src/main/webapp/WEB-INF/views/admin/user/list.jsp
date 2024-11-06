@@ -59,7 +59,7 @@
                                     <div class="widget-header">
                                         <h4 class="widget-title">
                                                 <%--<spring:message code="label.search"/>--%>
-                                            Tìm kiếm
+                                            Tìm kiếm người dùng
                                         </h4>
                                         <div class="widget-toolbar">
                                             <a href="#" data-action="collapse">
@@ -132,15 +132,18 @@
                                                    export="false"
                                                    class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
                                                    style="margin: 3em 0 1.5em;">
-                                        <display:column title="<fieldset class='form-group'>
-												        <input type='checkbox' id='checkAll' class='check-box-element'>
-												        </fieldset>" class="center select-cell"
-                                                        headerClass="center select-cell">
-                                            <fieldset>
+                                        <display:column
+                                                title="<fieldset class='form-group' style='display: flex; justify-content: center; align-items: center;'>
+                                                            <input type='checkbox' id='checkAll' class='check-box-element'>
+                                                       </fieldset>"
+                                                class="center select-cell"
+                                                headerClass="center select-cell">
+                                            <fieldset style="display: flex; justify-content: center; align-items: center;">
                                                 <input type="checkbox" name="checkList" value="${tableList.id}"
                                                        id="checkbox_${tableList.id}" class="check-box-element"/>
                                             </fieldset>
                                         </display:column>
+
                                         <display:column headerClass="text-left" property="userName" title="Tên"/>
                                         <display:column headerClass="text-left" property="fullName" title="full name"/>
                                         <display:column headerClass="col-actions" title="Thao tác">

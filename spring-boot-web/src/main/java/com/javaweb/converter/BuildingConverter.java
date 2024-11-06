@@ -15,7 +15,7 @@ import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 
 @Component
-public class BuildingDTOConverter {
+public class BuildingConverter {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired

@@ -3,6 +3,7 @@ package com.javaweb.repository.custom.impl;
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.repository.custom.BuildingRepositoryCustom;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,13 +19,14 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
+    public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageable pageable) {
         StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
 
         handleJoinTable(buildingSearchBuilder, sql);
         handleWhereCondition(buildingSearchBuilder, sql);
 
         sql.append(" GROUP BY b.id");	//handle duplicate
+        sql.append(" LIMIT ").append(pageable.getPageSize()).append(" OFFSET ").append(pageable.getOffset());
 
         Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
         return query.getResultList();
@@ -98,5 +100,14 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int countTotalItems() {
+        StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
+        sql.append(" GROUP BY b.id");
+
+        Query query = entityManager.createNativeQuery(sql.toString());
+        return query.getResultList().size();
     }
 }
