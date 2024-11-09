@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.entity.BuildingEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
@@ -16,5 +17,6 @@ public interface BuildingService {
     ResponseDTO deleteBuildings(List<Long> buildingIds);
     ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO);
     ResponseDTO findStaffsByBuildingId(Long id);
-    int countTotalItems();
+    int countTotalItems(BuildingSearchRequest params);
+    void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity);
 }

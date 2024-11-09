@@ -264,7 +264,7 @@
 
 
 
-<%--                <table id="buildingList" class="table table-striped table-bordered table-hover">--%>
+        <%--                <table id="buildingList" class="table table-striped table-bordered table-hover">--%>
 <%--                    <thead>--%>
 <%--                        <tr>--%>
 <%--                            <th class="center">--%>

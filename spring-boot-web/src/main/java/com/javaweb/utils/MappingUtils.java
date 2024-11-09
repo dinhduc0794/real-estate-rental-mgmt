@@ -13,7 +13,7 @@ public class MappingUtils {
 				item = item != "" ? Integer.valueOf(valueString) : null;
 			}
 			else if(tClass.getTypeName().equals("java.lang.String")) {
-				item = valueString;
+				item = !valueString.isEmpty() ? valueString : null;
 			}
 			return tClass.cast(item);
 		}

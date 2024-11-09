@@ -103,11 +103,16 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     }
 
     @Override
-    public int countTotalItems() {
-        StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
-        sql.append(" GROUP BY b.id");
+    public int countTotalItems(BuildingSearchBuilder buildingSearchBuilder) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM building b");
+
+        // Áp dụng các điều kiện tìm kiếm trong câu lệnh COUNT
+        handleJoinTable(buildingSearchBuilder, sql);
+        handleWhereCondition(buildingSearchBuilder, sql);
 
         Query query = entityManager.createNativeQuery(sql.toString());
-        return query.getResultList().size();
+        Object result = query.getSingleResult();
+        return ((Number) result).intValue();
     }
+
 }

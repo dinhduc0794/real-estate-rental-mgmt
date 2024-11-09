@@ -1,6 +1,7 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.builder.BuildingSearchBuilder;
+import com.javaweb.constant.SystemConstant;
 import com.javaweb.converter.BuildingConverter;
 import com.javaweb.converter.BuildingSearchBuilderConverter;
 import com.javaweb.entity.AssignmentBuildingEntity;
@@ -17,13 +18,18 @@ import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.BuildingService;
+import com.javaweb.utils.UploadFileUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -33,30 +39,32 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private RentAreaRepository rentAreaRepository;
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
     private BuildingConverter buildingConverter;
     @Autowired
     private BuildingSearchBuilderConverter builderConverter;
     @Autowired
     private AssignmentBuildingRepository assignmentBuildingRepository;
+    @Autowired
+    private UploadFileUtils uploadFileUtils;
 
     @Override
     public List<BuildingSearchResponse> findAll(BuildingSearchRequest params, Pageable pageable) {
         BuildingSearchBuilder buildingSearchBuilder = builderConverter.toBuildingSearchBuilder(params);
 
         List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder, pageable);
-        List<BuildingSearchResponse> buildingResponse = new ArrayList<>();
-        for(BuildingEntity ent : buildingEntities){
-            buildingResponse.add(buildingConverter.toBuildingResponse(ent));
+        List<BuildingSearchResponse> buildingResponses = new ArrayList<>();
+        for (BuildingEntity ent : buildingEntities) {
+            buildingResponses.add(buildingConverter.toBuildingResponse(ent));
         }
-        return buildingResponse;
+        return buildingResponses;
     }
 
     @Override
     public BuildingDTO findById(Long id) {
         BuildingEntity buildingEntity = buildingRepository.findById(id).get();
-            BuildingDTO buildingDTO = buildingConverter.toBuildingDTO(buildingEntity);
+        BuildingDTO buildingDTO = buildingConverter.toBuildingDTO(buildingEntity);
         return buildingDTO;
     }
 
@@ -75,13 +83,19 @@ public class BuildingServiceImpl implements BuildingService {
             // Xoa dien tich thue cu truoc khi cap nhat
             rentAreaRepository.deleteByBuilding_Id(buildingEntity.getId());
 
+            BuildingEntity buildingEntityOld = buildingRepository.findById(buildingEntity.getId()).get();
+            if (buildingEntityOld.getImage() != null && !buildingEntityOld.getImage().isEmpty()) {
+                buildingEntity.setImage(buildingEntityOld.getImage());
+            }
+
             responseDTO.setMessage("Cập nhật tòa nhà thành công");
-        }
-        else {
+        } else {
             // Toa nha moi thi luu truc tiep
             responseDTO.setMessage("Thêm tòa nhà thành công");
         }
 
+
+        saveThumbnail(buildingDTO, buildingEntity);
         buildingRepository.save(buildingEntity);
         rentAreaRepository.saveAll(buildingEntity.getRentAreaEntities());
 
@@ -124,8 +138,7 @@ public class BuildingServiceImpl implements BuildingService {
             staffResponseDTO.setUserName(staff.getUserName());
             if (assignedStaffs.contains(staff)) {
                 staffResponseDTO.setChecked("checked");
-            }
-            else {
+            } else {
                 staffResponseDTO.setChecked("");
             }
             staffResponseDTOs.add(staffResponseDTO);
@@ -162,7 +175,27 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public int countTotalItems() {
-        return buildingRepository.countTotalItems();
+    public int countTotalItems(BuildingSearchRequest params) {
+        return buildingRepository.countTotalItems(builderConverter.toBuildingSearchBuilder(params));
+    }
+
+    @Override
+    public void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
+        String path = "/building/" + buildingDTO.getImageName();
+        if (null != buildingDTO.getImageBase64()) {
+            if (null != buildingEntity.getImage() && !path.equals(buildingEntity.getImage())) {
+                File oldFile = new File(SystemConstant.IMAGE_PATH + buildingEntity.getImage());
+                oldFile.delete();
+            }
+
+            String base64 = buildingDTO.getImageBase64();
+            if (base64.contains(",")) {
+                base64 = base64.split(",")[1];
+
+                byte[] bytes = Base64.decodeBase64(base64.getBytes(StandardCharsets.UTF_8));
+                uploadFileUtils.writeOrUpdate(path, bytes);
+                buildingEntity.setImage(path);
+            }
+        }
     }
 }

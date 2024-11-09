@@ -14,6 +14,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class BuildingDTO extends AbstractDTO {
+    private Long id;
     @NotBlank(message = "Building name must not be blank")
     private String name; // Tên tòa nhà
     @NotBlank(message = "District must not be blank")
@@ -29,6 +30,7 @@ public class BuildingDTO extends AbstractDTO {
     private String level; // Hạng
     @NotBlank(message = "Rent area must not be blank")
     private String rentArea; // Diện tích thuê
+    @NotNull(message = "Rent price must not be null")
     @Min(value = 0, message = "Rent price must not be negative")
     private Long rentPrice; // Giá thuê
     private String rentPriceDescription; // Mô tả giá
@@ -41,7 +43,9 @@ public class BuildingDTO extends AbstractDTO {
     private String payment; // Thanh toán
     private String rentTime; // Thời hạn thuê
     private String decorationTime; // Thời gian trang trí
+    @NotBlank(message = "Manager name must not be blank")
     private String managerName; // Tên quản lý
+    @NotBlank(message = "Manager phone number must not be blank")
     private String managerPhone; // Số điện thoại quản lý
     private Double brokerageFee; // Phí môi giới
     //    @NotNull(message = "Building type is required")

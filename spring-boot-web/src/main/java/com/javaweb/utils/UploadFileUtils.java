@@ -1,5 +1,6 @@
 package com.javaweb.utils;
 
+import com.javaweb.constant.SystemConstant;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 public class UploadFileUtils {
 
     public void writeOrUpdate(String path, byte[] bytes) {
-        path = "C://home/office" + path;
+        path = SystemConstant.IMAGE_PATH + path;
         File file = new File(StringUtils.substringBeforeLast(path, "/"));
         if (!file.exists()) {
             file.mkdir();

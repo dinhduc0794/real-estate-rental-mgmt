@@ -61,12 +61,20 @@ public class BuildingEntity extends BaseEntity {
     private Integer brokerageFee;
     @Column(name = "type")
     private String typeCode;
+    @Column(name = "note")
+    private String note;
+    @Column(name = "linkofbuilding")
+    private String linkOfBuilding;
+    @Column(name = "map")
+    private String map;
     @Column(name = "avatar")
     private String avatar;
     @Column(name = "managername")
     private String managerName;
     @Column(name = "managerphone")
     private String managerPhone;
+    @Column(name = "image")
+    private String image;
 
     @OneToMany(mappedBy = "building", fetch = FetchType.LAZY)
     private List<RentAreaEntity> rentAreaEntities = new ArrayList<>();

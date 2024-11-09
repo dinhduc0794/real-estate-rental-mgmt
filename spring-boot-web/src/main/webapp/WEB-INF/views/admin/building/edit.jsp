@@ -241,6 +241,21 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-xs-3 no-padding-right">Hình đại diện</label>
+                                <input class="col-xs-2 no-padding-right" type="file" id="uploadImage"/>
+                                <div class="col-xs-7">
+                                    <c:if test="${not empty buildingEdit.image}">
+                                        <c:set var="imagePath" value="/repository${buildingEdit.image}"/>
+                                        <img src="${imagePath}" id="viewImage" width="300px" height="300px" style="">
+                                    </c:if>
+                                    <c:if test="${empty buildingEdit.image}">
+                                        <img src="${pageContext.request.contextPath}/img/default.png" id="viewImage" width="300px" height="300px">
+                                    </c:if>
+                                </div>
+                            </div>
+
+
                             <div class="form-group" style="margin-top: 48px;">
                                 <label class="col-xs-3"></label>
                                 <div class="col-xs-9">
@@ -265,17 +280,47 @@
     </div><!-- /.main-content -->
 
     <script>
+        //Cac ham de xu li anh
+        var imageBase64 = '';
+        var imageName = '';
+
+        $('#uploadImage').change(function (event) {
+            var reader = new FileReader();
+            var file = $(this)[0].files[0];
+            reader.onload = function(e){
+                imageBase64 = e.target.result;
+                imageName = file.name; // ten hinh khong dau, khoang cach. Dat theo format sau: a-b-c
+            };
+            reader.readAsDataURL(file);
+            openImage(this, "viewImage");
+        });
+
+        function openImage(input, imageView) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#' +imageView).attr('src', reader.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
         $("#btnAddOrUpdateBuilding").click(function () {
             var formDataArr = $("#form-edit").serializeArray();
             var json = {};
             var typeCodes = [];
             $.each(formDataArr, function(i, v) {
-                if (v.name == 'typeCodes'){
+                if (v.name === 'typeCodes'){
                     typeCodes.push(v.value);
                 }
                 else
                     json[v.name] = v.value;	// convert v.name toString
+                if ('' !== imageBase64) {
+                    json['imageBase64'] = imageBase64;
+                    json['imageName'] = imageName;
+                }
             });
+
             json['typeCodes'] = typeCodes;
             // if (typeCodes.length ==0) {
             //     alert("Type Code is a not-null field!");

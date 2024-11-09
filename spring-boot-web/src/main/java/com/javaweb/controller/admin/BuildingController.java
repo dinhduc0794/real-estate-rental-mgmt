@@ -39,15 +39,14 @@ public class BuildingController {
         mav.addObject("staffList", userService.mapStaff_IdAndUsername());
 
         //Xuong DB de lay data...
-        BuildingSearchResponse modelSearch = new BuildingSearchResponse();
+        BuildingSearchResponse model = new BuildingSearchResponse();
+        DisplayTagUtils.of(request, model);
 
-        DisplayTagUtils.of(request, modelSearch);
-        List<BuildingSearchResponse> responses = buildingService.findAll(params, PageRequest.of(modelSearch.getPage() - 1, modelSearch.getMaxPageItems()));
-        mav.addObject("buildingList", responses);
+        List<BuildingSearchResponse> responses = buildingService.findAll(params, PageRequest.of(model.getPage() - 1, model.getMaxPageItems()));
+        model.setListResult(responses);
+        model.setTotalItems(buildingService.countTotalItems(params));
 
-        modelSearch.setListResult(responses);
-        modelSearch.setTotalItems(buildingService.countTotalItems());
-        mav.addObject(SystemConstant.MODEL, modelSearch);
+        mav.addObject(SystemConstant.MODEL, model);
 
         return mav;
     }

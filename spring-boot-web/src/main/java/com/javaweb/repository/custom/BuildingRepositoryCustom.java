@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface BuildingRepositoryCustom {
     List<BuildingEntity> findAll(BuildingSearchBuilder builder, Pageable pageable);
-    int countTotalItems();
+    int countTotalItems(BuildingSearchBuilder builder);
 }
