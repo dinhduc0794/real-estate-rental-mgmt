@@ -81,7 +81,8 @@ public class BuildingServiceImpl implements BuildingService {
             }
 
             // Xoa dien tich thue cu truoc khi cap nhat
-            rentAreaRepository.deleteByBuilding_Id(buildingEntity.getId());
+            rentAreaRepository.deleteByBuilding(buildingEntity);
+//            rentAreaRepository.deleteByBuilding_Id(buildingEntity.getId());
 
             BuildingEntity buildingEntityOld = buildingRepository.findById(buildingEntity.getId()).get();
             if (buildingEntityOld.getImage() != null && !buildingEntityOld.getImage().isEmpty()) {
