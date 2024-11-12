@@ -2,14 +2,18 @@ package com.javaweb.service.impl;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.converter.UserConverter;
+import com.javaweb.entity.AssignmentBuildingEntity;
+import com.javaweb.entity.BuildingEntity;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.MyException;
+import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.response.StaffResponseDTO;
+import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
-import com.javaweb.service.IUserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +30,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements com.javaweb.service.UserService {
+    @Autowired
+    private BuildingRepository buildingRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -40,7 +46,33 @@ public class UserService implements IUserService {
     @Autowired
     private UserConverter userConverter;
 
+    @Override
+    public ResponseDTO findStaffsByBuildingId(Long buildingId) {
+        //nho' keo xuong Service de xu li
+        List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
 
+        // lay ra buildingEntity tuong ung voi id -> lay ra 1 list userEntity role Staff dang quan li toa nha hien tai
+        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
+        List<UserEntity> assignedStaffs = buildingEntity.getStaffList();
+
+        List<StaffResponseDTO> staffResponseDTOs = new ArrayList<>();
+        for (UserEntity staff : staffs) {
+            StaffResponseDTO staffResponseDTO = new StaffResponseDTO();
+            staffResponseDTO.setStaffId(staff.getId());
+            staffResponseDTO.setUserName(staff.getUserName());
+            if (assignedStaffs.contains(staff)) {
+                staffResponseDTO.setChecked("checked");
+            } else {
+                staffResponseDTO.setChecked("");
+            }
+            staffResponseDTOs.add(staffResponseDTO);
+        }
+
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setData(staffResponseDTOs);
+        responseDTO.setMessage("success");
+        return responseDTO;
+    }
 
     @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {

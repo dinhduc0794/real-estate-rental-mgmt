@@ -76,9 +76,17 @@ public class BuildingEntity extends BaseEntity {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY)
+    // mappedBy: chi ra field building trong rentarea
+    // cascadeType.PERSIST: khi save building thi save luon cac rentarea lien quan
+    // cascadeType.MERGE: khi update building thi update luon cac rentarea lien quan
+    // cascadeType.REMOVE: khi xoa building thi xoa luon cac rentarea lien quan (co tac dung khi xoa cha)
+    // orphanRemoval = true: khi remove 1 rentareaentity trong list thi JPA sẽ tự động xóa rentareaentity đó khỏi db -> co tac dung khi xoa con (nguoc lai)
+    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<RentAreaEntity> rentAreaEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy="building", fetch = FetchType.LAZY)
-    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "assignmentbuilding",
+            joinColumns = @JoinColumn(name = "buildingid", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "staffid", nullable = false))
+    private List<UserEntity> staffList = new ArrayList<>();
 }

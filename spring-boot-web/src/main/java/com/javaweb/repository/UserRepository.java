@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> , UserRepositoryCustom {
+    List<UserEntity> findByBuildingList_Id(Long buildingId);
     UserEntity findOneByUserNameAndStatus(String name, int status);
     List<UserEntity> findByStatusAndRoles_Code(Integer status, String roleCode);
     Page<UserEntity> findByUserNameContainingIgnoreCaseOrFullNameContainingIgnoreCaseAndStatusNot(String userName, String fullName, int status, Pageable pageable);

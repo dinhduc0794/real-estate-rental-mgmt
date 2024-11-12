@@ -1,23 +1,18 @@
 package com.javaweb.api.admin;
 
-import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.ResponseDTO;
-import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.service.BuildingService;
-import com.javaweb.service.IUserService;
+import com.javaweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping(("/api/buildings"))
 public class BuildingAPI {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private BuildingService buildingService;
 
@@ -58,7 +53,7 @@ public class BuildingAPI {
 
     @GetMapping("/{id}/staffs")
     private ResponseDTO loadStaffs(@PathVariable Long id) {
-        ResponseDTO responseDTO = buildingService.findStaffsByBuildingId(id);
+        ResponseDTO responseDTO = userService.findStaffsByBuildingId(id);
         return responseDTO;
     }
 

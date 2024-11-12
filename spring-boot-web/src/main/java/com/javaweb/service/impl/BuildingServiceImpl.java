@@ -74,16 +74,6 @@ public class BuildingServiceImpl implements BuildingService {
         BuildingEntity buildingEntity = buildingConverter.toBuildingEntity(buildingDTO);
 
         if (buildingEntity.getId() != null) {
-            // Cap nhat toa nha da ton tai
-            List<AssignmentBuildingEntity> assignmentBuildingEntities = buildingEntity.getAssignmentBuildingEntities();
-            for (AssignmentBuildingEntity assignmentBuildingEntity : assignmentBuildingEntities) {
-                assignmentBuildingEntity.setBuilding(buildingEntity);
-            }
-
-            // Xoa dien tich thue cu truoc khi cap nhat
-            rentAreaRepository.deleteByBuilding(buildingEntity);
-//            rentAreaRepository.deleteByBuilding_Id(buildingEntity.getId());
-
             BuildingEntity buildingEntityOld = buildingRepository.findById(buildingEntity.getId()).get();
             if (buildingEntityOld.getImage() != null && !buildingEntityOld.getImage().isEmpty()) {
                 buildingEntity.setImage(buildingEntityOld.getImage());
@@ -95,19 +85,18 @@ public class BuildingServiceImpl implements BuildingService {
             responseDTO.setMessage("Thêm tòa nhà thành công");
         }
 
-
         saveThumbnail(buildingDTO, buildingEntity);
         buildingRepository.save(buildingEntity);
-        rentAreaRepository.saveAll(buildingEntity.getRentAreaEntities());
 
         return responseDTO;
     }
 
     @Override
     public ResponseDTO deleteBuildings(List<Long> buildingIds) {
-        // Xoa tat ca giao toa nha de tranh bi loi khoa ngoai (ko the xoa sau khi giao toa nha)
-        assignmentBuildingRepository.deleteByBuilding_IdIn(buildingIds);
-        rentAreaRepository.deleteByBuilding_IdIn(buildingIds);
+        // Khi chua su dung cascade, muon xoa building thi phai xoa building trong bang rentarea va assignmentbuilding truoc
+        // vi 2 bang nay co tham chieu den building theo quan he 1-n (1 building co nhieu rentarea va assignmentbuilding)
+//        assignmentBuildingRepository.deleteByBuilding_IdIn(buildingIds);
+//        rentAreaRepository.deleteByBuilding_IdIn(buildingIds);
 
         // Xoa toa nha
         buildingRepository.deleteAllByIdIn(buildingIds);
@@ -117,58 +106,15 @@ public class BuildingServiceImpl implements BuildingService {
         return responseDTO;
     }
 
-
-    @Override
-    public ResponseDTO findStaffsByBuildingId(Long id) {
-        //nho' keo xuong Service de xu li
-        List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
-
-        // lay ra buildingEntity tuong ung voi id -> lay ra 1 list userEntity role Staff dang quan li toa nha hien tai
-        BuildingEntity buildingEntity = buildingRepository.findById(id).get();
-        List<AssignmentBuildingEntity> assignmentBuildingEntities = buildingEntity.getAssignmentBuildingEntities();
-
-        List<UserEntity> assignedStaffs = new ArrayList<>();
-        for (AssignmentBuildingEntity assignmentBuildingEntity : assignmentBuildingEntities) {
-            assignedStaffs.add(assignmentBuildingEntity.getStaff());
-        }
-
-        List<StaffResponseDTO> staffResponseDTOs = new ArrayList<>();
-        for (UserEntity staff : staffs) {
-            StaffResponseDTO staffResponseDTO = new StaffResponseDTO();
-            staffResponseDTO.setStaffId(staff.getId());
-            staffResponseDTO.setUserName(staff.getUserName());
-            if (assignedStaffs.contains(staff)) {
-                staffResponseDTO.setChecked("checked");
-            } else {
-                staffResponseDTO.setChecked("");
-            }
-            staffResponseDTOs.add(staffResponseDTO);
-        }
-
-        ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setData(staffResponseDTOs);
-        responseDTO.setMessage("success");
-        return responseDTO;
-    }
-
     @Override
     public ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO) {
         Long buildingId = assignmentBuildingDTO.getBuildingId();
         BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
 
-        // Xoá danh sách giao tòa nhà cũ
-        assignmentBuildingRepository.deleteByBuildingId(buildingId);
+        List<UserEntity> assignedStaffs = userRepository.findByIdIn(assignmentBuildingDTO.getStaffIds());
+        buildingEntity.setStaffList(assignedStaffs);
 
-        List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-        List<UserEntity> staffs = userRepository.findByIdIn(assignmentBuildingDTO.getStaffIds());
-        for (UserEntity staff : staffs) {
-            AssignmentBuildingEntity assignmentBuildingEntity = new AssignmentBuildingEntity();
-            assignmentBuildingEntity.setBuilding(buildingEntity);
-            assignmentBuildingEntity.setStaff(staff);
-            assignmentBuildingEntities.add(assignmentBuildingEntity);
-        }
-
-        assignmentBuildingRepository.saveAll(assignmentBuildingEntities);
+        buildingRepository.save(buildingEntity);
 
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Giao tòa nhà cho nhân viên thành công");

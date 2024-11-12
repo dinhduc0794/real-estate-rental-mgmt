@@ -16,7 +16,7 @@ public interface BuildingService {
     ResponseDTO createOrUpdate(BuildingDTO buildingDTO);
     ResponseDTO deleteBuildings(List<Long> buildingIds);
     ResponseDTO updateAssignmentModal(AssignmentBuildingDTO assignmentBuildingDTO);
-    ResponseDTO findStaffsByBuildingId(Long id);
+//    ResponseDTO findStaffsByBuildingId(Long id);
     int countTotalItems(BuildingSearchRequest params);
     void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity);
 }
