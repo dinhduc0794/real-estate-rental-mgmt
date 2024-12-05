@@ -70,6 +70,14 @@
 									<span style="color: var(--primary-color);">Liên hệ</span>
 							</a>
 						</div>
+						<security:authorize access="hasAnyRole('MANAGER', 'STAFF')">
+							<div class="nav-item p-2">
+								<a href='/admin/home'>
+										<%--<span>Liên hệ</span>--%>
+									<span style="color: var(--primary-color);">Quản trị</span>
+								</a>
+							</div>
+						</security:authorize>
 					</div>
 				</div>
 			</div>

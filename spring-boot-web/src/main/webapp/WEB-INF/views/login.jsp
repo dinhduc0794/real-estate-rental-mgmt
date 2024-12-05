@@ -19,7 +19,7 @@
 				</c:if>
 				<c:if test="${param.accessDenied != null}">
 					<div class="login-alert alert alert-danger">
-							You Not authorize
+						You are not authorized to access this page
 					</div>
 				</c:if>
 				<c:if test="${param.sessionTimeout != null}">

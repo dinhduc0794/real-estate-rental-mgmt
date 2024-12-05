@@ -9,6 +9,7 @@ import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
+import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
@@ -66,6 +67,17 @@ public class BuildingServiceImpl implements BuildingService {
         BuildingEntity buildingEntity = buildingRepository.findById(id).get();
         BuildingDTO buildingDTO = buildingConverter.toBuildingDTO(buildingEntity);
         return buildingDTO;
+    }
+
+    @Override
+    public boolean isStaffOfBuilding(Long staffId, Long buildingId) {
+        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
+        UserEntity staff = userRepository.findById(staffId).get();
+        if (buildingEntity.getStaffList().contains(staff)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

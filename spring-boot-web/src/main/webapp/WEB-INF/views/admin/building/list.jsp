@@ -182,22 +182,24 @@
                                                         <form:input class="form-control" path="managerPhone" placeholder="Nhập số điện thoại quản lí..."/>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4">
-                                                    <div>
-                                                        <label>Nhân viên phụ trách</label>
-                                                        <form:select path="staffId" class="form-control">
-                                                            <form:option value="" label="---Chọn nhân viên---"/>
-                                                            <form:options items="${staffList}"/>
-                                                        </form:select>
-<%--                                                        <select name="staffId" class="form-control">--%>
-<%--                                                            <option value="">---Chọn nhân viên---</option>--%>
-<%--                                                            <option value="">Nguyễn Văn A</option>--%>
-<%--                                                            <option value="">Trần Minh B</option>--%>
-<%--                                                            <option value="">Nguyễn Thị C</option>--%>
-<%--                                                            <option value="">Đỗ Văn D</option>--%>
-<%--                                                        </select>--%>
+                                                <security:authorize access="hasRole('MANAGER')">
+                                                    <div class="col-xs-4">
+                                                        <div>
+                                                            <label>Nhân viên phụ trách</label>
+                                                            <form:select path="staffId" class="form-control">
+                                                                <form:option value="" label="---Chọn nhân viên---"/>
+                                                                <form:options items="${staffList}"/>
+                                                            </form:select>
+                                                                <%--                                                        <select name="staffId" class="form-control">--%>
+                                                                <%--                                                            <option value="">---Chọn nhân viên---</option>--%>
+                                                                <%--                                                            <option value="">Nguyễn Văn A</option>--%>
+                                                                <%--                                                            <option value="">Trần Minh B</option>--%>
+                                                                <%--                                                            <option value="">Nguyễn Thị C</option>--%>
+                                                                <%--                                                            <option value="">Đỗ Văn D</option>--%>
+                                                                <%--                                                        </select>--%>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </security:authorize>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -228,7 +230,12 @@
                                                     <i class="ace-icon glyphicon glyphicon-search"></i>
                                                     Tìm kiếm
                                                 </button>
+                                                <button type="button" class="btn btn-danger" id="clearForm" style="padding: 8px">
+                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                    Hoàn tác
+                                                </button>
                                             </div>
+
                                         </div>
                                     </form:form>
                                 </div>
@@ -249,15 +256,17 @@
                                     </svg>
                                 </button>
                             </a>
-                            <button class="btn btn-app btn-danger btn-sm" title="Xóa tòa nhà" id="btnDeleteBuildings">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-building-fill-x" viewBox="0 0 16 16">
-                                    <path
-                                            d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-3.59 1.787A.5.5 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.5 4.5 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z" />
-                                    <path
-                                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708" />
-                                </svg>
-                            </button>
+                            <security:authorize access="hasRole('MANAGER')">
+                                <button class="btn btn-app btn-danger btn-sm" title="Xóa tòa nhà" id="btnDeleteBuildings">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-building-fill-x" viewBox="0 0 16 16">
+                                        <path
+                                                d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-3.59 1.787A.5.5 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.5 4.5 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z" />
+                                        <path
+                                                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708" />
+                                    </svg>
+                                </button>
+                            </security:authorize>
                         </div>
                     </div>
                 </div>
@@ -363,13 +372,16 @@
                         <display:column property="emptyArea" title="Diện tích trống" headerClass="center"/>
                         <display:column property="rentArea" title="Diện tích thuê" headerClass="center"/>
                         <display:column property="rentPrice" title="Giá thuê" headerClass="center"/>
+                        <display:column property="serviceFee" title="Phí dịch vụ" headerClass="center"/>
                         <display:column property="brokerageFee" title="Phí môi giới" headerClass="center"/>
-                        <display:column title="Thao tác" headerClass="center">
+                        <display:column title="Thao tác" headerClass="center" style="width: 8%;">
                             <div class="hidden-sm hidden-xs center" style="font-size: 4px">
-                                <button class="btn btn-xs btn-success" title="Giao tòa nhà này" type="button" style="margin: 0 1px"
-                                        onclick="assignBuilding(${tableList.id})">
-                                    <i class="ace-icon fa fa-key bigger-120"></i>
-                                </button>
+                                <security:authorize access="hasRole('MANAGER')">
+                                    <button class="btn btn-xs btn-success" title="Giao tòa nhà này" type="button" style="margin: 0 1px"
+                                            onclick="assignBuilding(${tableList.id})">
+                                        <i class="ace-icon fa fa-key bigger-120"></i>
+                                    </button>
+                                </security:authorize>
 
                                 <a href="/admin/building-edit-${tableList.id}">
                                     <button class="btn btn-xs btn-info" title="Sửa tòa nhà này" type="button" style="margin: 0 1px">
@@ -377,9 +389,11 @@
                                     </button>
                                 </a>
 
-                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà này" onclick="deleteOneBuilding(${tableList.id})" type="button" style="margin: 0 1px">
-                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                </button>
+                                <security:authorize access="hasRole('MANAGER')">
+                                    <button class="btn btn-xs btn-danger" title="Xóa tòa nhà này" onclick="deleteOneBuilding(${tableList.id})" type="button" style="margin: 0 1px">
+                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                    </button>
+                                </security:authorize>
                             </div>
 
                         </display:column>
@@ -438,6 +452,23 @@
 </div>
 
 <script>
+    // Xoa toan bo noi dung form
+    document.getElementById('clearForm').addEventListener('click', function () {
+        // Lấy tất cả các input và select trong form
+        const inputs = document.querySelectorAll('#listForm input, #listForm select');
+
+        // Xóa giá trị của các input và select
+        inputs.forEach(input => {
+            if (input.type === 'text' || input.type === 'number') {
+                input.value = '';
+            } else if (input.tagName === 'SELECT') {
+                input.selectedIndex = 0;
+            }
+        });
+    });
+
+
+    // Check all checkboxes in table
     document.addEventListener("DOMContentLoaded", function() {
         const mainCheckbox = document.querySelector("#tableList thead input[type='checkbox']");
         const bodyCheckboxes = document.querySelectorAll("#tableList tbody input[type='checkbox']");

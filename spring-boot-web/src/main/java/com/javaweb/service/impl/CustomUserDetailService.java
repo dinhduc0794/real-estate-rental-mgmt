@@ -24,16 +24,18 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        UserDTO userDTO = userService.findOneByUserNameAndStatus(name, 1);
+        UserDTO userDTO = userService.findOneByUserNameAndStatus(name, 1);  //kiem tra xem co ton tai username hay khong
         if(userDTO == null){
-            throw new UsernameNotFoundException("Username not found");
+            throw new UsernameNotFoundException("Username not found");  //neu khong ton tai thi throw exception
         }
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        //neu ton tai thi lay ra danh sach cac role cua user do
+        List<GrantedAuthority> authorities = new ArrayList<>(); //tao ra danh sach cac quyen cua user
         for(RoleDTO role: userDTO.getRoles()){
-            authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getCode()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getCode()));    //ROLE_{STAFF} la quy dinh cua Spring Security 4 tro len
         }
-        MyUserDetail myUserDetail = new MyUserDetail(name,userDTO.getPassword(),true,true,true,true,authorities);
-        BeanUtils.copyProperties(userDTO, myUserDetail);
+            MyUserDetail myUserDetail = new MyUserDetail(name,userDTO.getPassword(),true,true,true,true,authorities);
+
+        BeanUtils.copyProperties(userDTO, myUserDetail);    //copy cac thuoc tinh tu userDTO sang myUserDetail (id, fullName) de su dung o cac controller khac
         return myUserDetail;
     }
 }

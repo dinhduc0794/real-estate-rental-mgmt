@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SecurityUtils {
-
+    // Lấy thông tin user hiện tại
     public static MyUserDetail getPrincipal() {
         return (MyUserDetail) (SecurityContextHolder
-                .getContext()).getAuthentication().getPrincipal();
+                .getContext()).getAuthentication().getPrincipal();  //tra ve day dy thong tin user dang dang nhap
     }
 
+    // lay danh sach role cua user hien tai
     public static List<String> getAuthorities() {
         List<String> results = new ArrayList<>();
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) (SecurityContextHolder.getContext().getAuthentication().getAuthorities());
@@ -23,3 +24,4 @@ public class SecurityUtils {
         return results;
     }
 }
+
