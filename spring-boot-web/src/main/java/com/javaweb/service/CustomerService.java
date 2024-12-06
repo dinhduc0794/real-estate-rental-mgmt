@@ -13,5 +13,5 @@ public interface CustomerService {
     List<CustomerDTO> findAll(CustomerSearchRequest params, Pageable pageable);
     int countTotalItems(CustomerSearchRequest params);
     boolean isStaffOfCustomer(Long staffId, Long customerId);
-    CustomerDTO findByIdAndIsActive(Long id, Boolean isActive);
+    CustomerDTO findByIdAndIsActive(Long id, Integer isActive);
 }
