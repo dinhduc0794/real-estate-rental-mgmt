@@ -16,6 +16,7 @@ import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.CustomerService;
 import com.javaweb.service.TransactionService;
 import com.javaweb.service.UserService;
+import com.javaweb.utils.DisplayTagUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Transactional
 @RestController(value = "customersControllerOfAdmin")
 public class CustomerController {
     @Autowired
@@ -36,26 +36,26 @@ public class CustomerController {
     private TransactionService transactionService;
 
     @GetMapping(value = "/admin/customer-list")
-    public ModelAndView getNews(@ModelAttribute(SystemConstant.MODEL) CustomerSearchRequest params, HttpServletRequest request) {
+    public ModelAndView getNews(@ModelAttribute(name = "modelSearch") CustomerSearchRequest params,
+                                HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/customer/list");
+        mav.addObject("statusCode", StatusEnum.type());
+        mav.addObject("staffList", userService.mapStaff_IdAndUsername());
+
+
+        CustomerDTO model = new CustomerDTO();
+        DisplayTagUtils.of(request, model);
 
         // Neu la staff thi chi xem duoc khach hang cua minh quan ly
         if(SecurityUtils.getAuthorities().contains("ROLE_STAFF")){
             params.setStaffId(SecurityUtils.getPrincipal().getId());
         }
 
-        CustomerDTO model = new CustomerDTO();
         List<CustomerDTO> customerDTOS = customerService.findAll(params, PageRequest.of(model.getPage() - 1, model.getMaxPageItems()));
-
         model.setListResult(customerDTOS);
-        model.setMaxPageItems(5);
         model.setTotalItem(customerService.countTotalItems(params));
 
-        mav.addObject("modelSearch", params);
-        mav.addObject("model", model);
-        mav.addObject("customerList", customerDTOS);
-        mav.addObject("statusCode", StatusEnum.type());
-        mav.addObject("staffList", userService.mapStaff_IdAndUsername());
+        mav.addObject(SystemConstant.MODEL, model);
         return mav;
     }
 

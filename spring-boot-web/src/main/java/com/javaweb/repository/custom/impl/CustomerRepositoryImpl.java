@@ -67,7 +67,6 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     public int countTotalItems(CustomerSearchRequest params) {
         StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM customer c");
 
-        // Áp dụng các điều kiện tìm kiếm trong câu lệnh COUNT
         handleJoinTable(params, sql);
         handleWhereCondition(params, sql);
 

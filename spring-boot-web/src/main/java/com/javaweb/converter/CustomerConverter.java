@@ -10,8 +10,14 @@ import org.springframework.stereotype.Component;
 public class CustomerConverter {
     @Autowired
     private ModelMapper modelMapper;
+
     public CustomerDTO toCustomerDTO(CustomerEntity customerEntity){
         CustomerDTO customerDTO = modelMapper.map(customerEntity, CustomerDTO.class);
         return customerDTO;
+    }
+
+    public CustomerEntity toCustomerEntity(CustomerDTO customerDTO){
+        CustomerEntity customerEntity = modelMapper.map(customerDTO, CustomerEntity.class);
+        return customerEntity;
     }
 }

@@ -2,16 +2,14 @@ package com.javaweb.service.impl;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.converter.UserConverter;
-import com.javaweb.entity.AssignmentBuildingEntity;
-import com.javaweb.entity.BuildingEntity;
+import com.javaweb.entity.*;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.entity.RoleEntity;
-import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.MyException;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.CustomerRepository;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
 import org.apache.commons.lang.StringUtils;
@@ -41,6 +39,9 @@ public class UserServiceImpl implements com.javaweb.service.UserService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -54,6 +55,34 @@ public class UserServiceImpl implements com.javaweb.service.UserService {
         // lay ra buildingEntity tuong ung voi id -> lay ra 1 list userEntity role Staff dang quan li toa nha hien tai
         BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
         List<UserEntity> assignedStaffs = buildingEntity.getStaffList();
+
+        List<StaffResponseDTO> staffResponseDTOs = new ArrayList<>();
+        for (UserEntity staff : staffs) {
+            StaffResponseDTO staffResponseDTO = new StaffResponseDTO();
+            staffResponseDTO.setStaffId(staff.getId());
+            staffResponseDTO.setUserName(staff.getUserName());
+            if (assignedStaffs.contains(staff)) {
+                staffResponseDTO.setChecked("checked");
+            } else {
+                staffResponseDTO.setChecked("");
+            }
+            staffResponseDTOs.add(staffResponseDTO);
+        }
+
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setData(staffResponseDTOs);
+        responseDTO.setMessage("success");
+        return responseDTO;
+    }
+
+    @Override
+    public ResponseDTO findStaffsByCustomerId(Long customerId) {
+        //nho' keo xuong Service de xu li
+        List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+
+        // lay ra buildingEntity tuong ung voi id -> lay ra 1 list userEntity role Staff dang quan li toa nha hien tai
+        CustomerEntity customerEntity = customerRepository.findById(customerId).get();
+        List<UserEntity> assignedStaffs = customerEntity.getStaffList();
 
         List<StaffResponseDTO> staffResponseDTOs = new ArrayList<>();
         for (UserEntity staff : staffs) {

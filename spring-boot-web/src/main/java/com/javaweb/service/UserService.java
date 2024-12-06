@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface UserService {
     ResponseDTO findStaffsByBuildingId(Long buildingId);
-
+    ResponseDTO findStaffsByCustomerId(Long customerId);
     UserDTO findOneByUserNameAndStatus(String name, int status);
     List<UserDTO> getUsers(String searchValue, Pageable pageable);
     int getTotalItems(String searchValue);
