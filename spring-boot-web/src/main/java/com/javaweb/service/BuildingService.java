@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface BuildingService {
-    boolean isStaffOfBuilding(Long staffId, Long buildingId);
     List<BuildingSearchResponse> findAll(BuildingSearchRequest params, Pageable pageable);
     BuildingDTO findById(Long id);
     ResponseDTO createOrUpdate(BuildingDTO buildingDTO);
@@ -20,4 +19,5 @@ public interface BuildingService {
 //    ResponseDTO findStaffsByBuildingId(Long id);
     int countTotalItems(BuildingSearchRequest params);
     void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity);
+    boolean isStaffOfBuilding(Long staffId, Long buildingId);
 }

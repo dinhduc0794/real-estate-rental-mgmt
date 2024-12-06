@@ -70,17 +70,6 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public boolean isStaffOfBuilding(Long staffId, Long buildingId) {
-        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
-        UserEntity staff = userRepository.findById(staffId).get();
-        if (buildingEntity.getStaffList().contains(staff)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
     public ResponseDTO createOrUpdate(BuildingDTO buildingDTO) {
         ResponseDTO responseDTO = new ResponseDTO();
         BuildingEntity buildingEntity = buildingConverter.toBuildingEntity(buildingDTO);
@@ -155,6 +144,17 @@ public class BuildingServiceImpl implements BuildingService {
                 uploadFileUtils.writeOrUpdate(path, bytes);
                 buildingEntity.setImage(path);
             }
+        }
+    }
+
+    @Override
+    public boolean isStaffOfBuilding(Long staffId, Long buildingId) {
+        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
+        UserEntity staff = userRepository.findById(staffId).get();
+        if (buildingEntity.getStaffList().contains(staff)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

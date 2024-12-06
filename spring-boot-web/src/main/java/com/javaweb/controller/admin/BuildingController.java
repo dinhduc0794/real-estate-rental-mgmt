@@ -55,7 +55,7 @@ public class BuildingController {
     }
 
     @GetMapping("/admin/building-edit")
-    private ModelAndView buildingEdit(@ModelAttribute(name="buildingEdit") BuildingDTO buildingDTO){
+    private ModelAndView addBuilding(@ModelAttribute(name="buildingEdit") BuildingDTO buildingDTO){
         ModelAndView mav = new ModelAndView("admin/building/edit");
         mav.addObject("buildingEdit", buildingDTO);
         mav.addObject("district", DistrictCode.type());    //"QUAN_1" "Quận 1"
@@ -64,7 +64,7 @@ public class BuildingController {
     }
 
     @GetMapping("/admin/building-edit-{id}")
-    private ModelAndView buildingEdit(@PathVariable Long id){
+    private ModelAndView updateBuilding(@PathVariable Long id){
         ModelAndView mav = new ModelAndView("admin/building/edit");
 
         // Neu la staff thi chi xem duoc toa nha cua minh quan ly

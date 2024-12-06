@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
-        @PersistenceContext
-        private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageable pageable) {
