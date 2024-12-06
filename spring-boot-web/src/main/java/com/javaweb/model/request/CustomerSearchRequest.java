@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CustomerSearchRequest{
     private String fullname;
-    private String phoneNumber;
+    private String phone;
     private String email;
     private Long staffId;
 }

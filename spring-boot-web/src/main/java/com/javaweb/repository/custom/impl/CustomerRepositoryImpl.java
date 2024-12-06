@@ -25,7 +25,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         handleJoinTable(params, sql);
         handleWhereCondition(params, sql);
 
-        sql.append(" GROUP BY b.id");	//handle duplicate
+        sql.append(" GROUP BY c.id");	//handle duplicate
         sql.append(" LIMIT ").append(pageable.getPageSize()).append(" OFFSET ").append(pageable.getOffset());
 
         Query query = entityManager.createNativeQuery(sql.toString(), CustomerEntity.class);

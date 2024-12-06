@@ -44,14 +44,14 @@
                                 <h4 class="widget-title">Tìm kiếm tòa nhà</h4>
 
                                 <span class="widget-toolbar">
-										<a href="#" data-action="reload" class="white">
-											<i class="ace-icon fa fa-refresh"></i>
-										</a>
+                                    <a href="#" data-action="reload" class="white">
+                                        <i class="ace-icon fa fa-refresh"></i>
+                                    </a>
 
-										<a href="#" data-action="collapse" class="white">
-											<i class="ace-icon fa fa-chevron-up"></i>
-										</a>
-									</span>
+                                    <a href="#" data-action="collapse" class="white">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </span>
                             </div>
 
                             <div class="widget-body">
