@@ -1,15 +1,12 @@
 package com.javaweb.service.impl;
 
-import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.converter.CustomerConverter;
-import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.dto.AssignmentBuildingDTO;
+import com.javaweb.exception.DataNotFoundException;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
-import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.repository.CustomerRepository;
 import com.javaweb.repository.UserRepository;
@@ -100,6 +97,8 @@ public class CustomerServiceImpl implements CustomerService {
         return responseDTO;
     }
 
+
+
     @Override
     public ResponseDTO updateAssignmentModal(AssignmentCustomerDTO assignmentCustomerDTO) {
         Long customerId = assignmentCustomerDTO.getCustomerId();
@@ -113,5 +112,20 @@ public class CustomerServiceImpl implements CustomerService {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Giao khách hàng cho nhân viên thành công");
         return responseDTO;
+    }
+
+    @Override
+    public void deleteCustomerByIds(List<Long> ids) throws Exception {
+        List<CustomerEntity> customerEntities = customerRepository.findByIdIn(ids);
+
+        if (customerEntities.size() > 0 && customerEntities != null) {
+            for (CustomerEntity customerEntity : customerEntities) {
+                customerEntity.setIsActive(0);
+            }
+            customerRepository.saveAll(customerEntities);
+        }
+        else {
+            throw new DataNotFoundException("Not found any customer by ids");
+        }
     }
 }

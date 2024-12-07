@@ -2,7 +2,7 @@ package com.javaweb.service;
 
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.exception.MyException;
+import com.javaweb.exception.DataNotFoundException;
 import com.javaweb.model.response.ResponseDTO;
 import org.springframework.data.domain.Pageable;
 
@@ -19,7 +19,7 @@ public interface UserService {
     UserDTO findUserById(long id);
     UserDTO insert(UserDTO userDTO);
     UserDTO update(Long id, UserDTO userDTO);
-    void updatePassword(long id, PasswordDTO userDTO) throws MyException;
+    void updatePassword(long id, PasswordDTO userDTO) throws DataNotFoundException;
     UserDTO resetPassword(long id);
     UserDTO updateProfileOfUser(String id, UserDTO userDTO);
     void delete(long[] ids);

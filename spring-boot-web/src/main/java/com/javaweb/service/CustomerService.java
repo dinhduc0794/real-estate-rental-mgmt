@@ -20,4 +20,5 @@ public interface CustomerService {
     CustomerDTO findByIdAndIsActive(Long id, Integer isActive);
     ResponseDTO turnOffIsActive(List<Long> ids);
     ResponseDTO updateAssignmentModal(AssignmentCustomerDTO assignmentCustomerDTO);
+    void deleteCustomerByIds(List<Long> ids) throws Exception;
 }

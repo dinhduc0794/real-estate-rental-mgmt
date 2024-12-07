@@ -36,7 +36,7 @@ public class CustomerController {
     private TransactionService transactionService;
 
     @GetMapping(value = "/admin/customer-list")
-    public ModelAndView getNews(@ModelAttribute(name = "modelSearch") CustomerSearchRequest params,
+    public ModelAndView getCustomers(@ModelAttribute(name = "modelSearch") CustomerSearchRequest params,
                                 HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/customer/list");
         mav.addObject("statusCode", StatusEnum.type());

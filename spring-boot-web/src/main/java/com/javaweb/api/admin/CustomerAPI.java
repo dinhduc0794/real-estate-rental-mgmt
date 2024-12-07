@@ -56,6 +56,27 @@ public class CustomerAPI {
         return customerService.turnOffIsActive(ids);
     }
 
+    @DeleteMapping("/{ids}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable List<Long> ids){
+        ResponseDTO responseDTO = new ResponseDTO();
+        try{
+            if (ids.size() == 0){
+                responseDTO.setMessage("No customers to be deleted");
+                return ResponseEntity.badRequest().body(responseDTO);
+            }
+
+            else {
+                customerService.deleteCustomerByIds(ids);
+                return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+            }
+        }
+        catch (Exception e){
+            responseDTO.setMessage("Internal server error");
+            responseDTO.setDetail(Collections.singletonList(e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDTO);
+        }
+    }
+
     @GetMapping("/{id}/staffs")
     private ResponseDTO loadStaffs(@PathVariable Long id) {
         ResponseDTO responseDTO = userService.findStaffsByCustomerId(id);

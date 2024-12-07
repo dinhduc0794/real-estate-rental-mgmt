@@ -356,9 +356,8 @@
                 else{
                     localStorage.setItem('formData', JSON.stringify(data));
                     var formData = localStorage.getItem('formData');
-                    customAlert("Vui lòng điền đầy đủ thông tin", function() {
-                        window.location.href = "<c:url value='/admin/customer-edit'/>?formDataSent=true";
-                    });
+                    alert("Vui lòng điền đầy đủ thông tin");
+                    window.location.href = "<c:url value='/admin/customer-edit'/>?formDataSent=true";
                 }
             });
             if(formDataSent){
@@ -369,19 +368,13 @@
                         $('[name="' + key + '"]').val(value);
                         if (value === "") {
                             if(key === "fullname"){
-                                var inputField = $('#fullname'); // Chọn trường input
-                                var errorSpan = $('<span class="input-error">Tên khách hàng không được để trống</span>'); // Tạo phần tử span chứa thông báo lỗi
-                                inputField.after(errorSpan);
+                                $('#fullname').after('<span style="color: red">Tên khách hàng không được để trống</span>');
                             }
                             else if(key === "phone"){
-                                var inputField = $('#phone');
-                                var errorSpan = $('<span class="input-error">Số điện thoại khách hàng không được để trống</span>');
-                                inputField.after(errorSpan);
+                                $('#phone').after('<span style="color: red">Số điện thoại khách hàng không được để trống</span>');
                             }
                             else if(key === "email"){
-                                var inputField = $('#email');
-                                var errorSpan = $('<span class="input-error">Email khách hàng không được để trống</span>');
-                                inputField.after(errorSpan);
+                                $('#email').after('<span style="color: red">Email khách hàng không được để trống</span>');
                             }
                         }
                     });

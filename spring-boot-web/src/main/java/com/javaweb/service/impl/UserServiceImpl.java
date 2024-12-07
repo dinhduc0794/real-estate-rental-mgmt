@@ -5,7 +5,7 @@ import com.javaweb.converter.UserConverter;
 import com.javaweb.entity.*;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
-import com.javaweb.exception.MyException;
+import com.javaweb.exception.DataNotFoundException;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
@@ -202,14 +202,14 @@ public class UserServiceImpl implements com.javaweb.service.UserService {
 
     @Override
     @Transactional
-    public void updatePassword(long id, PasswordDTO passwordDTO) throws MyException {
+    public void updatePassword(long id, PasswordDTO passwordDTO) throws DataNotFoundException {
         UserEntity user = userRepository.findById(id).get();
         if (passwordEncoder.matches(passwordDTO.getOldPassword(), user.getPassword())
                 && passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
             user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
             userRepository.save(user);
         } else {
-            throw new MyException(SystemConstant.CHANGE_PASSWORD_FAIL);
+            throw new DataNotFoundException(SystemConstant.CHANGE_PASSWORD_FAIL);
         }
     }
 
