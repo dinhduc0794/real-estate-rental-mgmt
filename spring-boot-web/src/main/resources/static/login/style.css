@@ -1,4 +1,5 @@
-body#LoginForm {
+body#LoginForm,
+body#RegisterForm{
 	background-image:
 		url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg");
 	background-repeat: no-repeat;
@@ -25,7 +26,8 @@ body#LoginForm {
 	line-height: 24px;
 }
 
-.login-form .form-control {
+.login-form .form-control,
+.register-form .form-control {
 	background: #f7f7f7 none repeat scroll 0 0;
 	border: 1px solid #d4d4d4;
 	border-radius: 4px;
@@ -42,7 +44,8 @@ body#LoginForm {
 	padding: 50px 70px 70px 71px;
 }
 
-.login-form .form-group {
+.login-form .form-group ,
+.register-form .form-group {
 	margin-bottom: 10px;
 }
 
@@ -56,7 +59,8 @@ body#LoginForm {
 	text-decoration: underline;
 }
 
-.login-form  .btn.btn-primary {
+.login-form  .btn.btn-primary,
+.register-form .btn.btn-primary {
 	background: #f0ad4e none repeat scroll 0 0;
 	border-color: #f0ad4e;
 	color: #ffffff;
@@ -78,7 +82,8 @@ body#LoginForm {
 	margin: auto;
 }
 
-.login-form .btn.btn-primary.reset {
+.login-form .btn.btn-primary.reset
+.register-form .btn.btn-primary.reset {
 	background: #ff9900 none repeat scroll 0 0;
 }
 
