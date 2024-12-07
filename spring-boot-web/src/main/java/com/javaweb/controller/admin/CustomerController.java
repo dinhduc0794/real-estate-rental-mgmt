@@ -53,7 +53,7 @@ public class CustomerController {
 
         List<CustomerDTO> customerDTOS = customerService.findAll(params, PageRequest.of(model.getPage() - 1, model.getMaxPageItems()));
         model.setListResult(customerDTOS);
-        model.setTotalItem(customerService.countTotalItems(params));
+        model.setTotalItems(customerService.countTotalItems(params));
 
         mav.addObject(SystemConstant.MODEL, model);
         return mav;

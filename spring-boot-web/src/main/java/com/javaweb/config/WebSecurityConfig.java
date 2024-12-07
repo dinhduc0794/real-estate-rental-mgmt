@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers("/admin/user-list", "/admin/user-edit").hasRole("MANAGER") // chi co quyen MANAGER moi duoc truy cap
                         .antMatchers(HttpMethod.DELETE, "/api/buildings/{ids}").hasRole("MANAGER")
                         .antMatchers("/admin/**").hasAnyRole("MANAGER","STAFF") // /admin/** chi co quyen MANAGER, STAFF moi duoc truy cap
-                        .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**").permitAll() // ko can dang nhap cung co the truy cap
+                        .antMatchers("/signup","/login", "/resource/**", "/trang-chu", "/api/**").permitAll() // ko can dang nhap cung co the truy cap
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("j_username").passwordParameter("j_password").permitAll()
                 .loginProcessingUrl("/j_spring_security_check")

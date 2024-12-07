@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class BuildingDTO extends AbstractDTO {
+public class BuildingDTO extends AbstractDTO<BuildingDTO> {
     private Long id;
     @NotBlank(message = "Building name must not be blank")
     private String name; // Tên tòa nhà

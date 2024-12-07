@@ -52,6 +52,8 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
                 if (value != null && value.toString().trim() != "") {
                     if(key.equals("staffId")){
                         sql.append(" AND ass.staffid = " + value);
+                    } else if (key.equals("createdBy")) {
+                        sql.append(" AND c.createdby LIKE '%" + value + "%' ");
                     } else{
                         sql.append(" AND c." + key + " LIKE '%" + value + "%' ");
                     }

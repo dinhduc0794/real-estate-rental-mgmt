@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class CustomerDTO extends AbstractDTO{
+public class CustomerDTO extends AbstractDTO<CustomerDTO> {
     @NotBlank(message = "Customer fullname is required")
     private String fullname;
     private String managementStaff;

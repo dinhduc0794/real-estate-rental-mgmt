@@ -34,10 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> findAll(CustomerSearchRequest params, Pageable pageable) {
-        if (params.getCreatedBy() != null) {
-            Long createdById = Long.parseLong(params.getCreatedBy());
-            params.setCreatedBy(userRepository.findById(createdById).get().getUserName());
-        }
         List<CustomerEntity> customerEntities = customerRepository.findAll(params, pageable);
         List<CustomerDTO> customerDTOs = new ArrayList<>();
         for (CustomerEntity ent : customerEntities) {

@@ -12,4 +12,5 @@ public class CustomerSearchRequest extends AbstractDTO {
     private String email;
     private Long staffId;
     private String status;
+    private String createdBy;
 }
