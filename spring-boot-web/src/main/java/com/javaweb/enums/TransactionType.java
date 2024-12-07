@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public enum TransactionType {
-    CSKH("Chăm sóc khác hàng"),
+    CSKH("Chăm sóc khách hàng"),
     DDX("Dẫn đi xem nhà"),;
 
     private final String name;

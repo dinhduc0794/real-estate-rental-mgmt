@@ -248,4 +248,14 @@ public class UserServiceImpl implements com.javaweb.service.UserService {
         }
         return staffs;
     }
+
+    @Override
+    public List<String> loadStaffsUsername() {
+        List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+        List<String> staffs = new ArrayList<>();
+        for (UserEntity userEntity : userEntities) {
+            staffs.add(userEntity.getUserName());
+        }
+        return staffs;
+    }
 }

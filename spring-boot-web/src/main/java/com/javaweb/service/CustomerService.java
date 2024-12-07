@@ -17,7 +17,7 @@ public interface CustomerService {
     int countTotalItems(CustomerSearchRequest params);
     ResponseDTO createOrUpdate(CustomerDTO customerDTO);
     boolean isStaffOfCustomer(Long staffId, Long customerId);
-    CustomerDTO findByIdAndIsActive(Long id, Long isActive);
+    CustomerDTO findByIdAndIsActive(Long id, Integer isActive);
     ResponseDTO turnOffIsActive(List<Long> ids);
     ResponseDTO updateAssignmentModal(AssignmentCustomerDTO assignmentCustomerDTO);
 }

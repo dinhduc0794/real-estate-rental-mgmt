@@ -30,8 +30,6 @@
             </div>
 
             <div class="page-content">
-
-
                 <div class="page-header">
                     <h1 style="font-weight: bold;">
                         Thông tin tòa nhà

@@ -85,20 +85,49 @@
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <security:authorize access="hasRole('MANAGER')">
-                                            <div class="col-xs-6">
-                                                <div>
-                                                    <label>Nhân viên phụ trách</label>
-                                                    <form:select path="staffId" class="form-control">
-                                                        <form:option value="" label="---Chọn nhân viên---"/>
-                                                        <form:options items="${staffList}"/>
-                                                    </form:select>
+                                                <div class="col-xs-6">
+                                                    <div>
+                                                        <label>Tình trạng</label>
+                                                        <form:select path="status" class="form-control">
+                                                            <form:option value="" label="---Chọn tình trạng---"/>
+                                                            <form:options items="${statusCode}"/>
+                                                        </form:select>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </security:authorize>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <security:authorize access="hasRole('MANAGER')">
+                                                <div class="col-xs-6">
+                                                    <div>
+                                                        <label>Nhân viên quản lí</label>
+                                                        <form:select path="staffId" class="form-control">
+                                                            <form:option value="" label="---Chọn nhân viên---"/>
+                                                            <form:options items="${staffList}"/>
+                                                        </form:select>
+                                                    </div>
+                                                </div>
+                                            </security:authorize>
+
+                                            <security:authorize access="hasRole('MANAGER')">
+                                                <div class="col-xs-6">
+                                                    <div>
+                                                        <label>Nhân viên thêm khách hàng</label>
+                                                        <form:select path="createdBy" class="form-control">
+                                                            <form:option value="" label="---Chọn nhân viên---"/>
+                                                            <form:options items="${staffsUsername}"/>
+                                                        </form:select>
+                                                    </div>
+                                                </div>
                                             </security:authorize>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+
+
+                                    <div class="form-group" style="margin-top: 32px">
                                         <div class="col-xs-12 center">
                                             <button class="btn btn-primary" id="btnSearchCustomer" type="button">
                                                 <i class="ace-icon glyphicon glyphicon-search"></i>

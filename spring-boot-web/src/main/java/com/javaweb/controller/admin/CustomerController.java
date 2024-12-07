@@ -41,7 +41,7 @@ public class CustomerController {
         ModelAndView mav = new ModelAndView("admin/customer/list");
         mav.addObject("statusCode", StatusEnum.type());
         mav.addObject("staffList", userService.mapStaff_IdAndUsername());
-
+        mav.addObject("staffsUsername", userService.loadStaffsUsername());
 
         CustomerDTO model = new CustomerDTO();
         DisplayTagUtils.of(request, model);
@@ -80,9 +80,9 @@ public class CustomerController {
         }
 
         mav.addObject("statusCode", StatusEnum.type());
-        mav.addObject("TransactionList", TransactionType.transactionType());
+        mav.addObject("transactionType", TransactionType.transactionType());
 
-        CustomerDTO customerDTO = customerService.findByIdAndIsActive(id, 1L);
+        CustomerDTO customerDTO = customerService.findByIdAndIsActive(id, 1);
         if (customerDTO == null) {
             mav.setViewName("redirect:/error/404");
             return mav;

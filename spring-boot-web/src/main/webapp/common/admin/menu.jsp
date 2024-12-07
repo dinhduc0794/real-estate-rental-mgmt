@@ -118,7 +118,7 @@
                     </svg>
                 </i>
 
-                <span class="menu-text">Quản Lý Kh.hàng</span>
+                <span class="menu-text">Quản Lý Kh.Hàng</span>
             </a>
             <b class="arrow"></b>
             <ul class="submenu">

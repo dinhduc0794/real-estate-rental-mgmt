@@ -25,6 +25,7 @@ public interface UserService {
     void delete(long[] ids);
 
     Map<Long, String> mapStaff_IdAndUsername();
+    List<String> loadStaffsUsername();
 //    ResponseDTO listStaff(Long buildingId);
     List<UserDTO> getAllUsers(Pageable pageable);
     int countTotalItems();

@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(myAuthenticationSuccessHandler())
                 .failureUrl("/login?incorrectAccount").and()
                 .logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
-                .and().exceptionHandling().accessDeniedPage("/login?access-denied")
+                .and().exceptionHandling().accessDeniedPage("/login?accessDenied")
                 .and().sessionManagement().maximumSessions(1).expiredUrl("/login?sessionTimeout");  // chi cho 1 tai khoan dang nhap cung luc
     }
 

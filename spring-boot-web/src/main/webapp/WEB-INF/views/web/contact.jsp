@@ -12,45 +12,6 @@
 </head>
 <body>
 <div class="page-wrapper">
-    <%--<header>--%>
-        <%--<!-- MENU  -->--%>
-        <%--<div class="p-4">--%>
-            <%--<div class="row navbar">--%>
-                <%--<div class="col-12 col-md-3">--%>
-                    <%--<div class="logo">--%>
-                        <%--<a href="">--%>
-                            <%--<img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/logo.png?1676257083798"--%>
-                                 <%--alt="">--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-12 col-md-6">--%>
-                    <%--<div class="item-menu">--%>
-                        <%--<div class="nav nav1">--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/trang-chu"><span>Trang--%>
-                                            <%--chủ</span></a></div>--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/gioi-thieu"><span>Giới--%>
-                                            <%--thiệu</span></a></div>--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/san-pham"><span>Sản phẩm--%>
-                                        <%--</span></a></div>--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/tin-tuc"><span>Tin--%>
-                                            <%--tức</span></a></div>--%>
-                            <%--<div class="nav-item p-2">--%>
-                                <%--<a class="nav-item-link" href="/lien-he">--%>
-                                    <%--<span style="color: var(--primary-color);">Liên hệ</span>--%>
-                                <%--</a>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-12 col-md-3">--%>
-                    <%--<button class="btn btn-primary px-4">--%>
-                        <%--Liên hệ tư vấn--%>
-                    <%--</button>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</header>--%>
     <!-- INTRO  -->
     <div class="intro text-center mb-5">
         <div class="title-page">Liên hệ</div>
@@ -114,20 +75,24 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6" style="border: solid #aaa 1px; border-radius: 5px; padding-top: 1rem; padding-bottom: 1rem">
                     <h2 class="title-lienhe"><strong>Liên hệ với chúng tôi</strong></h2>
-                    <form>
+                    <form id="formContact">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Họ và tên">
+                                <input type="text" class="form-control" placeholder="Họ và tên" id="name">
+
                             </div>
+
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="text" class="form-control" placeholder="Email" id="email">
                             </div>
                         </div>
-                        <input type="text" class="form-control mt-3" placeholder="Số điện thoại">
-                        <input type="text" class="form-control mt-3" placeholder="Nội dung">
-                        <button class="btn btn-primary px-4 mt-3">
+                        <input type="text" class="form-control mt-3" placeholder="Số điện thoại" id="phone">
+
+                        <input type="text" class="form-control mt-3" placeholder="Nhu cầu" id="demand">
+
+                        <button class="btn btn-primary px-4 mt-3" type="button" id="btnSendCustomerInfo">
                             Gửi liên hệ
                         </button>
                     </form>
@@ -158,7 +123,7 @@
                             </div>
                             <div class="col-12 col-md-4 text-center">
                                 <div class="icon-footer">
-                                    <img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/place_phone.png?1676257083798 alt="">
+                                    <img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/place_phone.png?1676257083798" alt="">
                                 </div>
                                 <div class="content-center-footer">
                                     <p class="mb-1 mt-3">Hotline</p>
@@ -233,6 +198,56 @@
         </div>
     </footer>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnSendCustomerInfo').click(function (e) {
+            e.preventDefault();
+            let data = {
+                fullname: $('#name').val().trim(),
+                email: $('#email').val().trim(),
+                phone: $('#phone').val().trim(),
+                demand: $('#demand').val().trim(),
+                status: "Chưa xử lý"
+            };
+
+            // Validate dữ liệu ở client khi gửi lên server (đã validate ở server)
+            if (data.fullname && data.phone && data.email) {
+                addCustomer(data);
+            } else {
+                // Throw error neu thieu thong tin
+                if (!data.fullname) {
+                    $('#name').after('<span style="color: red">Thiếu họ và tên liên hệ</span>');
+                }
+                if (!data.phone) {
+                    $('#phone').after('<span style="color: red">Thiếu số điện thoại liên hệ</span>');
+                }
+                if (!data.email) {
+                    $('#email').after('<span style="color: red">Thiếu địa chỉ email liên hệ</span>');
+                }
+            }
+        });
+
+        function addCustomer(data) {
+            $.ajax({
+                type: "POST",
+                url: "/api/customers",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "JSON",
+                success: function (response) {
+                    alert(response.message);
+                    window.location.href = "<c:url value='/lien-he'/>";
+                },
+                error: function (response) {
+                    alert(response.message);
+                    window.location.href = "<c:url value='/lien-he'/>";
+                }
+            });
+        }
+    });
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
