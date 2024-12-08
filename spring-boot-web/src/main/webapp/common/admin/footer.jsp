@@ -12,7 +12,7 @@
 
 		&nbsp; &nbsp;
 		<span class="action-buttons">
-						<a href="facebook.com/ngdduc79/">
+						<a href="https://www.facebook.com/ngdduc79/">
 							<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
 						</a>
 
