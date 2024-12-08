@@ -114,9 +114,10 @@
                                             <security:authorize access="hasRole('MANAGER')">
                                                 <div class="col-xs-6">
                                                     <div>
-                                                        <label>Nhân viên thêm khách hàng</label>
+                                                        <label>Người thêm thông tin</label>
                                                         <form:select path="createdBy" class="form-control">
-                                                            <form:option value="" label="---Chọn nhân viên---"/>
+                                                            <form:option value="" label="---Chọn người thêm---"/>
+                                                            <form:option value="anonymousUser" label="Người dùng ẩn danh"/>
                                                             <form:options items="${staffsUsername}"/>
                                                         </form:select>
                                                     </div>
