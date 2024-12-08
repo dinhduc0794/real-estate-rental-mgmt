@@ -2,23 +2,55 @@ package com.javaweb.api.admin;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.exception.DataNotFoundException;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
+import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserAPI {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping()
-    public ResponseEntity<UserDTO> createUsers(@RequestBody UserDTO newUser) {
-        return ResponseEntity.ok(userService.insert(newUser));
+    @PostMapping("/register")
+    public ResponseEntity<?> createUsers(@Valid @RequestBody UserDTO userDTO,
+                                         BindingResult bindingResult) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        try{
+            if (bindingResult.hasErrors()) {
+                List<String> errorMessages = bindingResult.getFieldErrors()
+                        .stream()
+                        .map(FieldError::getDefaultMessage)
+                        .collect(Collectors.toList());
+
+                responseDTO.setMessage("Validation failed");
+                responseDTO.setDetail(errorMessages);
+                return ResponseEntity.badRequest().body(responseDTO);
+            }
+            // neu dung thi //xuong service -> xuong repo -> save vao db
+            responseDTO = userService.register(userDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+        }
+        catch (Exception e){
+            responseDTO.setMessage("Internal server error");
+            responseDTO.setDetail(Collections.singletonList(e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDTO);
+        }
+
     }
 
     @PutMapping("/{id}")

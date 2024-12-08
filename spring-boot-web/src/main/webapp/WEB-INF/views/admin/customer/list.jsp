@@ -118,7 +118,7 @@
                                                         <form:select path="createdBy" class="form-control">
                                                             <form:option value="" label="---Chọn người thêm---"/>
                                                             <form:option value="anonymousUser" label="Người dùng ẩn danh"/>
-                                                            <form:options items="${staffsUsername}"/>
+                                                            <form:options items="${usernameList}"/>
                                                         </form:select>
                                                     </div>
                                                 </div>

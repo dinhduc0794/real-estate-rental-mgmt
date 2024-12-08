@@ -21,7 +21,7 @@
         <pattern>/login</pattern>
     </decorator>
 
-    <decorator name="signup" page="signup.jsp">
-        <pattern>/signup</pattern>
+    <decorator name="register" page="register.jsp">
+        <pattern>/register</pattern>
     </decorator>
 </decorators>

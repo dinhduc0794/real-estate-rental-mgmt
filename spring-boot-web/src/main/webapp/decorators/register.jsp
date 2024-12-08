@@ -20,6 +20,6 @@
     </style>
 </head>
 <body id="RegisterForm">
-<dec:body/>
+    <dec:body/>
 </body>
 </html>

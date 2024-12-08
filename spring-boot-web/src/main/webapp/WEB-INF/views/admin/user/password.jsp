@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="changePasswordURL" value="/api/user/change-password"/>
+<c:url var="changePasswordURL" value="/api/users/change-password"/>
 <html>
 <head>
     <title>Đổi mật khẩu</title>

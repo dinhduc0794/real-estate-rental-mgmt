@@ -48,6 +48,24 @@ public class UserServiceImpl implements com.javaweb.service.UserService {
     private UserConverter userConverter;
 
     @Override
+    public ResponseDTO register(UserDTO userDTO) {
+        if (userRepository.findOneByUserName(userDTO.getUserName()) != null) {
+            ResponseDTO responseDTO = new ResponseDTO();
+            responseDTO.setMessage("Tên đăng nhập đã tồn tại, vui lòng chọn tên khác");
+            return responseDTO;
+        }
+        UserEntity userEntity = userConverter.convertToEntity(userDTO);
+        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userEntity.setStatus(1);
+        RoleEntity roleEntity = roleRepository.findOneByCode(userDTO.getRoleCode());
+        userEntity.setRoles(Stream.of(roleEntity).collect(Collectors.toList()));
+        userRepository.save(userEntity);
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setMessage("Đăng ký tài khoản thành công");
+        return responseDTO;
+    }
+
+    @Override
     public ResponseDTO findStaffsByBuildingId(Long buildingId) {
         //nho' keo xuong Service de xu li
         List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
@@ -250,12 +268,12 @@ public class UserServiceImpl implements com.javaweb.service.UserService {
     }
 
     @Override
-    public List<String> loadStaffsUsername() {
-        List<UserEntity> userEntities = userRepository.findByStatusAndRoles_Code(1, "STAFF");
-        List<String> staffs = new ArrayList<>();
+    public List<String> loadUsernames() {
+        List<UserEntity> userEntities = userRepository.findAllByStatus(1);
+        List<String> usernames = new ArrayList<>();
         for (UserEntity userEntity : userEntities) {
-            staffs.add(userEntity.getUserName());
+            usernames.add(userEntity.getUserName());
         }
-        return staffs;
+        return usernames;
     }
 }

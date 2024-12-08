@@ -31,7 +31,7 @@ public class UserController {
 	private MessageUtils messageUtil;
 
 	@RequestMapping(value = "/admin/user-list", method = RequestMethod.GET)
-	public ModelAndView getNews(@ModelAttribute(SystemConstant.MODEL) UserDTO model, HttpServletRequest request) {
+	public ModelAndView getUserList(@ModelAttribute(SystemConstant.MODEL) UserDTO model, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("admin/user/list");
 		DisplayTagUtils.of(request, model);
 		List<UserDTO> userDTOS = userService.getAllUsers(new PageRequest(model.getPage() - 1, model.getMaxPageItems()));

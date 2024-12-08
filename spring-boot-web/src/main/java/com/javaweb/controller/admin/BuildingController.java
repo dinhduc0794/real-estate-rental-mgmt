@@ -28,7 +28,7 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @GetMapping("/admin/building-list")
-    private ModelAndView buildingList(@ModelAttribute(name = "modelSearch") BuildingSearchRequest params,
+    private ModelAndView getBuildingList(@ModelAttribute(name = "modelSearch") BuildingSearchRequest params,
                                       HttpServletRequest request){
 
         ModelAndView mav = new ModelAndView("admin/building/list");

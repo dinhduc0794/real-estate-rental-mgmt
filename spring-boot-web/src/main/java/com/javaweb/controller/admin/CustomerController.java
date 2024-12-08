@@ -36,12 +36,12 @@ public class CustomerController {
     private TransactionService transactionService;
 
     @GetMapping(value = "/admin/customer-list")
-    public ModelAndView getCustomers(@ModelAttribute(name = "modelSearch") CustomerSearchRequest params,
+    public ModelAndView getCustomerList(@ModelAttribute(name = "modelSearch") CustomerSearchRequest params,
                                 HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/customer/list");
         mav.addObject("statusCode", StatusEnum.type());
         mav.addObject("staffList", userService.mapStaff_IdAndUsername());
-        mav.addObject("staffsUsername", userService.loadStaffsUsername());
+        mav.addObject("usernameList", userService.loadUsernames());
 
         CustomerDTO model = new CustomerDTO();
         DisplayTagUtils.of(request, model);

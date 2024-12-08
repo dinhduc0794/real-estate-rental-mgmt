@@ -338,45 +338,33 @@
         }
 
         // bo sungvalidate form input in client side (da validate o server side)
-        $(document).ready(function(){
-            const urlParams = new URLSearchParams(window.location.search);
-            const formDataSent = urlParams.has('formDataSent');
-            $('#btnAddOrUpdateCustomer').click(function(){
+        $(document).ready(function () {
+            $('#btnAddOrUpdateCustomer').click(function () {
                 var data = {};
                 var formData = $('#form-edit').serializeArray();
-                $.each(formData, function(i, v){
-                    data["" + v.name + ""] = v.value.trim();
-                })
-                if(data['fullname'] != ''
-                    && data['phone'] != ''
-                    && data['email'] != ''){
+
+                $.each(formData, function (i, v) {
+                    data[v.name] = v.value.trim();
+                });
+
+                if (data['fullname'] && data['phone'] && data['email']) {
                     addOrUpdateCustomer(data);
-                }
-                else{
-                    localStorage.setItem('formData', JSON.stringify(data));
-                    var formData = localStorage.getItem('formData');
+                } else {
                     alert("Vui lòng điền đầy đủ thông tin");
-                    window.location.href = "<c:url value='/admin/customer-edit'/>?formDataSent=true";
+                    highlightEmptyFields(data);
                 }
             });
-            if(formDataSent){
-                var formData = localStorage.getItem('formData');
-                if(formData){
-                    formData = JSON.parse(formData);
-                    $.each(formData, function(key, value){
-                        $('[name="' + key + '"]').val(value);
-                        if (value === "") {
-                            if(key === "fullname"){
-                                $('#fullname').after('<span style="color: red">Tên khách hàng không được để trống</span>');
-                            }
-                            else if(key === "phone"){
-                                $('#phone').after('<span style="color: red">Số điện thoại khách hàng không được để trống</span>');
-                            }
-                            else if(key === "email"){
-                                $('#email').after('<span style="color: red">Email khách hàng không được để trống</span>');
-                            }
-                        }
-                    });
+
+            function highlightEmptyFields(data) {
+                $('span.error-message').remove(); // Xóa tất cả các thông báo lỗi cũ
+                if (!data['fullname']) {
+                    $('#fullname').after('<span style="color: red">Tên khách hàng không được để trống</span>');
+                }
+                if (!data['phone']) {
+                    $('#phone').after('<span style="color: red">Số điện thoại khách hàng không được để trống</span>');
+                }
+                if (!data['email']) {
+                    $('#email').after('<span style="color: red">Email khách hàng không được để trống</span>');
                 }
             }
         });

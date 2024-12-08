@@ -215,6 +215,7 @@
             if (data.fullname && data.phone && data.email) {
                 addCustomer(data);
             } else {
+                alert("Vui lòng điền đầy đủ thông tin");
                 // Throw error neu thieu thong tin
                 if (!data.fullname) {
                     $('#name').after('<span style="color: red">Thiếu họ và tên liên hệ</span>');

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+    ResponseDTO register(UserDTO userDTO);
     ResponseDTO findStaffsByBuildingId(Long buildingId);
     ResponseDTO findStaffsByCustomerId(Long customerId);
     UserDTO findOneByUserNameAndStatus(String name, int status);
@@ -25,7 +26,7 @@ public interface UserService {
     void delete(long[] ids);
 
     Map<Long, String> mapStaff_IdAndUsername();
-    List<String> loadStaffsUsername();
+    List<String> loadUsernames();
 //    ResponseDTO listStaff(Long buildingId);
     List<UserDTO> getAllUsers(Pageable pageable);
     int countTotalItems();
