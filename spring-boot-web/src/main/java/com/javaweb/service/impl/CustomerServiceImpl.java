@@ -77,29 +77,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public ResponseDTO turnOffIsActive(List<Long> ids) {
-        ResponseDTO responseDTO = new ResponseDTO();
-        for(Long id : ids){
-            CustomerEntity customerEntity = customerRepository.findById(id).get();
-            if(customerEntity != null){
-                customerEntity.setIsActive(0);
-                try {
-                    customerRepository.save(customerEntity);
-                }
-                catch (Exception e){
-                    System.out.println(e);
-                    responseDTO.setMessage("Xóa khách hàng " + customerEntity.getId() + " thất bại");
-                    return responseDTO;
-                }
-            }
-        }
-        responseDTO.setMessage("Xóa khách hàng thành công");
-        return responseDTO;
-    }
-
-
-
-    @Override
     public ResponseDTO updateAssignmentModal(AssignmentCustomerDTO assignmentCustomerDTO) {
         Long customerId = assignmentCustomerDTO.getCustomerId();
         CustomerEntity customerEntity = customerRepository.findById(customerId).get();

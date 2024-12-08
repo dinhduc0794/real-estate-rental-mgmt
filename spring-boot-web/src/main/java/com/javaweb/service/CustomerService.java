@@ -18,7 +18,6 @@ public interface CustomerService {
     ResponseDTO createOrUpdate(CustomerDTO customerDTO);
     boolean isStaffOfCustomer(Long staffId, Long customerId);
     CustomerDTO findByIdAndIsActive(Long id, Integer isActive);
-    ResponseDTO turnOffIsActive(List<Long> ids);
     ResponseDTO updateAssignmentModal(AssignmentCustomerDTO assignmentCustomerDTO);
     ResponseDTO deleteCustomerByIds(List<Long> ids); // throws Exception;
 }
