@@ -360,7 +360,6 @@
 
     function deleteOneCustomer(id){
         var customerId = [id];
-        // $('#deleteConfirmModal').modal('show');
         deleteCustomers(customerId);
     }
     $('#deleteCustomersBtn').click(function (e){
@@ -371,7 +370,6 @@
         if (customerIds.length == 0) {
             alert("Chưa chọn khách hàng để xóa");
         }
-        // $('#deleteConfirmModal').modal('show');
         deleteCustomers(customerIds);
     })
     function deleteCustomers(ids){

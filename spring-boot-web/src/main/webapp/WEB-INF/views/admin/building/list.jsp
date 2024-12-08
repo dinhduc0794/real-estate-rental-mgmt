@@ -572,7 +572,7 @@
             success: function (response) {
                 console.log("Success");
                 alert(response.message);
-                location.reload();  //reload sau khi xoa de cap nhat lai danh sach tòa nhà
+                window.location.href = "<c:url value='/admin/building-list'/>";
             },
             error: function (response) {
                 console.log("Error");

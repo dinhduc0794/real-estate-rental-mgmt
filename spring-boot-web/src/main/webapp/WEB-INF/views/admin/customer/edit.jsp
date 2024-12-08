@@ -79,7 +79,6 @@
                             <label class="col-xs-3">Trạng thái xử lý</label>
                             <div class="col-xs-3">
                                 <form:select path="status" class="form-control">
-                                    <form:option value="" label="---Chọn trạng thái---"/>
                                     <form:options items="${statusCode}"/>
                                 </form:select>
                             </div>
@@ -394,6 +393,7 @@
                 success: function (response) {
                     console.log("Success");
                     alert(response.message);
+                    location.reload();
                 },
                 error: function (response) {
                     console.log("Error");
