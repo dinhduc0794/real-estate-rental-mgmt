@@ -115,17 +115,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomerByIds(List<Long> ids) throws Exception {
-        List<CustomerEntity> customerEntities = customerRepository.findByIdIn(ids);
+    public ResponseDTO deleteCustomerByIds(List<Long> ids) { //throws Exception {
+        ResponseDTO responseDTO = new ResponseDTO();
+        List<CustomerEntity> customerEntities = customerRepository.findAllById(ids);
 
-        if (customerEntities.size() > 0 && customerEntities != null) {
+        if (customerEntities != null && customerEntities.size() > 0) {
             for (CustomerEntity customerEntity : customerEntities) {
                 customerEntity.setIsActive(0);
             }
             customerRepository.saveAll(customerEntities);
+            responseDTO.setMessage("Xóa khách hàng thành công");
         }
         else {
-            throw new DataNotFoundException("Not found any customer by ids");
+            responseDTO.setMessage("Không tìm thấy khách hàng nào để xóa");
+            //throw new DataNotFoundException("Not found any customer by ids");
         }
+        return responseDTO;
     }
 }

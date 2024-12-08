@@ -554,15 +554,15 @@
             alert("Chưa chọn tòa nhà để xóa");
         }
         else {
-            btnDeleteBuildings(buildingIds);
+            deleteBuildings(buildingIds);
         }
     });
 
     function deleteOneBuilding(buildingId) {
-        btnDeleteBuildings(buildingId);
+        deleteBuildings(buildingId);
     }
 
-    function btnDeleteBuildings(ids) {
+    function deleteBuildings(ids) {
         $.ajax({
             url: "/api/buildings/" + ids,  //bỏ http://localhost:8081 vì port do TOMCAT quyết định -> tránh lỗi CORS
             type: "DELETE",

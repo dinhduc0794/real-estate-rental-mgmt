@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long>, CustomerRepositoryCustom {
     CustomerEntity findByIdAndIsActive(Long id, Integer isActive);
-    List<CustomerEntity> findByIdIn(List<Long> ids);
 }

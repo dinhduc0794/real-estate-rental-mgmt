@@ -16,7 +16,7 @@ public class UserAPI {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<UserDTO> createUsers(@RequestBody UserDTO newUser) {
         return ResponseEntity.ok(userService.insert(newUser));
     }

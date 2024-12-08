@@ -212,7 +212,7 @@
                             </a>
 
                             <security:authorize access="hasRole('MANAGER')">
-                                <button class="btn btn-xs btn-danger" title="Xóa khách hàng này" onclick="deleteCustomer(${tableList.id})" type="button" style="margin: 0 1px">
+                                <button class="btn btn-xs btn-danger" title="Xóa khách hàng này" onclick="deleteOneCustomer(${tableList.id})" type="button" style="margin: 0 1px">
                                     <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                 </button>
                             </security:authorize>
@@ -335,7 +335,6 @@
     })
     function updateAssignmentCustomer(data){
         $.ajax({
-            type: "POST",
             url: "/api/customers/assignment",
             type: "PUT",
             data: JSON.stringify(data),
@@ -358,37 +357,37 @@
         $('#listForm').submit();
     })
 
-    function deleteCustomer(id){
+    function deleteOneCustomer(id){
         var customerId = [id];
-        $('#deleteConfirmModal').modal('show');
-        $('#deleteBtn').click(function() {
-            deleteCustomers(customerId);
-        });
+        // $('#deleteConfirmModal').modal('show');
+        deleteCustomers(customerId);
     }
     $('#deleteCustomersBtn').click(function (e){
         e.preventDefault();
         var customerIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function (){
             return $(this).val();
         }).get();
-        $('#deleteConfirmModal').modal('show');
-        $('#deleteBtn').click(function() {
-            deleteCustomers(customerIds);
-        });
+        if (customerIds.length == 0) {
+            alert("Chưa chọn khách hàng để xóa");
+        }
+        // $('#deleteConfirmModal').modal('show');
+        deleteCustomers(customerIds);
     })
-    function deleteCustomers(data){
+    function deleteCustomers(ids){
         $.ajax({
+            url: "/api/customers/" + ids,
             type: "DELETE",
-            url: "/api/customers" + data,
-            data: JSON.stringify(data),
-            contentType: "application/json",
+            // data: JSON.stringify(data),
+            // contentType: "application/json",
             dataType: "JSON",
             success: function (response) {
+                console.log("Success");
                 alert(response.message);
                 window.location.href = "<c:url value='/admin/customer-list'/>";
             },
             error: function (response){
+                console.log("Error");
                 alert(response.message);
-                window.location.href = "<c:url value='/admin/customer-list'/>";
             }
         });
     }
