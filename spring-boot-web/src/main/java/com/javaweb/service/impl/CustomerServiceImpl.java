@@ -50,6 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity customerEntity = customerConverter.toCustomerEntity(customerDTO);
 
         if (customerEntity.getId() != null) {
+            // khi cap nhat khach hang, phai giu lai danh sach nhan vien cu
+            CustomerEntity oldCustomer = customerRepository.findById(customerEntity.getId()).get();
+            customerEntity.setStaffList(oldCustomer.getStaffList());
             responseDTO.setMessage("Cập nhật khách hàng thành công");
         } else {
             responseDTO.setMessage("Thêm khách hàng thành công");

@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum StatusEnum {
+    CHUA_XU_LY("Chưa xử lý"),
     DANG_XU_LY("Đang xử lý"),
-    DA_XU_LY("Đã xử lý"),
-    CHUA_XU_LY("Chưa xử lý");
+    DA_XU_LY("Đã xử lý");
 
     private final String statusName;
     StatusEnum(String statusName) {
