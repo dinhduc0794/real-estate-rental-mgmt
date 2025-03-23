@@ -7,6 +7,7 @@ This is a personal project developed to strengthen my expertise in web backend d
 ## Table of Contents
 
 - [Project Overview](#project-overview)
+- [Branch Overview](#branch-overview)
 - [Technologies Used](#technologies-used)
 - [Core Functionalities](#core-functionalities)
 - [Installation](#installation)
@@ -19,6 +20,23 @@ This is a personal project developed to strengthen my expertise in web backend d
 ## Project Overview
 
 A web-based system for managing real estate rentals, including user authentication, building and customer management, transaction handling, and staff assignments. The project simulates real-world workflows and prioritizes security and scalability.
+
+---
+
+## Branch Overview
+
+This repository includes multiple branches, each representing different stages of development, implementation approaches, or specific feature sets. Below is a description of each branch:
+
+| Branch Name                | Description                                                                                                                           |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| **main**                  | The primary and final branch. It includes both the **non-JWT project** (backend APIs only, no frontend) and the **spring-boot-web** project (fully integrated APIs and frontend UI). |
+| **project-2**             | A dedicated branch for developing the **building search feature** with 16 searchable fields, independent of the main workflow.       |
+| **spring-boot-web**       | The base version of the complete **web application**, including backend APIs and frontend UI.                                         |
+| **spring-boot-web-v2.0**  | An **optimized version** of the web application, integrating newer technologies (e.g., **Cascade**, **Kafka**, etc.) for improved performance and scalability. |
+| **using-map**             | Demonstrates the use of Java **Map** to receive a list of request parameters dynamically for filtering and searching data.             |
+| **using-builder-pattern** | Applies the **Builder Pattern**, a well-known design pattern, to handle a list of request parameters for building dynamic search conditions. |
+| **using-jpa**             | Focuses on data persistence using standard **Java Persistence API (JPA)** for ORM and database interaction.                           |
+| **using-spring-data-jpa** | Integrates **Spring Data JPA** directly to simplify and optimize CRUD operations and database interactions.                           |
 
 ---
 
