@@ -111,7 +111,7 @@ This repository includes multiple branches, each representing different stages o
 
 ## Usage
 
-1. Access the frontend via browser at `http://localhost:8080`.
+1. Access the frontend via browser at `http://localhost:8081`.
 2. Use available endpoints for building, customer, and account management.
 3. Kafka integration handles asynchronous event processing (e.g., notifications, logging).
 
