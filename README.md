@@ -4,6 +4,9 @@
 
 This is a personal project developed to strengthen my expertise in web backend development using **Java** and related technologies. All progress, including feature implementation and bug fixes, is tracked via commits across multiple branches in this GitHub repository.
 
+![image](https://github.com/user-attachments/assets/ba73fede-8fa3-4339-b599-b0b79d3919cf)
+
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
